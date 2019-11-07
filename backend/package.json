@@ -1,0 +1,11 @@
+{
+  "name": "tooner",
+  "version": "1.0.0",
+  "description": "웹툰 리뷰 커뮤니티 프로젝트 (백엔드)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "hotheadfactory",
+  "license": "ISC"
+}
