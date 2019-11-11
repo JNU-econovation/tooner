@@ -7,5 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "hotheadfactory",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "github.com/JNU-econovation/tooner"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "passport": "^0.4.0"
+  }
 }
