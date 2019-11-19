@@ -1,0 +1,51 @@
+/* 전체 적용 */
+.main__ {
+    /* 한 줄로 배열 */
+    display: inline-block;
+    margin: 0.5%;
+}
+
+
+/* middle_header */
+.middle_header {
+    height: 60px;
+    width: 100%;
+    background-color: #EBEBEB;
+    margin: 0.5%;
+    display: inline-block;
+}
+
+.hotPost {
+    width: 64%;
+    vertical-align: center;
+}
+
+.searchBox {
+    width: 34%;
+    vertical-align: center;
+}
+
+
+/* main */
+
+.main {
+    /* 전체 스타일 */
+}
+
+.category {
+    width: 19%;
+    background-color: rgba(235, 235, 235, 0.32);
+}
+
+.field {
+    width: 59%;
+}
+
+.postBox {
+    background-color: rgba(235, 235, 235, 0.32);
+}
+
+.chatBox {
+    width: 19%;
+    background-color: rgba(235, 235, 235, 0.32);
+}
