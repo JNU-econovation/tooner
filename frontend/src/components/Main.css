@@ -1,0 +1,47 @@
+/* 태그별 속성 지정 */
+
+input {
+    vertical-align: middle;
+}
+
+input::placeholder {
+    color: #BFBFBF;
+}
+
+ul {
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+li {
+    padding-left: 15%;
+    margin-bottom: 5px;
+    list-style: none;
+    font-size: 18px;
+    line-height: 35px;
+    font-family: inherit;
+}
+
+button {
+    /* 버튼 투명하게 */
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+/* 밑의 모든 자식 div에 적용 */
+.inline {
+    /* 한 줄로 배열 */
+    float: left;
+}
+
+.main {/* size */
+    height: auto !important;
+    max-height: 1000px;
+    overflow: hidden;
+
+    /* position */
+}
