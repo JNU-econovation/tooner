@@ -3,20 +3,13 @@ const app = express();
 const morgan = require('morgan');
 const passport = require('passport');
 
+const PORT = 2599;
 
 // 로깅 모듈 
 app.use(morgan('combined'));
 
-app.get("/", function(req, res) {
-    res.send("<big>Hello Tooners!</big>");
-})
+require('./routes/routes.js')(app, passport);
 
-app.get("/tnrlogin/", function(req, res) {
-    
-})
-
-
-
-var server = app.listen(80, function() {
-    console.log("==============================================\nTooner Since 2019! Server is turning on......\n==============================================");
+var server = app.listen(PORT, function() {
+    console.log("Tooner Beta\n==============================================\nTooner Since 2019! Server is on at port "+PORT+"......\n==============================================");
 })
