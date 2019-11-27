@@ -1,0 +1,54 @@
+.review__category {
+    width: 18%;
+}
+
+.go_review {
+    height: 52px;
+    background-color: rgba(235, 235, 235, 0.32);
+}
+
+#review__icon {
+    height: 15px;
+}
+
+#review {
+    /* size */
+    width: 100%;
+    height: 100%;
+
+    /* font style */
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    color: #707070;
+}
+
+.category {
+    margin-top: 4%;
+    overflow: hidden;
+    height: auto !important;
+    background-color: rgba(235, 235, 235, 0.32);
+}
+
+.category__toppost {
+    color: #686CE5;
+}
+
+.category__review, .category__board {
+    color: #707070;
+}
+
+ul.category__toppost li:hover {
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+
+ul.category__review li:hover {
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+
+ul.category__board li:hover {
+    background-color: #EBEBEB;
+    cursor: pointer;
+}

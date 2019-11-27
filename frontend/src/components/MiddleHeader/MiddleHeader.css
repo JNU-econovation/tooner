@@ -1,0 +1,71 @@
+input {
+    vertical-align: middle;
+}
+
+input::placeholder {
+    color: #BFBFBF;
+}
+
+button {
+    /* 버튼 투명하게 */
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+.inline {
+    /* 한 줄로 배열 */
+    float: left;
+}
+
+/* middle_header */
+.middle_header {
+    /* font style */
+    font-size: 14px;
+
+    /* size */
+    height: 60px;
+}
+
+.hotPost {
+    margin: 15px;
+    margin-right: 0;
+    color: #707070;
+    float: left;
+    display: block;
+}
+
+#hotpost__type {
+    font-size: 80%;
+    background-color: red;
+    color: white;
+}
+
+.search-container {
+    float: right;
+    margin: 12px 10px;
+    margin-left: 0;
+}
+
+.search-container input[type=search] {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-width: 1.5px;
+    height: 30px;
+    font-family: inherit;
+    float: left;
+}
+
+.search-container button {
+    float: right;
+    color: #707070;
+    padding-top: 5px;
+    background: transparent;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
