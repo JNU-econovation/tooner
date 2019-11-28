@@ -7,5 +7,4 @@ var dbConfig = {
 	},
 	user_table : 'users'
 }
-
 module.exports = dbConfig;

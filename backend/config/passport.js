@@ -5,8 +5,6 @@ var bcrypt = require('bcrypt-nodejs');
 var dbconfig = require('./dbconfig');
 var connection = mysql.createConnection(dbconfig.connection);
 
-//connection.query('USE ' + dbconfig.database);
-
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
         done(null, user.id);

@@ -1,0 +1,41 @@
+header {
+    /* background */
+    background-color: #686CE5;
+    height: 63px;
+
+    /* font style */
+    color: white;
+
+    /* position */
+    position: relative;
+}
+
+.banner-container {
+    position: absolute;
+    left: 2%;
+    bottom: 0;
+}
+
+.banner-container img {
+    max-width: 150px;
+}
+
+.userButton {
+    width: 130px;
+    position: absolute;
+    top: 30%;
+    right: 0;
+}
+
+.login {
+    color: white;
+}
+
+.sign {
+    color: white;
+}
+
+.inline {
+    /* 한 줄로 배열 */
+    float: left;
+}
