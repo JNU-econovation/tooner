@@ -3,7 +3,7 @@ var mysql = require('mysql');
 var pool = mysql.createPool(dbconfig.connection);
 
 module.exports = function(app, passport) {
-
+   
     app.post('/login', passport.authenticate('local-login', {
         failureRedirect: '/login',
         failureFlash: true
@@ -26,41 +26,17 @@ module.exports = function(app, passport) {
             }
         },
         function(req, res){
-            if(req.body.remember){
+            if(req.body.remember) {
                 req.session.cookie.maxAge = 1000 * 60 * 3;
-            }else{
+            } else {
                 req.session.cookie.expires = false;
             }
     });
 
-    app.post('/register', passport.authenticate('local-signup', {
-        successRedirect: '/register/verify',
-        failureRedirect: '/register',
-        failureFlash: true
-    }));
-
-    app.get('/logout', function(req,res) {
-        req.logout();
-        res.redirect('/');
-    });
-
-    app.get('/login/forgot', function (req, res) {
-        res.render('forgot');
-    });
-    
-    app.get('/favicon.ico', (req, res) => res.status(204));
-
-
-};
-
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    // remember where session come from
-    req.session.returnTo = req.originalUrl;
-    req.session.save(function (err) {
-        if(err) return next(err);
-        res.redirect('/login');
-    });
+    app.post('/register', passport.authenticate('local-signup'), function(req, res) {
+        // If this function gets called, authentication was successful.
+        // `req.user` contains the authenticated user.
+        // Then you can send your json as response.
+        res.json({message:"Success", username: req.user.username});
+      });
 };

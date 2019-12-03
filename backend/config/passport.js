@@ -7,14 +7,11 @@ var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
-        done(null, user.id);
+        done(null, user);
     });
 
-    passport.deserializeUser(function(id, done) {
-        connection.query("SELECT * FROM users WHERE id = ?", [id],
-        function(err, rows) {
-            done(err, rows[0]);
-        });
+    passport.deserializeUser(function(user, done) {
+        done(null, user);
     });
 
     passport.use (
@@ -30,7 +27,7 @@ module.exports = function(passport) {
                 if(err)
                     return done(err);
                 if(rows.length) {
-                    return done(null, false, req.flash('signUpMessage', 'alreadyused'));
+                    return done(null, false, { 'message' : '이미 사용중인 이메일입니다' });
                 }else{
                     var newUserMysql = {
                         username : username,
@@ -61,7 +58,7 @@ module.exports = function(passport) {
                 if(err)
                     return done(err);
                 if(!rows.length || !bcrypt.compareSync(password, rows[0].password))
-                    return done(null, false, req.flash('loginMessage', 'loginerror'));
+                    return done(null, false, { 'message' : '아이디나 비밀번호가 잘못되었습니다.'});
 
                 return done(null, rows[0]);
             });
