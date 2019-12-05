@@ -1,8 +1,9 @@
 var LocalStrategy = require("passport-local").Strategy;
 
-var mysql = require('mysql');
-var bcrypt = require('bcrypt-nodejs');
-var dbconfig = require('./dbconfig');
+const mysql = require('mysql');
+const bcrypt = require('bcrypt-nodejs');
+const saltRounds = 10;
+const dbconfig = require('./dbconfig');
 var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(passport) {
@@ -27,11 +28,12 @@ module.exports = function(passport) {
                 if(err)
                     return done(err);
                 if(rows.length) {
-                    return done(null, false, { 'message' : '이미 사용중인 이메일입니다' });
+                    return done(null, { 'message' : '이미 사용중인 이메일입니다' });
                 }else{
+                    const salt = bcrypt.genSaltSync(saltRounds);
                     var newUserMysql = {
                         username : username,
-                        password : bcrypt.hashSync(password, null, null),
+                        password : bcrypt.hashSync(password, salt),
                     };
                     var insertQuery = "INSERT INTO users (username, password) values (?, ?)"
 
@@ -52,13 +54,16 @@ module.exports = function(passport) {
             passwordField : 'password',
             passReqToCallback: true
         },
-        function(req,username, password, done) {
+        function(req, username, password, done) {
             connection.query("SELECT * FROM users WHERE username = ? ", [username],
             function(err, rows) {
-                if(err)
+                if(err) {
+                    console.error(err);
                     return done(err);
-                if(!rows.length || !bcrypt.compareSync(password, rows[0].password))
-                    return done(null, false, { 'message' : '아이디나 비밀번호가 잘못되었습니다.'});
+                }
+                if(!rows.length || !bcrypt.compareSync(password, rows[0].password)) {
+                    return done(null, false);
+                }
 
                 return done(null, rows[0]);
             });
