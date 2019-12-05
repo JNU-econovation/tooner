@@ -6,7 +6,7 @@ input::placeholder {
     color: #BFBFBF;
 }
 
-button {
+.search-container button {
     /* 버튼 투명하게 */
     background-color: Transparent;
     background-repeat:no-repeat;

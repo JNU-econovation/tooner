@@ -5,26 +5,35 @@ header {
 
     /* font style */
     color: white;
-
-    /* position */
-    position: relative;
 }
 
 .banner-container {
-    position: absolute;
-    left: 2%;
-    bottom: 0;
+    float: left;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .banner-container img {
     max-width: 150px;
 }
 
-.userButton {
-    width: 130px;
-    position: absolute;
-    top: 30%;
-    right: 0;
+.user-container {
+    float: right;
+    margin-top: 18px;
+    margin-right: 10px;
+}
+
+.user-container button {
+    width: fit-content;
+    height: 23px;
+
+    /* 버튼 투명하게 */
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 .login {
@@ -33,9 +42,4 @@ header {
 
 .sign {
     color: white;
-}
-
-.inline {
-    /* 한 줄로 배열 */
-    float: left;
 }
