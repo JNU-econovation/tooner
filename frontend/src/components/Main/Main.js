@@ -1,15 +1,15 @@
 import React from 'react';
 import Slide from './Slide'
 import PostBox from './PostBox'
-import './Field.css'
+import './Main.css'
 
-function Field() {
+function Main() {
     return(
-        <div className="field inline">
+        <div className="main">
             <Slide />
             <PostBox />
         </div>
     );
 }
 
-export default Field;
+export default Main;

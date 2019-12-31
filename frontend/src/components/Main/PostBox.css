@@ -1,0 +1,54 @@
+.postBox {
+    height: 510px;
+    max-height: 600px;
+    margin-top: 8px;
+}
+
+#postType {
+    margin-left: 16px;
+    margin-top: 12px;
+}
+
+#postType span {
+    color: #707070;
+    font-size: 18px;
+}
+
+hr {
+    display: block;
+    width: 90%;
+    size: 2;
+    border-style: solid;
+    color: #656CE5;
+    background-color: #656CE5;
+}
+
+.singleBox {
+    display: inline-block;
+    background-color: rgba(235, 235, 235, 0.32);
+    width: 49%;
+    height: fit-content;
+}
+
+.singleBox ul {
+    padding-left: 20px;
+    margin-top: 12px;
+}
+
+.singleBox li {
+    list-style: none;
+    margin-bottom: 16px;
+
+    font-size: 14px;
+    font-family: inherit;
+    color: #707070;
+}
+
+
+.notice, .popularPosts{
+    margin-right: 2%;
+}
+
+.popularPosts, .pleaseFind {
+    margin-top: 8px;
+}

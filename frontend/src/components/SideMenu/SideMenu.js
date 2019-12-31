@@ -1,6 +1,7 @@
 import React from 'react';
 import './SideMenu.css'
 import '../Main.css'
+import {Link} from 'react-router-dom';
 
 function GoReview() {
     return (
@@ -21,7 +22,7 @@ function GoReview() {
           <li>인기글</li>
         </ul>
         <ul className="category__review">
-          <li>한줄 리뷰</li>
+          <li><Link to="/short">한줄 리뷰</Link></li>
           <li>상세 리뷰</li>
         </ul>
         <ul className="category__board">
@@ -34,12 +35,22 @@ function GoReview() {
     );
   }
 
+  function Guide() {
+    return(
+      <ul className="guide">
+        <li>투너 이용 가이드</li>
+        <li>문의하기</li>
+      </ul>
+    );
+  }
+
 
   function SideMenu(props) {
       return (
-        <div className="review__category inline">
+        <div className="sidemenu-container inline">
             <GoReview />
             <Category />
+            <Guide />
         </div>
       );
   }

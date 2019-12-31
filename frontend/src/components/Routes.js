@@ -1,15 +1,31 @@
 import React from 'react';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
-import Login from '../screens/Login';
-import Sign from '../screens/Sign';
-import Main from '../screens/Main';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+
+import Main from './Main/Main';
 import Header from './Header/Header';
+import MiddleHeader from './MiddleHeader/MiddleHeader'
+import Login from './Login';
+import Signup from './Signup';
+import ShortReview from './ShortReview/ShortReview';
+import LongReview from './LongReview/LongReview';
+import Footer from './Footer/Footer';
 
 export default () => (
     <Router>
         <Header />
-        <Route exact path='/' component={Main} />
-        <Route path='/login' component={Login} />
-        <Route path='/sign' component={Sign} />
+        <Switch>
+            <Route path='/login' component={Login} />
+            <Route path='/signup' component={Signup} />
+            <Route path='/' component={MiddleHeader} />
+            
+        </Switch>
+        <Switch>
+            <Route path='/review/short' component={ShortReview} />
+            <Route path='/review/long' component={LongReview} />
+            <Route path='/review' component={ShortReview} />
+            <Route exact path='/' component={Main} />
+            {/*<Route component={NotFound} />*/}
+        </Switch>
+        <Footer />
     </Router>
 )

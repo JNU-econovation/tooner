@@ -1,13 +1,15 @@
 import React from 'react';
 import './PostBox.css';
-import '../Main.css'
+import './Main.css'
 
 function SinglePostBox(props) {
+  const className = "singleBox " + props.class;
     return (
-      <div className={props.class}>
-        <div className="postType">
+      <div className={className}>
+        <div id="postType">
           <span>{props.postType}</span>
         </div>
+        <hr />
         <div>
           <ul>
             <li>글1</li>

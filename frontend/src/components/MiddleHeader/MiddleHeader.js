@@ -1,6 +1,6 @@
 import React from 'react';
 import './MiddleHeader.css'
-import '../Main.css'
+import '../Main/Main.css'
 import {Link} from 'react-router-dom';
 
 function HotPost(props) {
