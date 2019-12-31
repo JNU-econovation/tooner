@@ -1,6 +1,7 @@
 const dbconfig = require('../config/dbconfig');
 var mysql = require('mysql');
-var pool = mysql.createPool(dbconfig.connection);
+//var pool = mysql.createPool(dbconfig.connection);
+var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(app, passport) {
 
