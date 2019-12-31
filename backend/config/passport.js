@@ -1,5 +1,5 @@
-var LocalStrategy = require("passport-local").Strategy;
-
+var JsonStrategy = require("passport-json").Strategy;
+//TODO: Sequelize 적용하기
 const mysql = require('mysql');
 const bcrypt = require('bcrypt-nodejs');
 const saltRounds = 10;
@@ -17,9 +17,9 @@ module.exports = function(passport) {
 
     passport.use (
         'local-signup',
-        new LocalStrategy({
-            usernameField : 'username',
-            passwordField : 'password',
+        new JsonStrategy({
+            usernameProp : 'username',
+            passwordProp : 'password',
             passReqToCallback : true
         },
         function(req, username ,password, done) {
@@ -28,7 +28,7 @@ module.exports = function(passport) {
                 if(err)
                     return done(err);
                 if(rows.length) {
-                    return done(null, { 'message' : '이미 사용중인 이메일입니다' });
+                    return done(null, false);
                 }else{
                     const salt = bcrypt.genSaltSync(saltRounds);
                     var newUserMysql = {
@@ -49,9 +49,9 @@ module.exports = function(passport) {
 
     passport.use(
         'local-login',
-        new LocalStrategy({
-            usernameField : 'username',
-            passwordField : 'password',
+        new JsonStrategy({
+            usernameProp : 'username',
+            passwordProp : 'password',
             passReqToCallback: true
         },
         function(req, username, password, done) {
@@ -64,7 +64,6 @@ module.exports = function(passport) {
                 if(!rows.length || !bcrypt.compareSync(password, rows[0].password)) {
                     return done(null, false);
                 }
-
                 return done(null, rows[0]);
             });
         })
