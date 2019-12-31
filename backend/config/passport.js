@@ -17,9 +17,9 @@ module.exports = function(passport) {
 
     passport.use (
         'local-signup',
-        new LocalStrategy({
-            usernameField : 'username',
-            passwordField : 'password',
+        new JsonStrategy({
+            usernameProp : 'username',
+            passwordProp : 'password',
             passReqToCallback : true
         },
         function(req, username ,password, done) {
@@ -49,9 +49,9 @@ module.exports = function(passport) {
 
     passport.use(
         'local-login',
-        new LocalStrategy({
-            usernameField : 'username',
-            passwordField : 'password',
+        new JsonStrategy({
+            usernameProp : 'username',
+            passwordProp : 'password',
             passReqToCallback: true
         },
         function(req, username, password, done) {

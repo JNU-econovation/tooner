@@ -15,9 +15,7 @@ const PORT = 2599;
 require('./config/passport')(passport, mysql, dbconfig);
 
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({
- extended: true
-}));
+app.use(bodyParser.json());
 
 app.use(session({
     secret: 'justasecret',
