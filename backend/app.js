@@ -23,7 +23,7 @@ require('./config/passport')(passport, mysql, dbconfig);
 
 app.use(cookieParser());
 app.use(bodyParser.json());
-app.use(cors());
+
 
 // TODO: 보안 향상을 위해 secret 바꾸기
 app.use(session({
