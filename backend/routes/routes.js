@@ -54,6 +54,18 @@ module.exports = function(app, passport) {
             else res.json(rows);
         });
     })
+
+    app.get('/shortreview', function(req,res) {
+        let boardDBName = "board_shortreview";
+        connection.query("SELECT `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC", boardDBName, 
+        function(err, rows) {
+            if(err) {
+                console.log(err);
+                res.json({message:"Fail"});
+            }
+            else res.json(rows);
+        });
+    })
 };
 
 function isLoggedIn(req, res, next){
