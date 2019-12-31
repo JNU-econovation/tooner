@@ -1,4 +1,4 @@
-var LocalStrategy = require("passport-local").Strategy;
+var LocalStrategy = require("passport-json").Strategy;
 
 const mysql = require('mysql');
 const bcrypt = require('bcrypt-nodejs');
