@@ -42,10 +42,8 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    app
-
     app.get('/getBoard/:boardName', function(req,res) {
-        connection.query("SELECT * FROM board_"+req.params.boardName,
+        connection.query("SELECT `articleid`, `writeralias`, `title`, `writetime`, `edittime`, `hit`, `like` FROM board_"+req.params.boardName,
         function(err, rows) {
             if(err) {
                 res.json({message:"Fail"});
