@@ -55,9 +55,10 @@ module.exports = function(app, passport) {
         });
     })
 
+    // 한줄리뷰 목록 보기
     app.get('/shortreview', function(req,res) {
         let boardDBName = "board_shortreview";
-        connection.query("SELECT `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC", boardDBName, 
+        connection.query("SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC", boardDBName, 
         function(err, rows) {
             if(err) {
                 console.log(err);
