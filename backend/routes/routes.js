@@ -73,6 +73,25 @@ module.exports = function(app, passport) {
             }
         });
     })
+
+    // 상세리뷰 목록 보기
+    app.get('/longreview', function(req,res) {
+        let boardDBName = "board_longreview";
+        connection.query("SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC", boardDBName, 
+        function(err, rows) {
+            if(err) {
+                console.log(err);
+                res.json({message:"Fail"});
+            }
+            else {
+                rows.forEach(e => {
+                    e.good = e.good.split(',');
+                    e.bad = e.bad.split(',');
+                });
+                res.json({message:"Success", data:rows});
+            }
+        });
+    })
 };
 
 function isLoggedIn(req, res, next){

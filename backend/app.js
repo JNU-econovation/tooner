@@ -1,6 +1,7 @@
 const express = require('express');
 var session = require('express-session');
 const app = express();
+var cors = require('cors');
 const morgan = require('morgan');
 var mysql = require('mysql');
 const passport = require('passport');
@@ -16,6 +17,7 @@ require('./config/passport')(passport, mysql, dbconfig);
 
 app.use(cookieParser());
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use(session({
     secret: 'justasecret',
