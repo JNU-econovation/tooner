@@ -1,0 +1,88 @@
+.login-form-container {
+    padding-top: 20px;
+    margin: 0 auto;
+    width: 500px;
+}
+
+.login-form-container form {
+    width: inherit;
+    height: fit-content;
+}
+
+.login-input-container #phrase {
+    font-size: 23px;
+    color: #686CE5;
+    font-weight: bold;
+}
+
+.login-input-container input {
+    /* position */
+    display: block;
+    
+    /* font style */
+    font-size: 18px;
+    font-weight: lighter;
+
+    /* input style */
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color: #707070;
+    opacity: 0.5;
+    min-width: 450px;
+    line-height: 40px;
+    text-indent: 10px;
+    margin-top: 20px;
+    border-width: thin;
+}
+
+.login-input-container input::placeholder {
+    font-size: 18px;
+    color: #707070;
+}
+
+.login-container {
+    margin-top: 20px;
+}
+
+.login-container button {
+    min-width: 450px;
+    min-height: 56px;
+
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+
+    background-color: #686CE5;
+    color: white;
+    border: none;
+
+    font-size: 14px;
+}
+
+.find-info {
+    /* size */
+    width: 450px;
+    height: fit-content;
+
+    margin-top: 10px;
+    display: block;
+    text-align: center;
+}
+
+.find-info a {
+    padding-top: 2px;
+    color: #707070;
+    font-size: 14px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.find-info #bar {
+    color: #707070;
+    opacity: 0.3;
+    line-height: 14px;
+    margin: 0 8px;
+    display: inline-block;
+}
