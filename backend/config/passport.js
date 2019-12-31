@@ -64,7 +64,6 @@ module.exports = function(passport) {
                 if(!rows.length || !bcrypt.compareSync(password, rows[0].password)) {
                     return done(null, false);
                 }
-
                 return done(null, rows[0]);
             });
         })

@@ -24,21 +24,24 @@ module.exports = function(app, passport) {
         }
     );
 
-    app.post('/register', passport.authenticate('local-signup'), function(req, res) {
+    app.post('/register', passport.authenticate('local-signup', {failWithError: true}), 
+        (req, res) => {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
         // Then you can send your json as response.
-        if(req.user.message) {
-            res.json({message:"email already in use."});
-        }else {
         res.json({ message:"Success" , username: req.user.username });
+        },
+        function (err, req, res, next) {
+            res.json({message:"Fail"});
         }
-    });
+    );
 
     app.get('/logout', function(req,res) {
         req.logout();
         res.redirect('/');
     });
+
+    
 
 };
 
