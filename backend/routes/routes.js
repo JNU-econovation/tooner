@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
         // `req.user` contains the authenticated user.
         // Then you can send your json as response.
         if(req.user.message) {
-            res.json(req.user);
+            res.json({message:"email already in use."});
         }else {
         res.json({ message:"Success" , username: req.user.username });
         }
