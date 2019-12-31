@@ -1,5 +1,5 @@
 var JsonStrategy = require("passport-json").Strategy;
-
+//TODO: Sequelize 적용하기
 const mysql = require('mysql');
 const bcrypt = require('bcrypt-nodejs');
 const saltRounds = 10;
@@ -28,7 +28,7 @@ module.exports = function(passport) {
                 if(err)
                     return done(err);
                 if(rows.length) {
-                    return done(null, { 'message' : '이미 사용중인 이메일입니다' });
+                    return done(null, false);
                 }else{
                     const salt = bcrypt.genSaltSync(saltRounds);
                     var newUserMysql = {
