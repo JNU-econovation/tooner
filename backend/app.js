@@ -1,3 +1,9 @@
+/**
+ * tooner api server
+ * (c) 2019-2020 정회형 
+ * https://hotheadfactory.com
+ */
+
 const express = require('express');
 var session = require('express-session');
 const app = express();
@@ -19,6 +25,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(cors());
 
+// TODO: 보안 향상을 위해 secret 바꾸기
 app.use(session({
     secret: 'justasecret',
     resave: true,
