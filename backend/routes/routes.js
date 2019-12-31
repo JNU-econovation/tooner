@@ -42,10 +42,13 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
+    // 게시판 목록보기
     app.get('/getBoard/:boardName', function(req,res) {
-        connection.query("SELECT `articleid`, `writeralias`, `title`, `writetime`, `edittime`, `hit`, `like` FROM board_"+req.params.boardName,
+        let boardDBName = "board_"+req.params.boardName;
+        connection.query("SELECT `articleid`, `writeralias`, `title`, `writetime`, `edittime`, `hit`, `like` FROM ?? ORDER BY articleid DESC", boardDBName, 
         function(err, rows) {
             if(err) {
+                console.log(err);
                 res.json({message:"Fail"});
             }
             else res.json(rows);
