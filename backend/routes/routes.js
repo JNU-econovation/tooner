@@ -29,7 +29,7 @@ module.exports = function(app, passport) {
         // If this function gets called, authentication was successful.
         // `req.user` contains the authenticated user.
         // Then you can send your json as response.
-        res.json({ message:"Success" , username: req.user.username });
+            res.json({ message:"Success" , username: req.user.username });
         },
         function (err, req, res, next) {
             res.json({message:"Fail"});
@@ -41,8 +41,11 @@ module.exports = function(app, passport) {
         res.redirect('/');
     });
 
-    
+    app
 
+    app.get('/getBoard/:boardName', function(req,res) {
+        
+    })
 };
 
 function isLoggedIn(req, res, next){
