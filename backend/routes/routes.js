@@ -51,7 +51,7 @@ module.exports = function(app, passport) {
                 console.log(err);
                 res.json({message:"Fail"});
             }
-            else res.json(rows);
+            else res.json({message:"Success", data:rows});
         });
     })
 
@@ -63,7 +63,13 @@ module.exports = function(app, passport) {
                 console.log(err);
                 res.json({message:"Fail"});
             }
-            else res.json(rows);
+            else {
+                rows.forEach(e => {
+                    e.good = e.good.split(',');
+                    e.bad = e.bad.split(',');
+                });
+                res.json({message:"Success", data:rows});
+            }
         });
     })
 };
