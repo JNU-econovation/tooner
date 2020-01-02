@@ -99,7 +99,7 @@ module.exports = function(app, passport) {
         var bad = req.body.bad.join(",");
         var data = [req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
         console.log(data.toString());
-        connection.query("INSERT INTO board_longreview (title, rating, preference, good, bad, image, content) VALUES (?,?,?,?,?,?,?)", data,
+        /*connection.query("INSERT INTO board_longreview (title, rating, preference, good, bad, image, content) VALUES (?,?,?,?,?,?,?)", data,
         function(err, rows) {
             if(err) {
                 console.log(err);
@@ -107,8 +107,8 @@ module.exports = function(app, passport) {
             }else {
                 res.json({message:"success"});
             }
-        })
-
+        })*/
+        res.json({message:"success"});
     })
 };
 
