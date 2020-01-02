@@ -55,6 +55,19 @@ module.exports = function(app, passport) {
         });
     })
 
+    // 게시판 미리보기
+    app.get('/getBoardThumb/:boardName', function(req,res) {
+        let boardDBName = "board_"+req.params.boardName;
+        connection.query("SELECT `articleid`, `writeralias`, `title`, `hit`, `like` FROM ?? LIMIT 5 ORDER BY articleid DESC", boardDBName, 
+        function(err, rows) {
+            if(err) {
+                console.log(err);
+                res.json({message:"Fail"});
+            }
+            else res.json({message:"Success", data:rows});
+        });
+    })
+
     // 한줄리뷰 목록 보기
     app.get('/shortreview', function(req,res) {
         let boardDBName = "board_shortreview";
