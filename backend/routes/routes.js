@@ -92,6 +92,11 @@ module.exports = function(app, passport) {
             }
         });
     })
+
+    app.post('/shortreview', function(req,res) {
+        console.log(req.body.test);
+        res.json({message:"test"});
+    })
 };
 
 function isLoggedIn(req, res, next){
