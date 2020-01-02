@@ -93,7 +93,7 @@ module.exports = function(app, passport) {
         });
     })
 
-    app.post('/shortreview', function(req,res) {
+    app.post('/shortreview', isLoggedIn, function(req,res) {
         console.log(req.body.good);
         var good = req.body.good.join(",");
         var bad = req.body.bad.join(",");
@@ -114,10 +114,9 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
         return next();
     }
-    // remember where session come from
     req.session.returnTo = req.originalUrl;
     req.session.save(function (err) {
         if(err) return next(err);
-        res.redirect('/login');
+        res.json({message:"Login needed"});
     });
 };
