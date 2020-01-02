@@ -107,7 +107,6 @@ module.exports = function(app, passport) {
                 res.json({message:"success"});
             }
         })
-        res.json({message:"success"});
     })
 };
 
