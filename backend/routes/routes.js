@@ -94,6 +94,7 @@ module.exports = function(app, passport) {
     })
 
     app.post('/shortreview', function(req,res) {
+        console.log(req.body.good);
         var good = req.body.good.join(",");
         var bad = req.body.bad.join(",");
         var data = [req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
