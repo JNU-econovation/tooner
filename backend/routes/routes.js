@@ -106,7 +106,7 @@ module.exports = function(app, passport) {
         });
     })
     
-    // 한줄리뷰 쓰기 
+    // 한줄리뷰 쓰기 (테스트)
     app.post('/shortreview', function(req,res) {
         console.log(req.body.good);
         var good = req.body.good.join(",");
