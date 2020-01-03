@@ -1,0 +1,21 @@
+.review-container {
+    margin-left: 32px;
+    margin-right: 32px;
+    height: fit-content;
+}
+
+.title-container {
+    height: 36px;
+}
+
+#page-title {
+    font-weight: bold;
+    font-size: 24px;
+    float: left;
+}
+
+#guide {
+    font-size: 12px;
+    float: right;
+    margin-top: 10px;
+}
