@@ -128,9 +128,5 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
         return next();
     }
-    req.session.returnTo = req.originalUrl;
-    req.session.save(function (err) {
-        if(err) return next(err);
-        res.json({message:"Login needed"});
-    });
+    res.json({message:"Login needed"});
 };
