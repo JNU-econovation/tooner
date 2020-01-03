@@ -105,7 +105,8 @@ module.exports = function(app, passport) {
             }
         });
     })
-
+    
+    // 한줄리뷰 쓰기 
     app.post('/shortreview', isLoggedIn, function(req,res) {
         console.log(req.body.good);
         var good = req.body.good.join(",");

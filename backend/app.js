@@ -21,6 +21,7 @@ const PORT = 2599;
 
 require('./config/passport')(passport, mysql, dbconfig);
 
+app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
