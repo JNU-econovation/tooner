@@ -107,11 +107,11 @@ module.exports = function(app, passport) {
     })
     
     // 한줄리뷰 쓰기 
-    app.post('/shortreview', isLoggedIn, function(req,res) {
+    app.post('/shortreview', function(req,res) {
         console.log(req.body.good);
         var good = req.body.good.join(",");
         var bad = req.body.bad.join(",");
-        var data = [req.user.user_no, req.user.alias, req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
+        var data = [54, "테스트 유저", req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
         connection.query("INSERT INTO board_shortreview (title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,NOW())", data,
         function(err, rows) {
             if(err) {
