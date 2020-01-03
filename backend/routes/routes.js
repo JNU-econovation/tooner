@@ -126,6 +126,7 @@ module.exports = function(app, passport) {
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
+        console.log("auth success");
         return next();
     }
     res.json({message:"Login needed"});
