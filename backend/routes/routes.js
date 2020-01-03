@@ -85,7 +85,7 @@ module.exports = function(app, passport) {
                 rows.forEach(e => {
                     e.good = e.good.split(',');
                     e.bad = e.bad.split(',');
-                    e.image = e.image.split(':');
+                    e.image = e.image.split(':')[0];
                 });
                 res.json({message:"Success", data:rows});
             }
@@ -105,7 +105,7 @@ module.exports = function(app, passport) {
                 rows.forEach(e => {
                     e.good = e.good.split(',');
                     e.bad = e.bad.split(',');
-                    e.image = e.image.split(':');
+                    e.image = e.image.split(':')[0];
                 });
                 res.json({message:"Success", data:rows});
             }
