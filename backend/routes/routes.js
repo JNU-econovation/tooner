@@ -55,6 +55,19 @@ module.exports = function(app, passport) {
         });
     })
 
+    // 게시판 미리보기
+    app.get('/getBoardThumb/:boardName', function(req,res) {
+        let boardDBName = "board_"+req.params.boardName;
+        connection.query("SELECT `articleid`, `writeralias`, `title`, `hit`, `like` FROM ?? LIMIT 5 ORDER BY articleid DESC", boardDBName, 
+        function(err, rows) {
+            if(err) {
+                console.log(err);
+                res.json({message:"Fail"});
+            }
+            else res.json({message:"Success", data:rows});
+        });
+    })
+
     // 한줄리뷰 목록 보기
     app.get('/shortreview', function(req,res) {
         let boardDBName = "board_shortreview";
@@ -92,16 +105,29 @@ module.exports = function(app, passport) {
             }
         });
     })
+    
+    // 한줄리뷰 쓰기 
+    app.post('/shortreview', isLoggedIn, function(req,res) {
+        console.log(req.body.good);
+        var good = req.body.good.join(",");
+        var bad = req.body.bad.join(",");
+        var data = [req.user.user_no, req.user.alias, req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
+        connection.query("INSERT INTO board_shortreview (title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,NOW())", data,
+        function(err, rows) {
+            if(err) {
+                console.log(err);
+                res.json({message:"Fail"});
+            }else {
+                res.json({message:"success"});
+            }
+        })
+    })
 };
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
+        console.log("auth success");
         return next();
     }
-    // remember where session come from
-    req.session.returnTo = req.originalUrl;
-    req.session.save(function (err) {
-        if(err) return next(err);
-        res.redirect('/login');
-    });
+    res.json({message:"Login needed"});
 };
