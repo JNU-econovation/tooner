@@ -111,8 +111,8 @@ module.exports = function(app, passport) {
         console.log(req.body.good);
         var good = req.body.good.join(",");
         var bad = req.body.bad.join(",");
-        var data = [req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
-        connection.query("INSERT INTO board_shortreview (title, rating, preference, good, bad, image, content) VALUES (?,?,?,?,?,?,?)", data,
+        var data = [req.user.user_no, req.user.alias, req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
+        connection.query("INSERT INTO board_shortreview (title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,NOW())", data,
         function(err, rows) {
             if(err) {
                 console.log(err);
