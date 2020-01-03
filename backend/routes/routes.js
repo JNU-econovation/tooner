@@ -85,6 +85,7 @@ module.exports = function(app, passport) {
                 rows.forEach(e => {
                     e.good = e.good.split(',');
                     e.bad = e.bad.split(',');
+                    e.image = e.image.split(':');
                 });
                 res.json({message:"Success", data:rows});
             }
@@ -104,6 +105,7 @@ module.exports = function(app, passport) {
                 rows.forEach(e => {
                     e.good = e.good.split(',');
                     e.bad = e.bad.split(',');
+                    e.image = e.image.split(':');
                 });
                 res.json({message:"Success", data:rows});
             }
@@ -115,8 +117,27 @@ module.exports = function(app, passport) {
         console.log(req.body.good);
         var good = req.body.good.join(",");
         var bad = req.body.bad.join(",");
-        var data = [54, "테스트 유저", req.body.title, req.body.rating, req.body.preference, good, bad, req.body.image, req.body.content]
+        var image = req.body.image.join(":");
+        var data = [54, "테스트 유저", req.body.title, req.body.rating, req.body.preference, good, bad, image, req.body.content]
         connection.query("INSERT INTO board_shortreview (title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,NOW())", data,
+        function(err, rows) {
+            if(err) {
+                console.log(err);
+                res.json({message:"Fail"});
+            }else {
+                res.json({message:"success"});
+            }
+        })
+    })
+
+    // 상세리뷰 쓰기 (테스트)
+    app.post('/longreview', function(req,res) {
+        console.log(req.body.good);
+        var good = req.body.good.join(",");
+        var bad = req.body.bad.join(",");
+        var image = req.body.image.join(":");
+        var data = [54, "테스트 유저", req.body.title, req.body.rating, req.body.preference, good, bad, image, req.body.content]
+        connection.query("INSERT INTO board_longreview (title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,NOW())", data,
         function(err, rows) {
             if(err) {
                 console.log(err);
