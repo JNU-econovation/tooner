@@ -26,14 +26,6 @@ header {
 .user-container button {
     width: fit-content;
     height: 23px;
-
-    /* 버튼 투명하게 */
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
 }
 
 .login {

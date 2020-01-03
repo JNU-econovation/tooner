@@ -6,8 +6,8 @@ import Header from './Header/Header';
 import MiddleHeader from './MiddleHeader/MiddleHeader'
 import Login from './Login';
 import Signup from './Signup';
-import ShortReview from './ShortReview/ShortReview';
-import LongReview from './LongReview/LongReview';
+import ShortReview from './Review/ShortReview/ShortReview';
+import LongReview from './Review/LongReview/LongReview';
 import Footer from './Footer/Footer';
 
 export default () => (
