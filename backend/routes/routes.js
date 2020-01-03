@@ -5,10 +5,12 @@ var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(app, passport) {
 
+    // 로그인 여부 테스트
     app.get ('/', isLoggedIn, function (req, res) {
         res.json({data: "로그인 됨!"});
     });
    
+    // 로그인하기
     app.post('/login', passport.authenticate('local-login', {failWithError: true}),
         (req, res) => {
             res.json({message:"Success", username: req.user.username});
@@ -25,6 +27,7 @@ module.exports = function(app, passport) {
         }
     );
 
+    // 회원가입하기
     app.post('/register', passport.authenticate('local-signup', {failWithError: true}), 
         (req, res) => {
         // If this function gets called, authentication was successful.
@@ -37,6 +40,7 @@ module.exports = function(app, passport) {
         }
     );
 
+    // 로그아웃하기
     app.get('/logout', function(req,res) {
         req.logout();
         res.redirect('/');
