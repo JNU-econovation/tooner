@@ -50,11 +50,11 @@ function getReviewList(boardDBName, res) {
         }
         else {
             rows.forEach(e => {
-                if (e.good)
+                if (e.good != null)
                     e.good = e.good.split(',');
-                if (e.bad)
+                if (e.bad != null)
                     e.bad = e.bad.split(',');
-                if (e.image)
+                if (e.image != null)
                     e.image = e.image.split(':')[0];
             });
             res.json({ message: "Success", data: rows });
