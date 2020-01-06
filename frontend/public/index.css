@@ -4,7 +4,16 @@ body {
     margin: 0 auto;
 }
 
-.copyright {
-    width: 100%;
-    text-align: center;
+textarea {
+    resize: none;
+}
+
+button {
+    /* 버튼 투명하게 */
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }

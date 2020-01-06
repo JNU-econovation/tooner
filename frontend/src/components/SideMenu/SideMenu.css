@@ -1,10 +1,20 @@
-.review__category {
+.sidemenu-container {
     width: 18%;
 }
 
 .go_review {
     height: 52px;
     background-color: rgba(235, 235, 235, 0.32);
+}
+
+.go_review button {
+    /* button style */
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
 }
 
 #review__icon {
@@ -23,32 +33,49 @@
     color: #707070;
 }
 
-.category {
-    margin-top: 4%;
+.category, .guide {
+    margin-top: 8px;
     overflow: hidden;
     height: auto !important;
     background-color: rgba(235, 235, 235, 0.32);
+}
+
+.sidemenu-container ul {
+    margin-bottom: 24px;
+    padding: 0;
+}
+
+.sidemenu-container li {
+    padding-left: 16px;
+    list-style: none;
+    font-family: inherit;
+}
+
+.category li {
+    font-size: 16px;
+    line-height: 32px;
+    margin-bottom: 8px;
+}
+
+.category li:hover {
+    background-color: #EBEBEB;
+    cursor: pointer;
+}
+
+.guide li {
+    font-size: 12px;
+    line-height: 24px;
+    margin-bottom: 4px;
+}
+
+.guide li:hover {
+    cursor: pointer;
 }
 
 .category__toppost {
     color: #686CE5;
 }
 
-.category__review, .category__board {
+.category__review, .category__board, .guide {
     color: #707070;
-}
-
-ul.category__toppost li:hover {
-    background-color: #EBEBEB;
-    cursor: pointer;
-}
-
-ul.category__review li:hover {
-    background-color: #EBEBEB;
-    cursor: pointer;
-}
-
-ul.category__board li:hover {
-    background-color: #EBEBEB;
-    cursor: pointer;
 }

@@ -2,13 +2,12 @@ header {
     /* background */
     background-color: #686CE5;
     height: 63px;
-
-    /* font style */
-    color: white;
+    position: relative;
 }
 
 .banner-container {
-    float: left;
+    position: absolute;
+    left: 0;
     margin-left: 10px;
     margin-top: 10px;
 }
@@ -18,7 +17,8 @@ header {
 }
 
 .user-container {
-    float: right;
+    position: absolute;
+    right: 0;
     margin-top: 18px;
     margin-right: 10px;
 }
@@ -26,20 +26,5 @@ header {
 .user-container button {
     width: fit-content;
     height: 23px;
-
-    /* 버튼 투명하게 */
-    background-color: Transparent;
-    background-repeat:no-repeat;
-    border: none;
-    cursor:pointer;
-    overflow: hidden;
-    outline:none;
-}
-
-.login {
-    color: white;
-}
-
-.sign {
     color: white;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Slide.css';
-import '../Main.css'
+import './Main.css'
 
 function Slide(props) {
     return (

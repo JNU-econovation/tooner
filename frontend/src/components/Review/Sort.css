@@ -1,0 +1,18 @@
+.review-sort {
+    height: fit-content;
+    margin-top: 28px;
+}
+
+.review-sort ul {
+    margin: 0 16px 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.review-sort li {
+    margin: 0 12px 0 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 16px;
+}

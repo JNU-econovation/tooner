@@ -47,7 +47,7 @@
 
 .login-container button {
     min-width: 450px;
-    min-height: 56px;
+    height: 56px;
 
     background-repeat:no-repeat;
     cursor:pointer;

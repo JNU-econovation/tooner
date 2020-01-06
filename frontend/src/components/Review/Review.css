@@ -1,0 +1,60 @@
+.review-section {
+    margin-top: 32px;
+}
+
+.loader {
+    text-align: center;
+}
+
+.loader span {
+    font-size: 12px;
+    color: #707070;
+}
+
+.review-box {
+    width: 100%;
+    min-height: 112px;
+    margin-bottom: 32px;
+}
+
+.review-data {
+
+}
+
+.review-box ul {
+    margin: 0 16px 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.review-data li {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 14px;
+}
+
+.review-content {
+    margin-top: 12px;
+    width: 100%;
+    min-height: 80px;
+}
+
+.review-content img {
+    float: left;
+    width: 80px;
+    height: 80px;
+}
+
+.review-content span {
+    float: left;
+    margin: 0 0 0 12px;
+    padding: 5px;
+    min-width: 565px;
+    max-width: 1034px;
+    min-height: 70px;
+    font-size: 14px;
+    color: #707070;
+    background-color: #EBEBEB;
+}
