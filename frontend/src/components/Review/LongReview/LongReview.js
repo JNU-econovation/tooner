@@ -13,7 +13,7 @@ function LongReview() {
             </div>
             <WriteReview />
             <Sort />
-            <ReviewBox />
+            <ReviewBox json="http://168.131.30.129:2599/longreview" />
         </div>
     );
 }

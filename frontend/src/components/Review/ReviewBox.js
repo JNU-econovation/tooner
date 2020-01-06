@@ -28,7 +28,7 @@ class ReviewBox extends React.Component {
                         <span>데이터를 불러오고 있습니다...</span>
                     </div>
                 ) : (
-                    <div className="short-reviews">
+                    <div className="reviews">
                         {reviews.map(review => (
                             <Review
                                 key={review.articleid}

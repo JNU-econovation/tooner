@@ -3,22 +3,17 @@
     margin-top: 20px;
 }
 
-.write-review-container p {
-    margin: 0;
-}
-
 #write-guide {
     font-size: 12px;
     text-decoration: underline;
     margin-left: 16px;
 }
 
-#write-box {
-    max-width: inherit;
-    width: 100%;
+.write-review-container textarea {
+    width: 98%;
     height: 80px;
     margin-top: 12px;
-    padding: 5px;
+    padding: 1%;
 
     /* font style */
     font-family: inherit;

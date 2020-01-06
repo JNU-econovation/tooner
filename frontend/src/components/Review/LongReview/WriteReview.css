@@ -1,42 +1,27 @@
 .write-review-container {
     width: 100%;
-    margin-top: 20px;
+    margin-top: 24px;
+    font-size: 20px;
 }
 
-.write-review-container p {
-    margin: 0;
-}
-
-#write-guide {
-    font-size: 12px;
+.write-review-container span {
+    font-size: inherit;
     text-decoration: underline;
+    color: #707070;
+}
+
+.write-review-container button {
+    font-size: inherit;
+    font-weight: bold;
+    padding: 0;
+}
+
+#press-to-select {
+    margin-right: 16px;
+    color: #707070;
+}
+
+#go-to-review {
     margin-left: 16px;
-}
-
-#write-box {
-    max-width: inherit;
-    width: 100%;
-    height: 80px;
-    margin-top: 12px;
-    padding: 5px;
-
-    /* font style */
-    font-family: inherit;
-    font-size: 14px;
-}
-
-#button-box {
-    margin-top: 4px;
-    width: 100%;
-    height: 28px;
-}
-
-#submit {
-    float: right;
-    width: 80px;
-    height: 28px;
-    background-color: #686CE5;
-    color: white;
-    border: none;
-    font-size: 14px;
+    color: #686CE5;
 }

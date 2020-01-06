@@ -32,28 +32,28 @@
     margin: 0;
     padding: 0;
     display: inline-block;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .review-content {
     margin-top: 12px;
+    width: 100%;
     min-height: 80px;
 }
 
 .review-content img {
     float: left;
-    min-width: 80px;
-    min-height: 80px;
-    width: auto;
-    height: auto;
+    width: 80px;
+    height: 80px;
 }
 
 .review-content span {
     float: left;
     margin: 0 0 0 12px;
     padding: 5px;
+    min-width: 565px;
+    max-width: 1034px;
     min-height: 70px;
-    min-width: 600px;
     font-size: 14px;
     color: #707070;
     background-color: #EBEBEB;

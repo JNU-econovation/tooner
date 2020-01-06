@@ -4,7 +4,7 @@ import Sort from '../Sort';
 import WriteReview from './WriteReview';
 import ReviewBox from '../ReviewBox';
 
-function ShortReview({json = "http://168.131.30.129:2599/shortreview"}) {
+function ShortReview() {
     return(
         <div className="review-container">
             <div className="title-container">
@@ -13,7 +13,7 @@ function ShortReview({json = "http://168.131.30.129:2599/shortreview"}) {
             </div>
             <WriteReview />
             <Sort />
-            <ReviewBox json={this.props.json} />
+            <ReviewBox json="http://168.131.30.129:2599/shortreview" />
         </div>
     );
 }
