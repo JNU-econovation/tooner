@@ -1,6 +1,13 @@
+/**
+ * tooner api server
+ * (c) 2019-2020 정회형 
+ * https://hotheadfactory.com
+ */
+
 const express = require('express');
 var session = require('express-session');
 const app = express();
+var cors = require('cors');
 const morgan = require('morgan');
 var mysql = require('mysql');
 const passport = require('passport');
@@ -14,11 +21,12 @@ const PORT = 2599;
 
 require('./config/passport')(passport, mysql, dbconfig);
 
+app.use(cors());
 app.use(cookieParser());
-app.use(bodyParser.urlencoded({
- extended: true
-}));
+app.use(bodyParser.json());
 
+
+// TODO: 보안 향상을 위해 secret 바꾸기
 app.use(session({
     secret: 'justasecret',
     resave: true,
