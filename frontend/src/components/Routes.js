@@ -8,6 +8,7 @@ import Login from './Login';
 import Signup from './Signup';
 import ShortReview from './Review/ShortReview/ShortReview';
 import LongReview from './Review/LongReview/LongReview';
+import Webtoon from './Board/Webtoon/Webtoon';
 import Footer from './Footer/Footer';
 
 export default () => (
@@ -23,6 +24,7 @@ export default () => (
             <Route path='/review/short' component={ShortReview} />
             <Route path='/review/long' component={LongReview} />
             <Route path='/review' component={ShortReview} />
+            <Route path='/board/webtoon' component={Webtoon} />
             <Route exact path='/' component={Main} />
             {/*<Route component={NotFound} />*/}
         </Switch>
