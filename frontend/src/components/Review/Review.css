@@ -51,8 +51,8 @@
     float: left;
     margin: 0 0 0 12px;
     padding: 5px;
-    min-width: 565px;
-    max-width: 1034px;
+    min-width: 85%;
+    max-width: 1034px; 
     min-height: 70px;
     font-size: 14px;
     color: #707070;

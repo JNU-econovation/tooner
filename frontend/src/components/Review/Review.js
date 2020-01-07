@@ -4,7 +4,7 @@ import './Review.css';
 
 function Review({ articleid, title, rating, preference, good, bad, image, content }) {
     if(image != null) image = "http://168.131.30.129:2599/" + image;
-    if(bad == "") bad = [];
+    if(bad === "") bad = [];
     return (
         <div className="review-box">
             <div className="review-data">
@@ -32,7 +32,7 @@ function Review({ articleid, title, rating, preference, good, bad, image, conten
             </div>
             <div className="review-content">
                 <div id="img-wrapper">
-                    <img src={image} />
+                    <img src={image} alt={title} />
                 </div>
                 <span>{content.slice(0,301)}</span>
             </div>

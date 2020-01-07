@@ -13,7 +13,6 @@ class ReviewBox extends React.Component {
         axios.get(this.props.json).then(
             res => {
                 const reviews = res.data.data;
-                console.log(reviews);
                 this.setState({ reviews, isLoading: false });
             }
         )
