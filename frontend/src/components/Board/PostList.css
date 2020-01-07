@@ -1,0 +1,50 @@
+a {
+    text-decoration: none;
+}
+
+.post-list {
+    height: 28px;
+    margin: 4px 0;
+}
+
+.post-list div {
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.post-border {
+    border-left: 1.5px solid #707070;
+}
+
+.post-list span {
+    color: #707070;
+    font-size: 12px;
+    display: flex;
+    line-height: 20px;
+}
+
+.align-center span{
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-hit, .post-like {
+    width: 5%;
+}
+
+.post-writer, .post-time{
+    width: 10%;
+}
+
+.post-title {
+    width: 69%;
+}
+
+.post-title span {
+    font-size: 14px;
+    padding-left: 8px;
+}
+
