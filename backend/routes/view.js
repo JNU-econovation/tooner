@@ -43,13 +43,21 @@ module.exports = function(app) {
 
     app.get('/board/:boardName/:articleId', function(req,res) {
         let data = ["board_"+req.params.boardName, req.params.articleId];
-        connection.query("SELECT * FROM ?? WHERE articleid=?? ORDER BY articleid DESC", data, 
+        connection.query("SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC", data, 
         function(err, rows) {
             if(err) {
                 console.error(err);
                 res.json({message:"Fail"});
             }
-            else res.json({message:"Success", data:rows});
+            else {
+                if(rows.length) {
+                    res.json({message:"Success", data:rows});
+                }
+                else {
+                    res.status(404);
+                    res.json({message:"Not Found"});
+                }
+            }
         });
     })
 
