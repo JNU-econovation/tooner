@@ -9,7 +9,7 @@ module.exports = function(app) {
         connection.query("SELECT `articleid`, `writeralias`, `title`, `writetime`, `edittime`, `hit`, `like` FROM ?? ORDER BY articleid DESC", boardDBName, 
         function(err, rows) {
             if(err) {
-                console.log(err);
+                console.error(err);
                 res.json({message:"Fail"});
             }
             else res.json({message:"Success", data:rows});
@@ -22,7 +22,7 @@ module.exports = function(app) {
         connection.query("SELECT `articleid`, `writeralias`, `title`, `hit`, `like` FROM ?? LIMIT 5 ORDER BY articleid DESC", boardDBName, 
         function(err, rows) {
             if(err) {
-                console.log(err);
+                console.error(err);
                 res.json({message:"Fail"});
             }
             else res.json({message:"Success", data:rows});
@@ -40,6 +40,19 @@ module.exports = function(app) {
         let boardDBName = "board_longreview";
         getReviewList(boardDBName, res);
     })
+
+    app.get('/board/:boardName/:articleId', function(req,res) {
+        let data = ["board_"+req.params.boardName, req.params.articleId];
+        connection.query("SELECT * FROM ?? WHERE articleid=?? ORDER BY articleid DESC", data, 
+        function(err, rows) {
+            if(err) {
+                console.error(err);
+                res.json({message:"Fail"});
+            }
+            else res.json({message:"Success", data:rows});
+        });
+    })
+
 };
 
 function getReviewList(boardDBName, res) {
@@ -64,7 +77,6 @@ function getReviewList(boardDBName, res) {
 
 function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
-        console.log("auth success");
         return next();
     }
     res.json({message:"Login needed"});
