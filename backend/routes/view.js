@@ -2,7 +2,7 @@ const dbconfig = require('../config/dbconfig');
 var mysql = require('mysql');
 var connection = mysql.createConnection(dbconfig.connection);
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
     // 게시판 목록보기
     app.get('/board/:boardName', function(req,res) {
         let boardDBName = "board_"+req.params.boardName;
