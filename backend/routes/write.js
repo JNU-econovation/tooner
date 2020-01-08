@@ -42,5 +42,6 @@ function isLoggedIn(req, res, next){
     if(req.isAuthenticated()) {
         return next();
     }
+    res.status(403);
     res.json({message:"Login needed"});
 };
