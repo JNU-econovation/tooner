@@ -1,0 +1,15 @@
+#button-container {
+    margin-top: 8px;
+    width: 100%;
+    height: fit-content;
+}
+
+#button-container button {
+    float: right;
+    width: 60px;
+    height: 24px;
+    background-color: #686CE5;
+    color: white;
+    border: none;
+    font-size: 12px;
+}
