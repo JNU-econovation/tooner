@@ -35,11 +35,15 @@ app.use(session({
 
 // 로깅 모듈 
 app.use(morgan('combined'));
+
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
 
+// 라우터 불러오기
 require('./routes/routes.js')(app, passport);
+require('./routes/view.js')(app);
+require('./routes/write.js')(app);
+//require('./routes/controller.js')(app, passport);
 
 app.listen(PORT, function() {
     console.log("Tooner Beta\n==============================================\nTooner Since 2019! Server is on at port "+PORT+"......\n==============================================");
