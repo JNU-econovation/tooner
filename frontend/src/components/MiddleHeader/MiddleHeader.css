@@ -16,13 +16,8 @@ input::placeholder {
     outline:none;
 }
 
-.inline {
-    /* 한 줄로 배열 */
-    float: left;
-}
-
 /* middle_header */
-.middle_header {
+.middle-header {
     /* font style */
     font-size: 14px;
 
@@ -31,10 +26,10 @@ input::placeholder {
 }
 
 .hotPost {
+    float: left;
     margin: 15px;
     margin-right: 0;
     color: #707070;
-    float: left;
     display: block;
 }
 

@@ -7,17 +7,15 @@ import './PostPage.css';
 
 function PostPage(props){
     const [state, setState] = useState({
-        post: [],
+        post: {},
         isLoading: true
     })
     const { post, isLoading } = state;
-    const {articleid} = useParams()
-    console.log(articleid)
+    const { articleid } = useParams()
     useEffect( ()=> {
         axios.get(props.json).then(
             res => {
-                const post = res.data.data;
-                console.log(post)
+                const post = res.data.data.filter((data) => { return data.articleid == articleid })[0];
                 setState({ post, isLoading: false });
             }
         )
@@ -30,7 +28,7 @@ function PostPage(props){
                     </div>
                 ) : (
                     <Post
-                        key={post.articleid}
+                        key={articleid}
                         title={post.title}
                         writeralias={post.writeralias}
                         writetime={post.writetime}
