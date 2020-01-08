@@ -35,11 +35,22 @@ module.exports = function(app) {
         getReviewList(boardDBName, res);
     })
 
+    app.get('/shortreview/:articleId', function(req,res) {
+        let boardDBName = "board_shortreview";
+        getReviewDetail(boardDBName, req.params.articleId, res);
+    })
+
     // 상세리뷰 목록 보기
     app.get('/longreview', function(req,res) {
         let boardDBName = "board_longreview";
         getReviewList(boardDBName, res);
     })
+
+    app.get('/longreview/:articleId', function(req,res) {
+        let boardDBName = "board_longreview";
+        getReviewDetail(boardDBName, req.params.articleId, res);
+    })
+
 
     app.get('/board/:boardName/:articleId', function(req,res) {
         let data = ["board_"+req.params.boardName, req.params.articleId];
@@ -51,7 +62,7 @@ module.exports = function(app) {
             }
             else {
                 if(rows.length) {
-                    res.json({message:"Success", data:rows});
+                    res.json({message:"Success", data:rows[0]});
                 }
                 else {
                     res.status(404);
@@ -64,7 +75,8 @@ module.exports = function(app) {
 };
 
 function getReviewList(boardDBName, res) {
-    connection.query("SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC", boardDBName, function (err, rows) {
+    const query = "SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC";
+    connection.query(query, boardDBName, function (err, rows) {
         if (err) {
             console.log(err);
             res.json({ message: "Fail" });
@@ -79,6 +91,28 @@ function getReviewList(boardDBName, res) {
                     e.image = e.image.split(':')[0];
             });
             res.json({ message: "Success", data: rows });
+        }
+    });
+}
+
+function getReviewDetail(boardDBName, articleId, res) {
+    const query = "SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC";
+    const data = [boardDBName, articleId]
+    connection.query(query, data, function (err, rows) {
+        if (err) {
+            console.log(err);
+            res.json({ message: "Fail" });
+        }
+        else {
+            rows.forEach(e => {
+                if (e.good != null)
+                    e.good = e.good.split(',');
+                if (e.bad != null)
+                    e.bad = e.bad.split(',');
+                if (e.image != null)
+                    e.image = e.image.split(':')[0];
+            });
+            res.json({ message: "Success", data: rows[0] });
         }
     });
 }
