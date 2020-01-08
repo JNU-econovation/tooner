@@ -7,10 +7,11 @@ import Footer from './Footer/Footer';
 import MiddleHeader from './MiddleHeader/MiddleHeader'
 import Login from './Login';
 import Signup from './Signup';
+import MyPage from './User/MyPage/MyPage';
 import ShortReview from './Review/ShortReview/ShortReview';
 import LongReview from './Review/LongReview/LongReview';
+import WriteReviewPage from './Review/WriteReviewPage/WriteReviewPage';
 import WebtoonPage from './Board/Webtoon/WebtoonPage';
-import PostPage from './PostPage';
 
 export default () => (
     <Router>
@@ -18,11 +19,12 @@ export default () => (
         <Switch>
             <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
+            <Route path='/mypage' component={MyPage} />
             <Route path='/' component={MiddleHeader} />
-            
         </Switch>
         <Switch>
             <Route path='/review/short' component={ShortReview} />
+            <Route path='/review/long/write' component={WriteReviewPage} />
             <Route path='/review/long' component={LongReview} />
             <Route path='/review' component={ShortReview} />
             <Route path='/board/webtoon' component={WebtoonPage} />
