@@ -4,7 +4,7 @@ var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(app, passport) {
     // 게시판 목록보기
-    app.get('/getBoard/:boardName', function(req,res) {
+    app.get('/board/:boardName', function(req,res) {
         let boardDBName = "board_"+req.params.boardName;
         connection.query("SELECT `articleid`, `writeralias`, `title`, `writetime`, `edittime`, `hit`, `like` FROM ?? ORDER BY articleid DESC", boardDBName, 
         function(err, rows) {
@@ -17,7 +17,7 @@ module.exports = function(app, passport) {
     })
 
     // 게시판 미리보기
-    app.get('/getBoardThumb/:boardName', function(req,res) {
+    app.get('/boardThumb/:boardName', function(req,res) {
         let boardDBName = "board_"+req.params.boardName;
         connection.query("SELECT `articleid`, `writeralias`, `title`, `hit`, `like` FROM ?? LIMIT 5 ORDER BY articleid DESC", boardDBName, 
         function(err, rows) {
