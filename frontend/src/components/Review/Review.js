@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './Review.css';
 
 function Review({ articleid, title, rating, preference, good, bad, image, content }) {
-    if(image != null) image = "http://168.131.30.129:2599/" + image;
-    if(bad === "") bad = [];
+    if(image != null) image = "http://168.131.30.129:2599" + image;
+    if(bad[0] === "") bad[0] = "없음";
     return (
         <div className="review-box">
             <div className="review-data">

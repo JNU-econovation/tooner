@@ -7,8 +7,8 @@ function Header() {
     return (
       <header>
         <div className="banner-container">
-          <Link to="/">
-            <img id="banner" src="./banner.png" alt=""/>
+          <Link to="/" id="banner">
+            tooner
           </Link>
         </div>
         <div className="user-container">

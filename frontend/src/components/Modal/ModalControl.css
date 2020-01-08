@@ -1,0 +1,8 @@
+.modal-container {
+    width: 100%;
+    height: fit-content;
+}
+
+.modal-container span {
+    color: black;
+}

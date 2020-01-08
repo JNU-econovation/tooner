@@ -1,26 +1,33 @@
 header {
     /* background */
     background-color: #686CE5;
-    height: 63px;
-    position: relative;
+    width: 100%;
+    height: 56px;
 }
 
 .banner-container {
-    position: absolute;
-    left: 0;
-    margin-left: 10px;
-    margin-top: 10px;
+    float: left;
+    margin-top: -6px;
+    margin-left: 8px;
+    width: fit-content;
+    height: fit-content;
 }
 
-.banner-container img {
-    max-width: 150px;
+.banner-container a {
+    color: white;
+    font-size: 42px;
+    text-decoration: none;
+    text-shadow: 2px 2px 4px #707070;
+    height: 48px;
+    padding: 0;
 }
 
 .user-container {
-    position: absolute;
-    right: 0;
-    margin-top: 18px;
-    margin-right: 10px;
+    float: right;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 14px;
+    margin-right: 8px;
 }
 
 .user-container button {
