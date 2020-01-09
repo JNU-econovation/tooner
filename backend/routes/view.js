@@ -32,7 +32,8 @@ module.exports = function(app) {
     // 한줄리뷰 목록 보기
     app.get('/shortreview', function(req,res) {
         let boardDBName = "board_shortreview";
-        getReviewList(boardDBName, res);
+        const query = "SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC";
+        getReviewList(boardDBName, query, res);
     })
 
     app.get('/shortreview/:articleId', function(req,res) {
@@ -42,8 +43,8 @@ module.exports = function(app) {
 
     // 상세리뷰 목록 보기
     app.get('/longreview', function(req,res) {
-        let boardDBName = "board_longreview";
-        getReviewList(boardDBName, res);
+        const query = "SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `reviewtitle`, `content` FROM ?? ORDER BY articleid DESC";
+        getReviewList(boardDBName, query, res);
     })
 
     app.get('/longreview/:articleId', function(req,res) {
@@ -74,8 +75,7 @@ module.exports = function(app) {
 
 };
 
-function getReviewList(boardDBName, res) {
-    const query = "SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `content` FROM ?? ORDER BY articleid DESC";
+function getReviewList(boardDBName, query, res) {
     connection.query(query, boardDBName, function (err, rows) {
         if (err) {
             console.log(err);
