@@ -15,7 +15,7 @@ module.exports = function(app) {
 
     // 게시판 쓰기
     app.post('/board/:boardName', function(req,res) {
-        const data = [boardName, 54, "테스트 유저", req.body.title, req.body.content];
+        const data = [req.params.boardName, 54, "테스트 유저", req.body.title, req.body.content];
         const sql = "INSERT INTO ?? (writerid, writeralias, title, content, writetime) VALUES (?,?,?,?,NOW())";
         connection.query(sql, data, function(err) {
             if(err) {
