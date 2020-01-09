@@ -13,6 +13,7 @@ module.exports = function(app) {
         function(err, rows) {
             if(err) {
                 console.log(err);
+                res.status(400);
                 res.json({message:"Fail"});
             }else {
                 res.json({message:"success"});
@@ -30,6 +31,7 @@ module.exports = function(app) {
         function(err, rows) {
             if(err) {
                 console.error(err);
+                res.status(400);
                 res.json({message:"Fail"});
             }else {
                 res.json({message:"success"});
