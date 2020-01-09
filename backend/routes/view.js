@@ -43,12 +43,13 @@ module.exports = function(app) {
 
     // 상세리뷰 목록 보기
     app.get('/longreview', function(req,res) {
+        let boardDBName = "board_longreview";
         const query = "SELECT `articleid`, `title`, `rating`, `preference`, `good`, `bad`, `image`, `reviewtitle`, `content` FROM ?? ORDER BY articleid DESC";
         getReviewList(boardDBName, query, res);
     })
 
     app.get('/longreview/:articleId', function(req,res) {
-        let boardDBName = "board_longreview";
+
         getReviewDetail(boardDBName, req.params.articleId, res);
     })
 
