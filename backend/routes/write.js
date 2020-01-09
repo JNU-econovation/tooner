@@ -12,6 +12,22 @@ module.exports = function(app) {
     app.post('/longreview', function(req,res) {
         writeReview(req, res, "board_longreview");
     })
+
+    // 게시판 쓰기
+    app.post('/board/:boardName', function(req,res) {
+        const data = [boardName, 54, "테스트 유저", req.body.title, req.body.content];
+        const sql = "INSERT INTO ?? (writerid, writeralias, title, content, writetime) VALUES (?,?,?,?,NOW())";
+        connection.query(sql, data, function(err) {
+            if(err) {
+                console.error(err);
+                res.status(400);
+                res.json({ message: "Fail" });
+            }
+            else {
+                res.json({ message: "success" });
+            }
+        });
+    });
 };
 
 function writeReview(req, res, boardName) {
