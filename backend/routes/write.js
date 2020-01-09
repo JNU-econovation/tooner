@@ -23,7 +23,7 @@ function writeReview(req, res, boardName) {
     if (req.body.image != null)
         var image = req.body.image.join(":");
     var data = [boardName, 54, "테스트 유저", req.body.title, req.body.rating, req.body.preference, good, bad, image, req.body.content];
-    connection.query("INSERT INTO ?? (title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,NOW())", data, function (err, rows) {
+    connection.query("INSERT INTO ?? (writerid, writeralias, title, rating, preference, good, bad, image, content, writetime) VALUES (?,?,?,?,?,?,?,?,?,NOW())", data, function (err, rows) {
         if (err) {
             console.log(err);
             res.status(400);
