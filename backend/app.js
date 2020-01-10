@@ -14,12 +14,13 @@ const passport = require('passport');
 var dbconfig = require('./config/dbconfig');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var flash = require('connect-flash');
 
 
 const PORT = 2599;
 
 require('./config/passport')(passport, mysql, dbconfig);
+
+app.use('/uploads', express.static(__dirname + '/uploads'));
 
 app.use(cors());
 app.use(cookieParser());
@@ -43,8 +44,9 @@ app.use(passport.session());
 require('./routes/routes.js')(app, passport);
 require('./routes/view.js')(app);
 require('./routes/write.js')(app);
-//require('./routes/controller.js')(app, passport);
+require('./routes/upload.js')(app);
 
 app.listen(PORT, function() {
     console.log("Tooner Beta\n==============================================\nTooner Since 2019! Server is on at port "+PORT+"......\n==============================================");
 })
+
