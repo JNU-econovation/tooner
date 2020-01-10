@@ -56,14 +56,14 @@ module.exports = function(app) {
 
     app.get('/board/:boardName/:articleId', function(req,res) {
         let data = ["board_"+req.params.boardName, req.params.articleId];
-        connection.query("SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC", data, 
-        function(err, rows) {
+        connection.query("SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC", data, function(err, rows) {
             if(err) {
                 console.error(err);
                 res.json({message:"Fail"});
             }
             else {
                 if(rows.length) {
+                    addHit("board_"+req.params.boardName, req.params.articleId, res);
                     res.json({message:"Success", data:rows[0]});
                 }
                 else {
@@ -73,7 +73,6 @@ module.exports = function(app) {
             }
         });
     })
-
 };
 
 function getReviewList(boardDBName, query, res) {
@@ -98,7 +97,7 @@ function getReviewList(boardDBName, query, res) {
 
 function getReviewDetail(boardDBName, articleId, res) {
     const query = "SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC";
-    const data = [boardDBName, articleId]
+    const data = [boardDBName, articleId];
     connection.query(query, data, function (err, rows) {
         if (err) {
             console.log(err);
@@ -114,6 +113,24 @@ function getReviewDetail(boardDBName, articleId, res) {
                     e.image = e.image.split(':')[0];
             });
             res.json({ message: "Success", data: rows[0] });
+        }
+    });
+}
+
+function addHit(boardDBName, articleId, res) {
+    const query = "SELECT `hit` FROM ?? WHERE articleid=?";
+    const data = [boardDBName, articleId];
+    connection.query(query, data, function (err, rows) {
+        if (err) {
+            console.log(err);
+        } else {
+            var hit = rows[0].hit;
+            console.log(hit);
+            connection.query("UPDATE ?? SET `hit` = ? WHERE `articleid` = ?", [boardDBName, hit+1, articleId], function (err, rows) {
+                if (err) {
+                    console.log(err);
+                } 
+            });
         }
     });
 }
