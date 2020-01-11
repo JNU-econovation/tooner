@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Main from './Main/Main';
 import Header from './Header/Header';
@@ -12,6 +12,7 @@ import ShortReview from './Review/ShortReview/ShortReview';
 import LongReview from './Review/LongReview/LongReview';
 import WriteReviewPage from './Review/WriteReviewPage/WriteReviewPage';
 import WebtoonPage from './Board/Webtoon/WebtoonPage';
+import ThreadPage from './Thread/ThreadPage';
 
 export default () => (
     <Router>
@@ -28,6 +29,7 @@ export default () => (
             <Route path='/review/long' component={LongReview} />
             <Route path='/review' component={ShortReview} />
             <Route path='/board/webtoon' component={WebtoonPage} />
+            <Route path='/thread' component={ThreadPage} />
             <Route exact path='/' component={Main} />
             {/*<Route component={NotFound} />*/}
         </Switch>
