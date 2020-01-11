@@ -1,0 +1,21 @@
+.rating-wrap {
+    width: fit-content;
+    height: fit-content;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.rating-wrap input[type=radio] {
+    display: none;
+}
+
+.rating-wrap i {
+    padding: 0 1px;
+    color: #BEBEBE;
+    cursor: pointer;
+}
+
+.rating-wrap > i:hover:before,
+.rating-wrap > i:hover ~ i:before {
+    color: orange;
+}

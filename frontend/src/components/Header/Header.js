@@ -18,14 +18,14 @@ function Header() {
           <Link to="/review/long">
             <button>상세 리뷰</button>
           </Link>
-          <Link to="/">
+          {/*<Link to="/">
             <button>인기글</button>
-          </Link>
+          </Link>*/}
           <Link to="/board/webtoon">
             <button>웹툰이야기</button>
           </Link>
-          <Link to="/question">
-            <button>질문게시판</button>
+          <Link to="/thread">
+            <button>스레드</button>
           </Link>
           <Link to="/login">
               <button className="login">로그인</button>

@@ -36,3 +36,7 @@
     border: none;
     font-size: 14px;
 }
+
+#message {
+    margin: 0;
+}

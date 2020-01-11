@@ -4,13 +4,21 @@ import './Review.css';
 
 function Review({ articleid, title, rating, preference, good, bad, image, content }) {
     if(image != null) image = "http://168.131.30.129:2599" + image;
-    if(bad[0] === "") bad[0] = "없음";
+    if(bad === null) bad = [];
+    if(good === null) good = [];
+    //if(bad[0] === "") bad[0] = "없음";
+    var mark = "○";
+    if(preference === 1) {
+        mark = "△";
+    } else if(preference === 2) {
+        mark = "×";
+    }
     return (
         <div className="review-box">
             <div className="review-data">
                 <ul>제목</ul><li>{title}</li>
                 <ul>별점</ul><li>{rating}</li>
-                <ul>취향</ul><li>{preference}</li>
+                <ul>취향</ul><li>{mark}</li>
                 <ul>좋았던 점</ul>
                     {good.map((
                         good_point,

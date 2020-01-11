@@ -1,8 +1,8 @@
-input {
+.middle-header input {
     vertical-align: middle;
 }
 
-input::placeholder {
+.middle-header input::placeholder {
     color: #BFBFBF;
 }
 
