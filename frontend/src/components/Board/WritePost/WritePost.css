@@ -8,12 +8,28 @@
     width: 100%;
 }
 
+#post-title {
+    height: 36px;
+}
+
 #post-title label {
     width: 5%;
+    float: left;
+    text-align: center;
+    padding-top: 6px;
+    height: 30px;
 }
 
 #post-title input{
-    width: 95%;
+    width: 98%;
+    padding: 4px 1%;
+    float: left;
+    height: 24px;
+    border-width: 1px;
+    border-color:#BFBFBF;
+    border-left: 0;
+    border-top: 0;
+    border-right: 0;
 }
 
 .write-post-container textarea {
@@ -22,10 +38,16 @@
     height: 300px;
     padding: 1%;
     resize: none;
+    border-radius: 2px;
+    border-color: #BFBFBF;
 
     /* font style */
     font-family: inherit;
     font-size: 14px;
+}
+
+.write-post-container textarea::placeholder {
+    color: #BEBEBE;
 }
 
 #button-container {
@@ -34,4 +56,12 @@
 
 #submit-post {
     float: right;
+}
+
+#message {
+    padding: 8px 0;
+}
+
+#title {
+    
 }
