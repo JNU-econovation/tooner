@@ -5,7 +5,7 @@ import './Main.css'
 function Slide(props) {
     return (
         <div className="slide-container">
-            슬라이드
+            <img src="../../../prototype/main.PNG" />
         </div>
     );
 }

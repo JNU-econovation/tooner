@@ -8,6 +8,7 @@ import WritePost from '../WritePost/WritePost';
 import './WebtoonPage.css'
 
 function WebtoonPage({ match }) {
+    var url = "http://168.131.30.129:2599/board/webtoon";
     return(
         <div className="page-container">
             <div className="title-container">
@@ -15,7 +16,7 @@ function WebtoonPage({ match }) {
             </div>
             <Route exact path={match.path}>
                 <Sort />
-                <Board json="http://168.131.30.129:2599/getBoard/webtoon" />
+                <Board json={url} />
                 <div id="button-container">
                     <Link to={`${match.path}/write`}>
                         <button>글쓰기</button>
@@ -24,10 +25,10 @@ function WebtoonPage({ match }) {
             </Route>
             <Switch>
                 <Route path={`${match.path}/write`}>
-                    <WritePost json="http://168.131.30.129:2599/getBoard/webtoon" />
+                    <WritePost json={url} />
                 </Route>
                 <Route path={`${match.path}/:articleid`}>
-                    <PostPage json="http://168.131.30.129:2599/getBoard/webtoon" />
+                    <PostPage json={url} />
                 </Route>
             </Switch>
         </div>

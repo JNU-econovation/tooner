@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import './Post.css';
 
 function Post({ writeralias, title, content, writetime, edittime, hit, like, dislike }) {
     var isEdited = edittime == null ? false : true;
+    const clickLike = () => {
+        console.log('clickLike');
+    }
     return(
         <div className="post-container">
             <div id="title-wrap">
