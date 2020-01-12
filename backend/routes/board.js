@@ -30,8 +30,8 @@ module.exports = function(app) {
         });
     });
 
-    app.get('/board/:boardName/:articleId', function(req,res) {
-        let data = ["board_"+req.params.boardName, req.params.articleId];
+    app.get('/board/webtoon/:articleId', function(req,res) {
+        let data = ["board_webtoon", req.params.articleId];
         connection.query("SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC", data, function(err, rows) {
             if(err) {
                 console.error(err);
@@ -39,7 +39,7 @@ module.exports = function(app) {
             }
             else {
                 if(rows.length) {
-                    addHit("board_"+req.params.boardName, req.params.articleId, res);
+                    addHit(WebtoonBoard, req.params.articleId, res);
                     res.json({message:"Success", data:rows[0]});
                 }
                 else {
@@ -71,20 +71,18 @@ function getBoard(res, Board, limit, page) {
     });
 }
 
-function addHit(boardDBName, articleId, res) {
-    const query = "SELECT `hit` FROM ?? WHERE articleid=?";
-    const data = [boardDBName, articleId];
-    connection.query(query, data, function (err, rows) {
-        if (err) {
-            console.log(err);
-        } else {
-            var hit = rows[0].hit;
-            console.log(hit);
-            connection.query("UPDATE ?? SET `hit` = ? WHERE `articleid` = ?", [boardDBName, hit+1, articleId], function (err, rows) {
-                if (err) {
-                    console.log(err);
-                } 
-            });
-        }
+function addHit(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['hit']
+    }).then (hit => {
+        Board.update({
+            hit: (hit.dataValues.hit)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
     });
 }
