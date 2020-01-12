@@ -6,8 +6,8 @@ const jwt = require('jsonwebtoken');
 module.exports = function(app, passport) {
 
     // 로그인 여부 테스트
-    app.get ('/', isLoggedIn, function (req, res) {
-        res.json({data: "로그인 됨!"});
+    app.get ('/auth', isLoggedIn, function (req, res) {
+        res.json({message: "Success", data: "로그인 됨!"});
     });
    
     // 로그인하기
