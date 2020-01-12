@@ -1,9 +1,0 @@
-{
-    "database": {
-        "username": "tooner",
-        "password": "ecnv2019",
-        "database": "tooner",
-        "host": "168.131.30.129",
-        "dialect": "mysql"
-    }
-}
