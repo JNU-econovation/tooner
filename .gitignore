@@ -62,4 +62,7 @@ typings/
 
 # for security reasons
 dbconfig.js
-secret.js
+secretkey.js
+
+uploads/
+config/
