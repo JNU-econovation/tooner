@@ -20,14 +20,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(50),
       allowNull: false
     },
-    writetime: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    edittime: {
-      type: DataTypes.DATE,
-      allowNull: true
-    },
     content: {
       type: DataTypes.TEXT,
       allowNull: false
@@ -48,6 +40,8 @@ module.exports = function(sequelize, DataTypes) {
       defaultValue: '0'
     }
   }, {
+    createdAt: 'writetime',
+    updatedAt: 'edittime',
     tableName: 'board_webtoon'
   });
 };

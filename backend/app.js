@@ -5,7 +5,6 @@
  */
 
 const express = require('express');
-const app = express();
 var cors = require('cors');
 const morgan = require('morgan');
 var mysql = require('mysql');
@@ -14,6 +13,9 @@ var dbconfig = require('./config/dbconfig');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var sequelize = require('./models').sequelize;
+
+const app = express();
 
 const PORT = 2599;
 
@@ -32,12 +34,18 @@ app.use(passport.initialize());
 
 // 라우터 불러오기
 require('./routes/routes.js')(app, passport);
-require('./routes/view.js')(app);
-require('./routes/write.js')(app);
+require('./routes/board.js')(app);
+require('./routes/review.js')(app);
 require('./routes/upload.js')(app);
+require('./routes/test.js');
 app.use(function(err,req,res,next) {
     res.status(500).json({Status: Error, Data: err});
 });
+app.get ('*', function (req, res) {
+    res.status(404).json({message: "Not Found"});
+});
+
+sequelize.sync();
 
 app.listen(PORT, function() {
     console.log("Tooner Beta\n==============================================\nTooner Since 2019! Server is on at port "+PORT+"......\n==============================================");

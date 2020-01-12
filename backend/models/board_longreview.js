@@ -57,6 +57,8 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: true
     }
   }, {
+    createdAt: 'writetime',
+    updatedAt: 'edittime',
     tableName: 'board_longreview'
   });
 };
