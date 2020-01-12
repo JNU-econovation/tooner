@@ -5,7 +5,7 @@ import {Link} from 'react-router-dom';
 
 function HotPost(props) {
     return (
-        <div className="hotPost inline">
+        <div className="hotPost">
             <span>
                 <mark id="hotpost__type">{props.type}</mark>
                 &nbsp;&nbsp;&nbsp;{props.title}
@@ -28,7 +28,7 @@ function Search(props) {
 
 function MiddleHeader(props) {
     return (
-        <div className="middle_header">
+        <div className="middle-header">
             <HotPost type="hot!!" title="너무너무 귀여운 힐링툰 [롤랑롤랑]" />
             <Search today="가담항설" btnImageUrl="icon/search.png" />
         </div>

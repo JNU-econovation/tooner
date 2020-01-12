@@ -4,7 +4,7 @@
     font-size: 20px;
 }
 
-.write-review-container span {
+#write-title span {
     font-size: inherit;
     text-decoration: underline;
     color: #707070;

@@ -13,7 +13,6 @@ class Board extends React.Component {
         axios.get(this.props.json).then(
             res => {
                 const posts = res.data.data;
-                console.log(posts);
                 this.setState({ posts, isLoading: false });
             }
         )
