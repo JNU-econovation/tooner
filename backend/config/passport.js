@@ -60,7 +60,6 @@ module.exports = function(passport) {
         new JsonStrategy({
             usernameProp : 'username',
             passwordProp : 'password',
-            session : true,
             passReqToCallback: true
         },
         function(req, username, password, done) {

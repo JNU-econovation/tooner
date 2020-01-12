@@ -3,7 +3,7 @@ var multerconfig = require('../config/multer');
 const upload = multer(multerconfig);
 
 module.exports = function(app) {
-    app.post('/photoupload', upload.array('image'), function(req,res) {
+    app.post('/upload/image', upload.array('image'), function(req,res) {
         console.log(req.files);
         let files = [];
         req.files.forEach(file => files.push(file.filename));

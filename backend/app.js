@@ -5,7 +5,6 @@
  */
 
 const express = require('express');
-var session = require('express-session');
 const app = express();
 var cors = require('cors');
 const morgan = require('morgan');
@@ -26,19 +25,10 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
 
-
-// TODO: 보안 향상을 위해 secret 바꾸기
-app.use(session({
-    secret: 'justasecret',
-    resave: true,
-    saveUninitialized: true
-   }));
-
 // 로깅 모듈 
 app.use(morgan('combined'));
 
 app.use(passport.initialize());
-app.use(passport.session());
 
 // 라우터 불러오기
 require('./routes/routes.js')(app, passport);
