@@ -6,7 +6,7 @@ module.exports = function(app) {
     app.post('/upload/image', upload.single('file'), function(req,res) {
         console.log(req.file);
         if(!req.file) throw("파일이 없습니다.");
-        res.json({ message: "success", data: req.file.filename});
+        res.json({ message: "success", data: [req.file.filename]});
     });
 };
 
