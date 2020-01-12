@@ -36,7 +36,7 @@ require('./routes/view.js')(app);
 require('./routes/write.js')(app);
 require('./routes/upload.js')(app);
 app.use(function(err,req,res,next) {
-    res.json({Status: Error, Data: err});
+    res.status(500).json({Status: Error, Data: err});
 });
 
 app.listen(PORT, function() {
