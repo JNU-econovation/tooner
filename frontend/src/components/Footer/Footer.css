@@ -4,8 +4,9 @@
 }
 
 footer {
+    width: 100%;
     text-align: center;
-    margin-top: 20px;
+    padding-top: 40px;
 }
 footer span {
     font-size: 10px;
