@@ -11,6 +11,7 @@ var multerConfig = {
         }
     }),
     fileFilter: function(req, file, cb) {
+        console.log(file);
         if (file.mimetype != "image/jpeg" && file.mimetype != "image/jpg" && file.mimetype != "image/png") {
             return cb(new Error("이미지만 업로드 가능합니다."));
         };

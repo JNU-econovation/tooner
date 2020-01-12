@@ -3,12 +3,10 @@ var multerconfig = require('../config/multer');
 const upload = multer(multerconfig);
 
 module.exports = function(app) {
-    app.post('/upload/image', upload.array('image'), function(req,res) {
-        console.log(req.files);
-        if(!req.files) throw("파일이 없습니다.");
-        let files = [];
-        req.files.forEach(file => files.push(file.filename));
-        res.json({ message: "success", data: files});
+    app.post('/upload/image', upload.single('file'), function(req,res) {
+        console.log(req.file);
+        if(!req.file) throw("파일이 없습니다.");
+        res.json({ message: "success", data: req.file.filename});
     });
 };
 
