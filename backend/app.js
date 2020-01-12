@@ -45,6 +45,9 @@ require('./routes/routes.js')(app, passport);
 require('./routes/view.js')(app);
 require('./routes/write.js')(app);
 require('./routes/upload.js')(app);
+app.use(function(err,req,res,next) {
+    res.json({Status: Error, Data: err});
+});
 
 app.listen(PORT, function() {
     console.log("Tooner Beta\n==============================================\nTooner Since 2019! Server is on at port "+PORT+"......\n==============================================");

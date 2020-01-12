@@ -26,6 +26,7 @@
     "mysql": "^2.17.1",
     "passport": "^0.4.0",
     "passport-json": "^1.2.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "sequelize": "^5.21.3"
   }
 }

@@ -1,6 +1,7 @@
 const dbconfig = require('../config/dbconfig');
 var mysql = require('mysql');
 var connection = mysql.createConnection(dbconfig.connection);
+const jwt = require('jsonwebtoken');
 
 module.exports = function(app, passport) {
 
@@ -12,7 +13,7 @@ module.exports = function(app, passport) {
     // 로그인하기
     app.post('/login', passport.authenticate('local-login', {failWithError: true}),
         (req, res) => {
-            res.json({message:"Success", username: req.user.username});
+            res.json({message:"Success", username: req.user.username, token:req.user.token});
         },
         function (err, req, res, next) {
             res.json({message:"Fail"});
@@ -47,9 +48,12 @@ module.exports = function(app, passport) {
 };
 
 function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()) {
-        console.log("auth success");
+    try{
+        req.user = jwt.verify(req.headers.authtoken, require("../config/secretkey.js"));
+        //console.log(req.user);
         return next();
+    }catch(e) {
+        next(e);
     }
-    res.json({message:"Login needed"});
 };
+

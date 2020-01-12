@@ -1,5 +1,6 @@
 const dbconfig = require('../config/dbconfig');
 var mysql = require('mysql');
+const Sequelize = require('sequelize');
 var connection = mysql.createConnection(dbconfig.connection);
 
 module.exports = function(app) {

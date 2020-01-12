@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt-nodejs');
 const saltRounds = 10;
 const dbconfig = require('./dbconfig');
 var connection = mysql.createConnection(dbconfig.connection);
+const jwt = require('jsonwebtoken');
 
 module.exports = function(passport) {
     passport.serializeUser(function(user, done) {
@@ -12,7 +13,14 @@ module.exports = function(passport) {
     });
 
     passport.deserializeUser(function(user, done) {
-        done(null, user);
+        try {
+            const sql = "SELECT user_no, username FROM users WHERE user_no=?";
+            connection.query(sql, user.id, function(err, rows) {
+                done(null, rows[0]);
+            })
+        } catch (e) {
+            done(e);
+        }
     });
 
     passport.use (
@@ -65,7 +73,16 @@ module.exports = function(passport) {
                 if(!rows.length || !bcrypt.compareSync(password, rows[0].password)) {
                     return done(null, false);
                 }
-                return done(null, rows[0]);
+                const tokenPayload = {
+                    userid : rows[0].user_no,
+                    username : rows[0].username,
+                }
+                const token = jwt.sign(tokenPayload, require("./secretkey.js"));
+                const payload = {
+                    id: rows[0].user_no,
+                    token : token,
+                }
+                return done(null, payload);
             });
         })
     );
