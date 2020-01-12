@@ -26,7 +26,7 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 // 로깅 모듈 
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 
 app.use(passport.initialize());
 
