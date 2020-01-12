@@ -10,7 +10,6 @@ import Signup from './Signup';
 import MyPage from './User/MyPage/MyPage';
 import ShortReview from './Review/ShortReview/ShortReview';
 import LongReview from './Review/LongReview/LongReview';
-import WriteReviewPage from './Review/WriteReviewPage/WriteReviewPage';
 import WebtoonPage from './Board/Webtoon/WebtoonPage';
 import ThreadPage from './Thread/ThreadPage';
 
@@ -25,7 +24,6 @@ export default () => (
         </Switch>
         <Switch>
             <Route path='/review/short' component={ShortReview} />
-            <Route path='/review/long/write' component={WriteReviewPage} />
             <Route path='/review/long' component={LongReview} />
             <Route path='/review' component={ShortReview} />
             <Route path='/board/webtoon' component={WebtoonPage} />
