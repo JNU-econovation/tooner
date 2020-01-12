@@ -1,7 +1,7 @@
 /**
  * tooner api server
  * (c) 2019-2020 정회형 
- * https://hotheadfactory.com
+ * https://hotheadfactory.com / h2f.kr
  */
 
 const express = require('express');
