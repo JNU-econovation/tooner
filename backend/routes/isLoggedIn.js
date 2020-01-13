@@ -2,6 +2,7 @@ const jwt = require('jsonwebtoken');
 function isLoggedIn(req, res, next) {
     try {
         req.user = jwt.verify(req.headers.authtoken, require("../config/secretkey.js"));
+        console.log(req.headers);
         return next();
     }
     catch (e) {
