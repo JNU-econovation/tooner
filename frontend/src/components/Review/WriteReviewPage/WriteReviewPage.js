@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form';
 import './WriteReviewPage.css';
 import axios from 'axios';
 
+import { AuthContext } from '../../Context/AuthProvider';
+
 // isGood isBad 초기화됨
 // setisGood 따로 만들고 집어넣을까
 
@@ -32,10 +34,13 @@ function WriteReviewPage(props) {
     var isGood = new Array(prefList.length).fill(false);
     var isBad = new Array(prefList.length).fill(false);
 
+    const { state } = React.useContext(AuthContext);
+
     const { handleSubmit } = useForm();
     const history = useHistory();
 
     const [title, setTitle] = useState('');
+    const [reviewtitle, setReviewTitle] = useState('');
     const [rating, setRating] = useState(-1);
     const [preference, setPref] = useState(-1);
     const [content, setContent] = useState('');
@@ -48,6 +53,9 @@ function WriteReviewPage(props) {
     
     const onChangeTitle = e => {
         setTitle(e.target.value);
+    }
+    const onChangeReviewTitle = e => {
+        setReviewTitle(e.target.value);
     }
     const onChangeGood = e => {
         isGood[e.target.name] = !isGood[e.target.name];
@@ -97,6 +105,7 @@ function WriteReviewPage(props) {
 
         const formData = new FormData();
         formData.append('file', file)
+
         // post files
         axios.post(img_json, formData, {
             header: {
@@ -105,12 +114,13 @@ function WriteReviewPage(props) {
         })
         .then(res => {
             console.log(res);
-            if(title !== '' && rating !== -1 && preference !== -1) {
+            if(title !== '' && reviewtitle !=='' && rating !== -1 && preference !== -1) {
                 setEmpty(false);
                 console.log({ good, bad })
     
                 const data = {
                     title: title,
+                    reviewtitle: reviewtitle,
                     rating: rating,
                     preference: preference,
                     good: good,
@@ -119,8 +129,12 @@ function WriteReviewPage(props) {
                     content: content
                 }
                 console.log(data);
-    
-                axios.post(json, data)
+                let config = {
+                    headers: {
+                        'authtoken': state.token
+                    }
+                }
+                axios.post(json, data, config)
                 .then(res => {
                     console.log(res);
                     setStatus(res.status);
@@ -148,6 +162,10 @@ function WriteReviewPage(props) {
             <div className="search-title search-margin">
                 <p>리뷰할 웹툰을 선택해주세요.</p>
                 <input type="text" name="title" onChange={onChangeTitle} />
+            </div>
+            <div className="search-title search-margin">
+                <p>리뷰 제목을 입력해주세요.</p>
+                <input type="text" name="reviewtitle" onChange={onChangeReviewTitle} />
             </div>
             <div className="search-rating search-margin">
                 <p>이 웹툰을 평가해주세요.</p>
