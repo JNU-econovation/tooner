@@ -5,39 +5,71 @@ import { useForm } from 'react-hook-form';
 import './WriteReviewPage.css';
 import axios from 'axios';
 
+// isGood isBad 초기화됨
+// setisGood 따로 만들고 집어넣을까
+
+function ImagePreview({ file }) {
+    const [previewUrl, setPreviewUrl] = useState('');
+    const reader = new FileReader();
+
+    if(file) {
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewUrl(reader.result);
+        };
+        return(
+            <img src={previewUrl} id="preview" />
+        )
+    } else {
+        return null;
+    }
+}
+
 function WriteReviewPage(props) {
     var json = props.json;
+    var img_json = "http://168.131.30.129:2599/upload/image";
     var prefList = ['스토리', '캐릭터', '작화', '연출'];
     var isGood = new Array(prefList.length).fill(false);
-    var isBad = new Array(prefList.lenght).fill(false);
-    var data = {
-        title: '',
-        rating: -1,
-        preference: -1,
-        good: [],
-        bad: [],
-        content: ''
-    }
+    var isBad = new Array(prefList.length).fill(false);
+
     const { handleSubmit } = useForm();
     const history = useHistory();
 
+    const [title, setTitle] = useState('');
+    const [rating, setRating] = useState(-1);
+    const [preference, setPref] = useState(-1);
+    const [content, setContent] = useState('');
+    const [stateGood, setGood] = useState([]);
+    const [stateBad, setBad] = useState([]);
+
+    const [file, setFile] = useState();
     const [status, setStatus] = useState(200);
     const [empty, setEmpty] = useState(false);
     
-    const onChange = e => {
-        data[e.target.name] = e.target.value;
+    const onChangeTitle = e => {
+        setTitle(e.target.value);
     }
     const onChangeGood = e => {
         isGood[e.target.name] = !isGood[e.target.name];
+        setGood(isGood);
     }
     const onChangeBad = e => {
         isBad[e.target.name] = !isBad[e.target.name];
+        setBad(isBad);
     }
     const onChangeRating = rating => {
-        data.rating = rating;
+        setRating(rating);
     }
     const onChangePref = e => {
-        data.preference = parseInt(e.target.value);
+        setPref(parseInt(e.target.value));
+    }
+
+    const onChangeContent = e => {
+        setContent(e.target.value);
+    }
+
+    const onChangeFile = e => {
+        setFile(e.target.files[0]);
     }
 
     const prefGoodElement = [], prefBadElement = [];
@@ -55,25 +87,53 @@ function WriteReviewPage(props) {
     }
 
     const onSubmit = () => {
-        if(data.title !== '' && data.rating !== -1 && data.preference !== -1) {
-            setEmpty(false)
-            for(let i=0; i<prefList.length; i++) {
-                isGood[i] && data.good.push(prefList[i]);
-                isBad[i] && data.bad.push(prefList[i]);
-            }
-            console.log(data);
-            console.log(json);
-            axios.post(json, data)
-            .then(res => {
-                console.log(res);
-                setStatus(res.status);
-                if(status === 200) history.goBack();
-            }).catch(err => {
-                setStatus(401);
-            });
-        } else {
-            setEmpty(true);
+        var good = [], bad = [];
+        for(let i=0; i<prefList.length; i++) {
+            stateGood[i] && good.push(prefList[i]);
+            stateBad[i] && bad.push(prefList[i]);
         }
+
+        console.log({ good, bad});
+
+        const formData = new FormData();
+        formData.append('file', file)
+        // post files
+        axios.post(img_json, formData, {
+            header: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
+        .then(res => {
+            console.log(res);
+            if(title !== '' && rating !== -1 && preference !== -1) {
+                setEmpty(false);
+                console.log({ good, bad })
+    
+                const data = {
+                    title: title,
+                    rating: rating,
+                    preference: preference,
+                    good: good,
+                    bad: bad,
+                    image: res.data.data,
+                    content: content
+                }
+                console.log(data);
+    
+                axios.post(json, data)
+                .then(res => {
+                    console.log(res);
+                    setStatus(res.status);
+                    if(status === 200) history.goBack();
+                }).catch(err => { 
+                    setStatus(401);
+                });
+            } else {
+                setEmpty(true);
+            }
+        }).catch(err => {
+            setStatus(401);
+        })
     };
 
     return(
@@ -87,7 +147,7 @@ function WriteReviewPage(props) {
             }
             <div className="search-title search-margin">
                 <p>리뷰할 웹툰을 선택해주세요.</p>
-                <input type="text" name="title" onChange={onChange} />
+                <input type="text" name="title" onChange={onChangeTitle} />
             </div>
             <div className="search-rating search-margin">
                 <p>이 웹툰을 평가해주세요.</p>
@@ -121,9 +181,15 @@ function WriteReviewPage(props) {
                     null
                 )
             }
-            <textarea name="content" id="content" onChange={onChange} />
+            <div id="uploader-wrap">
+                <label htmlFor="uploader">이미지 올리기</label>
+                <input type="file" name="image" id="uploader" onChange={onChangeFile} />
+            </div>
+            <ImagePreview file={file} />
+            <textarea name="content" id="content" onChange={onChangeContent}>
+            </textarea>
             <div id="submit-wrap">
-                <button type="submit" id="submit">올리기</button>
+                <button type="submit" id="submit">등록</button>
             </div>
         </form>
     );
