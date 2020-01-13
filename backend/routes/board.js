@@ -15,45 +15,38 @@ module.exports = function(app) {
     })
 
     // 게시판 쓰기
-    app.post('/board/:boardName', function(req,res) {
-        const data = ["board_"+req.params.boardName, 54, "테스트 유저", req.body.title, req.body.content];
-        const sql = "INSERT INTO ?? (writerid, writeralias, title, content, writetime) VALUES (?,?,?,?,NOW())";
-        connection.query(sql, data, function(err) {
-            if(err) {
-                console.error(err);
-                res.status(400);
-                res.json({ message: "Fail" });
-            }
-            else {
-                res.json({ message: "success" });
-            }
+    app.post('/board/webtoon', isLoggedIn, function(req,res) {
+        WebtoonBoard.create({
+            writerid: req.user.user_no,
+            writeralias: req.user.useralias,
+            title: req.body.title,
+            content: req.body.content
+        }).then(board => {
+            res.json({ message: "success", articleid:board.articleid});
         });
     });
 
     app.get('/board/webtoon/:articleId', function(req,res) {
-        let data = ["board_webtoon", req.params.articleId];
-        connection.query("SELECT * FROM ?? WHERE articleid=? ORDER BY articleid DESC", data, function(err, rows) {
-            if(err) {
-                console.error(err);
-                res.json({message:"Fail"});
-            }
-            else {
-                if(rows.length) {
-                    addHit(WebtoonBoard, req.params.articleId, res);
-                    res.json({message:"Success", data:rows[0]});
-                }
-                else {
-                    res.status(404);
-                    res.json({message:"Not Found"});
-                }
-            }
-        });
+        getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
 
     app.get('/board/*', function(req,res) {
         res.status(404).json({message:"게시판이 없습니다."});
     })
 };
+
+function getBoardArticle(res, Board, articleId) {
+    Board.findOne({
+        where: { articleid: articleId }
+    }).then(data => {
+        if (data == null) {
+            throw "없는 글 번호 입니다";
+        }
+        res.json({ message: "Success", data: data });
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
 
 function getBoard(res, Board, limit, page) {
     if(!page) page = 1;
