@@ -31,10 +31,10 @@ function SearchToon(props) {
         setPref(parseInt(e.target.value));
     }
     const onChangeGood = e => {
-        good[parseInt(e.target.name)] = !good[e.target.name];
+        good[e.target.name] = !good[e.target.name];
     }
     const onChangeBad = e => {
-        bad[parseInt(e.target.name)] = !bad[e.target.name];
+        bad[e.target.name] = !bad[e.target.name];
     }
     const handleClick = () => {
         if(title != '' && rating != -1 && preference != -1) {
@@ -45,10 +45,6 @@ function SearchToon(props) {
             setEmpty(true);
         }
     }
-    useEffect(() => {
-        //console.log(data);
-    }, [])
-
     // preference Element
     const prefGoodElement = [], prefBadElement = [];
     for(let i=0; i<prefList.length; i++) {
