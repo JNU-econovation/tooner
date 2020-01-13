@@ -5,6 +5,12 @@ import './Post.css';
 
 function Post({ writeralias, title, content, writetime, edittime, hit, like, dislike }) {
     var isEdited = edittime == null ? false : true;
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; // Jan = 0
+    var yyyy = today.getFullYear();
+    today = yyyy + '-' + mm + '-' + dd;
+    writetime = today > writetime ? writetime.slice(12,16) : writetime.slice(0, 10);
     const clickLike = () => {
         console.log('clickLike');
     }
