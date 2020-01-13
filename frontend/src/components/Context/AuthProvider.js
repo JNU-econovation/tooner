@@ -12,7 +12,7 @@ const reducer = (state, action) => {
     switch(action.type) {
         case 'login':
             const token = action.payload.token;
-            localStorage.setItem('token', JSON.stringify(token));
+            localStorage.setItem('token', token);
             return {
                 ...state,
                 logged: true,
