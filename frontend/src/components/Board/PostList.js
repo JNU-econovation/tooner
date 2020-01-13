@@ -10,6 +10,7 @@ function PostList({ articleid, writeralias, title, writetime, edittime, hit, lik
     var yyyy = today.getFullYear();
     today = mm + '-' + dd + '-' + yyyy;
     writetime = today > writetime ? writetime.slice(12,16) : writetime.slice(0, 10);
+    if(title.length > 48) title = title.slice(0,48);
     return(
         <div className="post-list">
             {/*<div className="post-id">
