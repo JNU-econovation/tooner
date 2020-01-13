@@ -1,6 +1,3 @@
-const dbconfig = require('../config/dbconfig');
-var mysql = require('mysql');
-var connection = mysql.createConnection(dbconfig.connection);
 const { isLoggedIn } = require("./isLoggedIn");
 var { WebtoonBoard } = require('../models');
 
