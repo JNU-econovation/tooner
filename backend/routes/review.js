@@ -2,7 +2,6 @@ const { isLoggedIn } = require("./isLoggedIn");
 var { ShortReview, LongReview } = require('../models');
 
 module.exports = function(app) {
-
     // 한줄리뷰 목록 보기
     app.get('/shortreview', function(req,res) {
         getReviewList(res, ShortReview, ['articleid', 'title', 'rating', 'preference', 'good', 'bad', 'image', 'content'], 20, req.query.page);
