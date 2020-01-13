@@ -7,29 +7,21 @@
 const express = require('express');
 var cors = require('cors');
 const morgan = require('morgan');
-var mysql = require('mysql');
 const passport = require('passport');
-var dbconfig = require('./config/dbconfig');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var sequelize = require('./models').sequelize;
 
 const app = express();
-
 const PORT = 2599;
 
-require('./config/passport')(passport, mysql, dbconfig);
+require('./config/passport')(passport);
 
 app.use('/uploads', express.static(__dirname + '/uploads'));
-
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-// 로깅 모듈 
 app.use(morgan('dev'));
-
 app.use(passport.initialize());
 
 // 라우터 불러오기
