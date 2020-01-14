@@ -23,10 +23,10 @@ module.exports = function(app) {
         });
     });
 
-    app.put('/board/webtoon', isLoggedIn, function(req,res) {
+    app.put('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
         console.log(req.user);
         WebtoonBoard.findOne({
-            where: {articleid:req.body.articleid},
+            where: {articleid:req.params.articleId},
             attributes: ['writerid']
         }).then (article => {
             if(article.dataValues.writerid != req.user.user_no) {
@@ -37,7 +37,7 @@ module.exports = function(app) {
                     title: req.body.title,
                     content: req.body.content
                 }, {
-                    where: {articleid: req.body.articleid}
+                    where: {articleid: req.params.articleId}
                 }).then(board => {
                     res.json({ message: "success", articleid:board.articleid});
                 });
@@ -47,16 +47,16 @@ module.exports = function(app) {
         });
     });
 
-    app.delete('/board/webtoon', isLoggedIn, function(req,res) {
+    app.delete('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
         WebtoonBoard.findOne({
-            where: {articleid:req.body.articleid},
+            where: {articleid:req.params.articleId},
             attributes: ['writerid']
         }).then (article => {
             if(article.dataValues.writerid != req.user.user_no) {
                 res.status(403).json({message: "자신의 글이 아닙니다"});
             }else {
                 WebtoonBoard.destroy({
-                    where: {articleid:req.body.articleid}
+                    where: {articleid:req.params.articleId}
                 }).then (function() {
                     res.json({message:"Success"});
                 });
