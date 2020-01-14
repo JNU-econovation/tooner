@@ -20,14 +20,30 @@ module.exports = function(app) {
         getReviewDetail(LongReview, req.params.articleId, res);
     })
 
-    // 한줄리뷰 쓰기 (테스트)
+    // 한줄리뷰 쓰기
     app.post('/shortreview', isLoggedIn, function(req,res) {
         writeReview(req, res, ShortReview);
     })
 
-    // 상세리뷰 쓰기 (테스트)
+    // 상세리뷰 쓰기
     app.post('/longreview', isLoggedIn, function(req,res) {
         writeReview(req, res, LongReview);
+    })
+
+    app.put('/shortreview/:articleId', isLoggedIn, function(req,res) {
+        putReview(req, res, ShortReview);
+    })
+
+    app.put('/longreview/:articleId', isLoggedIn, function(req,res) {
+        putReview(req, res, LongReview);
+    })
+
+    app.delete('/shortreview/:articleId', isLoggedIn, function(req, res) {
+        deleteReview(req, res, ShortReview);
+    })
+
+    app.delete('/longreview/:articleId', isLoggedIn, function(req, res) {
+        deleteReview(req, res, LongReview);
     })
 };
 
@@ -68,6 +84,7 @@ function getReviewDetail(res, Review, articleId) {
             data.bad = data.bad.split(',');
         if (data.image != null)
             data.image = data.image.split(':')[0];
+        addHit(Review, articleId, res);
         res.json({ message: "Success", data: data });
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
@@ -99,4 +116,73 @@ function writeReview(req, res, Review) {
     });
 }
 
+function putReview(req, res, Review) {
+    Review.findOne({
+        where: { articleid: req.params.articleId },
+        attributes: ['writerid']
+    }).then(article => {
+        if (article.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        }
+        else {
+            if (req.body.good != null)
+                var good = req.body.good.join(",");
+            if (req.body.bad != null)
+                var bad = req.body.bad.join(",");
+            if (req.body.image != null)
+                var image = req.body.image.join(":");
+            Review.update({
+                title: req.body.title,
+                rating: req.body.rating,
+                preference: req.body.preference,
+                good: good,
+                bad: bad,
+                image: image,
+                reviewtitle: req.body.reviewtitle,
+                content: req.body.content
+            }, {
+                where: { articleid: req.params.articleId }
+            }).then(review => {
+                res.json({ message: "success", articleid: review.articleid });
+            });
+        }
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
 
+function deleteReview(req, res, Review) {
+    Review.findOne({
+        where: { articleid: req.params.articleId },
+        attributes: ['writerid']
+    }).then(article => {
+        if (article.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        }
+        else {
+            Review.destroy({
+                where: { articleid: req.params.articleId }
+            }).then(function () {
+                res.json({ message: "Success" });
+            });
+        }
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
+
+function addHit(Review, articleId, res) {
+    Review.findOne({
+        where: {articleid:articleId},
+        attributes: ['hit']
+    }).then (hit => {
+        Review.update({
+            hit: (hit.dataValues.hit)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}

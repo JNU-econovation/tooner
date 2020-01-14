@@ -29,6 +29,7 @@ require('./routes/login.js')(app, passport);
 require('./routes/board.js')(app);
 require('./routes/review.js')(app);
 require('./routes/upload.js')(app);
+require('./routes/userdb.js')(app);
 require('./routes/test.js');
 app.use(function(err,req,res,next) {
     res.status(500).json({Status: Error, Data: err});
