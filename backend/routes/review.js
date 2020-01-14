@@ -47,7 +47,11 @@ module.exports = function(app) {
     })
 
     app.post('/shortreview/like/:articleId', isLoggedIn, function(req,res) {
-        addLike(ShortReview, req.params.articleId, res);
+        if(checkLike("shortreview", req.params.articleId, req.user.user_no)) {
+            addLike(ShortReview, req.params.articleId, res);
+        }else {
+            res.status(400).json({status:"Fail", message:"이미 추천/비추천 하였습니다."});
+        }
     })
 
     app.post('/longreview/dislike/:articleId', isLoggedIn, function(req,res) {
@@ -193,6 +197,10 @@ function addHit(Review, articleId, res) {
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });
+}
+
+function checkLike(boardname, articleId, user_no) {
+    return true;
 }
 
 function addLike(Board, articleId, res) {
