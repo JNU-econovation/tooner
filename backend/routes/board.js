@@ -35,6 +35,14 @@ module.exports = function(app) {
         getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
 
+    app.post('/board/webtoon/like/:articleId', isLoggedIn, function(req,res) {
+        addLike(WebtoonBoard, req.params.articleId, res);
+    })
+
+    app.post('/board/webtoon/dislike/:articleId', isLoggedIn, function(req,res) {
+        addDislike(WebtoonBoard, req.params.articleId, res);
+    })
+
     // 404 처리
     app.get('/board/*', function(req,res) {
         res.status(404).json({message:"게시판이 없습니다."});
@@ -121,6 +129,38 @@ function addHit(Board, articleId, res) {
     }).then (hit => {
         Board.update({
             hit: (hit.dataValues.hit)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function addLike(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['like']
+    }).then (like => {
+        Board.update({
+            like: (like.dataValues.like)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function addDislike(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['dislike']
+    }).then (dislike => {
+        Board.update({
+            dislike: (dislike.dataValues.dislike)+1
         }, {
             where: {articleid: articleId},
             silent: true

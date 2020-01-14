@@ -45,6 +45,14 @@ module.exports = function(app) {
     app.delete('/longreview/:articleId', isLoggedIn, function(req, res) {
         deleteReview(req, res, LongReview);
     })
+
+    app.post('/shortreview/like/:articleId', isLoggedIn, function(req,res) {
+        addLike(ShortReview, req.params.articleId, res);
+    })
+
+    app.post('/longreview/dislike/:articleId', isLoggedIn, function(req,res) {
+        addDislike(LongReview, req.params.articleId, res);
+    })
 };
 
 function getReviewList(res, Review, attributes, limit, page) {
@@ -178,6 +186,38 @@ function addHit(Review, articleId, res) {
     }).then (hit => {
         Review.update({
             hit: (hit.dataValues.hit)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function addLike(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['like']
+    }).then (like => {
+        Board.update({
+            like: (like.dataValues.like)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function addDislike(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['dislike']
+    }).then (dislike => {
+        Board.update({
+            dislike: (dislike.dataValues.dislike)+1
         }, {
             where: {articleid: articleId},
             silent: true
