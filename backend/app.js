@@ -25,7 +25,7 @@ app.use(morgan('dev'));
 app.use(passport.initialize());
 
 // 라우터 불러오기
-require('./routes/routes.js')(app, passport);
+require('./routes/login.js')(app, passport);
 require('./routes/board.js')(app);
 require('./routes/review.js')(app);
 require('./routes/upload.js')(app);
