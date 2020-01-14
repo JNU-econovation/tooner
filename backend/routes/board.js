@@ -24,56 +24,65 @@ module.exports = function(app) {
     });
 
     app.put('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
-        console.log(req.user);
-        WebtoonBoard.findOne({
-            where: {articleid:req.params.articleId},
-            attributes: ['writerid']
-        }).then (article => {
-            if(article.dataValues.writerid != req.user.user_no) {
-                console.log("않됨");
-                res.status(403).json({message: "자신의 글이 아닙니다"});
-            }else {
-                WebtoonBoard.update({
-                    title: req.body.title,
-                    content: req.body.content
-                }, {
-                    where: {articleid: req.params.articleId}
-                }).then(board => {
-                    res.json({ message: "success", articleid:board.articleid});
-                });
-            }
-        }).catch(function(err) {
-            res.status(500).json({ message: "Fail", exception: err });
-        });
+        putArticle(req, res, WebtoonBoard);
     });
 
     app.delete('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
-        WebtoonBoard.findOne({
-            where: {articleid:req.params.articleId},
-            attributes: ['writerid']
-        }).then (article => {
-            if(article.dataValues.writerid != req.user.user_no) {
-                res.status(403).json({message: "자신의 글이 아닙니다"});
-            }else {
-                WebtoonBoard.destroy({
-                    where: {articleid:req.params.articleId}
-                }).then (function() {
-                    res.json({message:"Success"});
-                });
-            }
-        }).catch(function(err) {
-            res.status(500).json({ message: "Fail", exception: err });
-        });
+        deleteArticle(req, res, WebtoonBoard);
     });
 
     app.get('/board/webtoon/:articleId', function(req,res) {
         getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
 
+    // 404 처리
     app.get('/board/*', function(req,res) {
         res.status(404).json({message:"게시판이 없습니다."});
     })
 };
+
+function putArticle(req, res, Board) {
+    Board.findOne({
+        where: { articleid: req.params.articleId },
+        attributes: ['writerid']
+    }).then(article => {
+        if (article.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        }
+        else {
+            Board.update({
+                title: req.body.title,
+                content: req.body.content
+            }, {
+                where: { articleid: req.params.articleId }
+            }).then(board => {
+                res.json({ message: "success", articleid: board.articleid });
+            });
+        }
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
+
+function deleteArticle(req, res, Board) {
+    Board.findOne({
+        where: { articleid: req.params.articleId },
+        attributes: ['writerid']
+    }).then(article => {
+        if (article.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        }
+        else {
+            Board.destroy({
+                where: { articleid: req.params.articleId }
+            }).then(function () {
+                res.json({ message: "Success" });
+            });
+        }
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
 
 function getBoardArticle(res, Board, articleId) {
     Board.findOne({
