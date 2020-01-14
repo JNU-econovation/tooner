@@ -9,14 +9,3 @@ module.exports = function(app) {
     });
 };
 
-function isLoggedIn(req, res, next){
-    if(req.isAuthenticated()) {
-        return next();
-    }
-    // remember where session come from
-    req.session.returnTo = req.originalUrl;
-    req.session.save(function (err) {
-        if(err) return next(err);
-        res.redirect('/login');
-    });
-};

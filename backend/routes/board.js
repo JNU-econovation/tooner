@@ -23,6 +23,49 @@ module.exports = function(app) {
         });
     });
 
+    app.put('/board/webtoon', isLoggedIn, function(req,res) {
+        console.log(req.user);
+        WebtoonBoard.findOne({
+            where: {articleid:req.body.articleid},
+            attributes: ['writerid']
+        }).then (article => {
+            if(article.dataValues.writerid != req.user.user_no) {
+                console.log("않됨");
+                res.status(403).json({message: "자신의 글이 아닙니다"});
+            }else {
+                WebtoonBoard.update({
+                    title: req.body.title,
+                    content: req.body.content
+                }, {
+                    where: {articleid: req.body.articleid}
+                }).then(board => {
+                    res.json({ message: "success", articleid:board.articleid});
+                });
+            }
+        }).catch(function(err) {
+            res.status(500).json({ message: "Fail", exception: err });
+        });
+    });
+
+    app.delete('/board/webtoon', isLoggedIn, function(req,res) {
+        WebtoonBoard.findOne({
+            where: {articleid:req.body.articleid},
+            attributes: ['writerid']
+        }).then (article => {
+            if(article.dataValues.writerid != req.user.user_no) {
+                res.status(403).json({message: "자신의 글이 아닙니다"});
+            }else {
+                WebtoonBoard.destroy({
+                    where: {articleid:req.body.articleid}
+                }).then (function() {
+                    res.json({message:"Success"});
+                });
+            }
+        }).catch(function(err) {
+            res.status(500).json({ message: "Fail", exception: err });
+        });
+    });
+
     app.get('/board/webtoon/:articleId', function(req,res) {
         getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
@@ -39,6 +82,7 @@ function getBoardArticle(res, Board, articleId) {
         if (data == null) {
             throw "없는 글 번호 입니다";
         }
+        addHit(Board, articleId, res);
         res.json({ message: "Success", data: data });
     }).catch(function (err) {
         res.status(500).json({ message: "Fail", exception: err });
