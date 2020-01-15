@@ -41,13 +41,13 @@ module.exports = function(sequelize, DataTypes) {
     },
     period_day: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      defaultValue: '0'
+      allowNull: true,
+      defaultValue: null
     },
     period_date: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      defaultValue: '0'
+      allowNull: true,
+      defaultValue: null
     },
     ratings: {
       type: DataTypes.FLOAT,
