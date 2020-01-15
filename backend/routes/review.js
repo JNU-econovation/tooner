@@ -243,7 +243,7 @@ function addDislike(Board, articleId, res) {
             where: {articleid: articleId},
             silent: true
         })
-        res.json({ message: "Success", like: (like.dataValues.dislike)+1});
+        res.json({ message: "Success", dislike: (dislike.dataValues.dislike)+1});
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });
