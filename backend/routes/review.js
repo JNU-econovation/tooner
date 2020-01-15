@@ -54,6 +54,18 @@ module.exports = function(app) {
         }
     })
 
+    app.post('/longreview/like/:articleId', isLoggedIn, function(req,res) {
+        if(checkLike("longreview", req.params.articleId, req.user.user_no)) {
+            addLike(LongReview, req.params.articleId, res);
+        }else {
+            res.status(400).json({status:"Fail", message:"이미 추천/비추천 하였습니다."});
+        }
+    })
+
+    app.post('/shortreview/dislike/:articleId', isLoggedIn, function(req,res) {
+        addDislike(ShortReview, req.params.articleId, res);
+    })
+
     app.post('/longreview/dislike/:articleId', isLoggedIn, function(req,res) {
         addDislike(LongReview, req.params.articleId, res);
     })
