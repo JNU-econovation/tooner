@@ -5,7 +5,7 @@ module.exports = function(app) {
     app.get('/webtoons', function(req,res) {
         Webtoons.findAll({
             order: [['toon_name', 'ASC']],
-            attributes: ['toon_id', 'toon_name']
+            attributes: ['toon_id', 'author', 'toon_name']
         }).then(data => {
             res.json({ message: "Success", data: data });
         }).catch(function(err) {
