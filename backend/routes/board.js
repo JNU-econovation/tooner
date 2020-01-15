@@ -43,6 +43,10 @@ module.exports = function(app) {
         addDislike(WebtoonBoard, req.params.articleId, res);
     })
 
+    app.get('/board/webtoon/reply/:articleId', function(req,res) {
+        
+    })
+
     // 404 처리
     app.get('/board/*', function(req,res) {
         res.status(404).json({message:"게시판이 없습니다."});
