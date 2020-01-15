@@ -107,7 +107,7 @@ function getReviewDetail(res, Review, articleId) {
         if (data.bad != null)
             data.bad = data.bad.split(',');
         if (data.image != null)
-            data.image = data.image.split(':')[0];
+            data.image = data.image.split(':');
         addHit(Review, articleId, res);
         res.json({ message: "Success", data: data });
     }).catch(function(err) {
