@@ -149,6 +149,7 @@ function addLike(Board, articleId, res) {
             where: {articleid: articleId},
             silent: true
         })
+        res.json({ message: "Success", like: (like.dataValues.like)+1});
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });
@@ -165,6 +166,7 @@ function addDislike(Board, articleId, res) {
             where: {articleid: articleId},
             silent: true
         })
+        res.json({ message: "Success", like: (like.dataValues.dislike)+1});
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });
