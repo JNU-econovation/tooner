@@ -17,7 +17,7 @@ module.exports = function(app) {
     })
 
     app.get('/longreview/:articleId', function(req,res) {
-        getReviewDetail(LongReview, req.params.articleId, res);
+        getReviewDetail(res, LongReview, req.params.articleId);
     })
 
     // 한줄리뷰 쓰기
