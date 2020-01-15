@@ -13,7 +13,7 @@ module.exports = function(app) {
 
     // 상세리뷰 목록 보기
     app.get('/longreview', function(req,res) {
-        getReviewList(res, LongReview, ['articleid', 'title', 'writeralias', 'rating', 'preference', 'good', 'bad', 'image', 'reviewtitle', 'content', 'writetime'], 20, req.query.page);
+        getReviewList(res, LongReview, ['articleid', 'title', 'writeralias', 'rating', 'preference', 'good', 'bad', 'image', 'reviewtitle', 'content', 'writetime', 'hit', 'like'], 20, req.query.page);
     })
 
     app.get('/longreview/:articleId', function(req,res) {
