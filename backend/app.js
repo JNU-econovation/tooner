@@ -1,50 +1,44 @@
 /**
  * tooner api server
  * (c) 2019-2020 정회형 
- * https://hotheadfactory.com
+ * https://hotheadfactory.com / h2f.kr
  */
 
 const express = require('express');
-var session = require('express-session');
-const app = express();
 var cors = require('cors');
 const morgan = require('morgan');
-var mysql = require('mysql');
 const passport = require('passport');
-var dbconfig = require('./config/dbconfig');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var flash = require('connect-flash');
+var sequelize = require('./models').sequelize;
 
-
+const app = express();
 const PORT = 2599;
 
-require('./config/passport')(passport, mysql, dbconfig);
+require('./config/passport')(passport);
 
+app.use('/uploads', express.static(__dirname + '/uploads'));
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.json());
-
-
-// TODO: 보안 향상을 위해 secret 바꾸기
-app.use(session({
-    secret: 'justasecret',
-    resave: true,
-    saveUninitialized: true
-   }));
-
-// 로깅 모듈 
-app.use(morgan('combined'));
-
+app.use(morgan('dev'));
 app.use(passport.initialize());
-app.use(passport.session());
 
 // 라우터 불러오기
-require('./routes/routes.js')(app, passport);
-require('./routes/view.js')(app);
-require('./routes/write.js')(app);
-//require('./routes/controller.js')(app, passport);
+require('./routes/login.js')(app, passport);
+require('./routes/board.js')(app);
+require('./routes/review.js')(app);
+require('./routes/upload.js')(app);
+require('./routes/userdb.js')(app);
+require('./routes/webtoondb.js')(app);
+require('./routes/test.js');
+app.get ('*', function (req, res) {
+    res.status(404).json({message: "Not Found"});
+});
+
+sequelize.sync();
 
 app.listen(PORT, function() {
     console.log("Tooner Beta\n==============================================\nTooner Since 2019! Server is on at port "+PORT+"......\n==============================================");
 })
+
