@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect} from 'react';
+import StarRating from 'react-svg-star-rating';
 
 function ToonRating(props) {
     const prefList = props.prefList;
@@ -98,9 +99,12 @@ function ToonRating(props) {
                     null
                 )
             }
+            
             <div id="complete-search">
                 <button onClick={handleClick}>완료</button>
             </div>
         </React.Fragment>
     )
 }
+
+export default ToonRating;
