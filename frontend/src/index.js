@@ -6,7 +6,6 @@ import * as serviceWorker from './serviceWorker';
 import { AuthProvider }  from '../src/components/Context/AuthProvider';
 
 function Index() {
-    console.log(localStorage)
     return(
         <AuthProvider>
             <App />
