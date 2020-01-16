@@ -123,9 +123,9 @@ function getReviewDetail(res, Review, articleId) {
 function getTopLike(res, Review, limit) {
     Review.count().then(count => {
         Review.findAll({
-            order: [['like', 'DESC']],
+            order: [['like', 'DESC'], ['articleid', 'DESC']],
             limit: limit,
-            attributes: ['articleid', 'writeralias', 'title', 'writetime', 'edittime', 'hit', 'like']
+            attributes: ['articleid', 'writeralias', 'title', 'reviewtitle', 'writetime', 'edittime', 'hit', 'like']
         }).then(data => {
             res.json({ message: "Success", count: count, data: data });
         });
