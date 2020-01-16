@@ -69,7 +69,7 @@ function PostPage(props){
                 <Post
                     key={articleid}
                     articleid={post.articleid}
-                    title={post.reviewtitle}
+                    title={`[${post.title}] ${post.reviewtitle}`}
                     content={post.content}
                     writeralias={post.writeralias}
                     writetime={post.writetime}
@@ -78,6 +78,10 @@ function PostPage(props){
                     hit={post.hit}
                     like={post.like}
                     dislike={post.dislike}
+                    rating={post.rating}
+                    preference={post.preference}
+                    good={post.good}
+                    bad={post.bad}
                 />
             )}
             <div id="button-container">
