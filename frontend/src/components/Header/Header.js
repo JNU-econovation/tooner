@@ -25,9 +25,11 @@ function Header() {
         <Link to="/board/webtoon">
           <button>웹툰이야기</button>
         </Link>
+        {/*
         <Link to="/thread">
           <button>스레드</button>
         </Link>
+        */}
         {
           !state.logged ? (
             <React.Fragment>
@@ -39,13 +41,18 @@ function Header() {
               </Link>
             </React.Fragment>
           ) : (
-            <Link to="/">
-              <button
-                className="logout"
-                onClick={() => dispatch({
-                type: 'logout'
-              })}>로그아웃</button>
-            </Link>
+            <React.Fragment>  
+              <Link to="/mypage">
+                <button>마이페이지</button>
+              </Link>
+              <Link to="/">
+                <button
+                  className="logout"
+                  onClick={() => dispatch({
+                  type: 'logout'
+                })}>로그아웃</button>
+              </Link>
+            </React.Fragment>
           )
         }
       </div>
