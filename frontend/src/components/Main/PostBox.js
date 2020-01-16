@@ -29,7 +29,7 @@ function SinglePostBox(props) {
     }).catch(err => {
       console.log(err);
     })
-  }, []);
+  }, [posts]);
 
   return (
     <div className={className}>
