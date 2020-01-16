@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useHistory, useParams } from "react-router-dom"
 
 import Confirm from './Modal/Confirm/Confirm';
+import Comment from './Reuse/Comment/Comment';
 import Post from './Post';
 import './PostPage.css';
 
@@ -102,6 +103,7 @@ function PostPage(props){
                     message="이 글을 삭제하시겠습니까?"
                 />
             }
+            <Comment api={props.json} articleid={articleid} />
         </section>
     );
 }
