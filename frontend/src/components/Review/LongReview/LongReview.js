@@ -52,7 +52,7 @@ function LongReview({ match }) {
                         <button id="go-to-review">리뷰하러 가기</button>
                     </Link>
                 </div>
-                <Sort />
+                {/*<Sort />*/}
                 <Board location={match.path} json={api} />
             </Route>
             <Route path={`${match.path}/write`} component={WriteReviewPage} />
