@@ -91,7 +91,6 @@ function ShortReviewModal(props) {
     // variable
     const showHideClassName = props.isOpen ? "modal display-block" : "modal display-none";
 
-    var review = {};
     const onSubmit = () => {
         let isEmpty = title === '' || rating === 0 || preference === -1;
         if(isEmpty) {
@@ -108,7 +107,7 @@ function ShortReviewModal(props) {
         if(!bad.length) bad.push("없음");
 
         // post data
-        review = { title, rating, preference, good, bad, content };
+        const review = { title, rating, preference, good, bad, content };
         let config = {
             headers: {
                 'authtoken': state.token
@@ -119,8 +118,7 @@ function ShortReviewModal(props) {
             let edit_api = `${api}/${props.articleid}`;
             axios.put(edit_api, review, config)
             .then(res => {
-                setStatus(res.status);
-                props.close(status);
+                props.close(true);
             }).catch(err => {
                 setStatus(401);
             })
@@ -130,7 +128,7 @@ function ShortReviewModal(props) {
         axios.post(api, review, config)
         .then(res => {
             setStatus(res.status);
-            props.close(status);
+            props.close(true);
         }).catch(err => {
             setStatus(401);
         });
@@ -140,7 +138,7 @@ function ShortReviewModal(props) {
         <div className={showHideClassName}>
             <section className="modal-main searchToon">
                 <div id="cancel">
-                    <i className="fas fa-times" onClick={props.close}></i>
+                    <i className="fas fa-times" onClick={props.closeModal}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="search-title search-margin">
