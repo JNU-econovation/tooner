@@ -23,14 +23,78 @@ module.exports = function(app) {
         });
     });
 
+    app.put('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
+        putArticle(req, res, WebtoonBoard);
+    });
+
+    app.delete('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
+        deleteArticle(req, res, WebtoonBoard);
+    });
+
     app.get('/board/webtoon/:articleId', function(req,res) {
         getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
 
+    app.post('/board/webtoon/like/:articleId', isLoggedIn, function(req,res) {
+        addLike(WebtoonBoard, req.params.articleId, res);
+    })
+
+    app.post('/board/webtoon/dislike/:articleId', isLoggedIn, function(req,res) {
+        addDislike(WebtoonBoard, req.params.articleId, res);
+    })
+
+    app.get('/board/webtoon/reply/:articleId', function(req,res) {
+        
+    })
+
+    // 404 처리
     app.get('/board/*', function(req,res) {
         res.status(404).json({message:"게시판이 없습니다."});
     })
 };
+
+function putArticle(req, res, Board) {
+    Board.findOne({
+        where: { articleid: req.params.articleId },
+        attributes: ['writerid']
+    }).then(article => {
+        if (article.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        }
+        else {
+            Board.update({
+                title: req.body.title,
+                content: req.body.content
+            }, {
+                where: { articleid: req.params.articleId }
+            }).then(board => {
+                res.json({ message: "success", articleid: board.articleid });
+            });
+        }
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
+
+function deleteArticle(req, res, Board) {
+    Board.findOne({
+        where: { articleid: req.params.articleId },
+        attributes: ['writerid']
+    }).then(article => {
+        if (article.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        }
+        else {
+            Board.destroy({
+                where: { articleid: req.params.articleId }
+            }).then(function () {
+                res.json({ message: "Success" });
+            });
+        }
+    }).catch(function (err) {
+        res.status(500).json({ message: "Fail", exception: err });
+    });
+}
 
 function getBoardArticle(res, Board, articleId) {
     Board.findOne({
@@ -39,6 +103,7 @@ function getBoardArticle(res, Board, articleId) {
         if (data == null) {
             throw "없는 글 번호 입니다";
         }
+        addHit(Board, articleId, res);
         res.json({ message: "Success", data: data });
     }).catch(function (err) {
         res.status(500).json({ message: "Fail", exception: err });
@@ -72,6 +137,40 @@ function addHit(Board, articleId, res) {
             where: {articleid: articleId},
             silent: true
         })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function addLike(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['like']
+    }).then (like => {
+        Board.update({
+            like: (like.dataValues.like)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+        res.json({ message: "Success", like: (like.dataValues.like)+1});
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function addDislike(Board, articleId, res) {
+    Board.findOne({
+        where: {articleid:articleId},
+        attributes: ['dislike']
+    }).then (dislike => {
+        Board.update({
+            dislike: (dislike.dataValues.dislike)+1
+        }, {
+            where: {articleid: articleId},
+            silent: true
+        })
+        res.json({ message: "Success", dislike: (dislike.dataValues.dislike)+1});
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });

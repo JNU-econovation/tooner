@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 function isLoggedIn(req, res, next) {
     try {
-        console.log(req.headers);
         req.user = jwt.verify(req.headers.authtoken, require("../config/secretkey.js"));
+        console.log(req.user);
         return next();
     }
     catch (e) {

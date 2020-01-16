@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(45),
       allowNull: false
     },
+    author: {
+      type: DataTypes.STRING(45),
+      allowNull: false
+    },
     toon_genre: {
       type: DataTypes.STRING(45),
       allowNull: false
@@ -20,6 +24,10 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     toon_url: {
+      type: DataTypes.STRING(45),
+      allowNull: true
+    },
+    image: {
       type: DataTypes.STRING(45),
       allowNull: true
     },
@@ -33,19 +41,25 @@ module.exports = function(sequelize, DataTypes) {
     },
     period_day: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      defaultValue: '0'
+      allowNull: true,
+      defaultValue: null
     },
     period_date: {
       type: DataTypes.STRING(20),
-      allowNull: false,
-      defaultValue: '0'
+      allowNull: true,
+      defaultValue: null
     },
     ratings: {
       type: DataTypes.FLOAT,
       allowNull: true
-    }
+    },   
+    restriction: {
+      type: DataTypes.INTEGER(4),
+      allowNull: false
+    },
+
   }, {
+    timestamps: false,
     tableName: 'webtoons'
   });
 };

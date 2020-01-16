@@ -2,7 +2,7 @@ const { isLoggedIn } = require("./isLoggedIn");
 
 module.exports = function(app, passport) {
     app.get('/auth', isLoggedIn, async function(req, res, next) {
-            res.json({success:true});
+        res.json({success:true});
     })
    
     // 로그인하기

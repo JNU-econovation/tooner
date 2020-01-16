@@ -55,6 +55,21 @@ module.exports = function(sequelize, DataTypes) {
     image: {
       type: DataTypes.TEXT,
       allowNull: true
+    },
+    hit: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '0'
+    },
+    like: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '0'
+    },
+    dislike: {
+      type: DataTypes.INTEGER(11),
+      allowNull: false,
+      defaultValue: '0'
     }
   }, {
     createdAt: 'writetime',
