@@ -13,6 +13,9 @@ function Header() {
         </Link>
       </div>
       <div className="user-container">
+        <Link to="/board/notice">
+          <button>공지사항</button>
+        </Link>
         <Link to="/review/short">
           <button>한줄 리뷰</button>
         </Link>

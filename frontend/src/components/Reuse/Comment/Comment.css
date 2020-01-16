@@ -1,0 +1,72 @@
+.comment-wrap {
+    margin-top: 40px;
+}
+
+.comment-wrap div {
+    margin-top: 8px;
+    background-color: rgba(235, 235, 235, 0.32);
+}
+
+.comment-wrap button {
+    color: white;
+    border: none;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+#write-comment {
+    text-align: center;
+}
+
+#write-comment textarea{
+    margin: 1% 0;
+    padding: 8px 1%;
+    width: 84%;
+    height: 40px;
+    resize: none;
+    font-family: inherit;
+}
+
+#write-comment button {
+    float: right;
+    width: 11%;
+    height: 56px;
+    margin: 1%;
+    background-color: #686CE5;
+}
+
+#comment {
+    padding: 8px;
+}
+
+#comment p {
+    margin: 0;
+    padding: 4px;
+    font-size: 14px;
+}
+
+#comment #alias {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#comment #content {
+    font-size: 13px;
+}
+
+#comment #writetime {
+    font-size: 12px;
+}
+
+#edit-wrap {
+    float: right;
+    padding-right: 8px;
+}
+
+#edit-wrap i {
+    color: #C0C0C0;
+}
+
+#edit-wrap i:hover {
+    color: #707070;
+}

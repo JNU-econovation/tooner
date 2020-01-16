@@ -8,6 +8,7 @@ import MiddleHeader from './MiddleHeader/MiddleHeader'
 import Login from './Login';
 import Signup from './Signup';
 import MyPage from './User/MyPage/MyPage';
+import Notice from './Board/Notice/Notice';
 import ShortReview from './Review/ShortReview/ShortReview';
 import LongReview from './Review/LongReview/LongReview';
 import WebtoonPage from './Board/Webtoon/WebtoonPage';
@@ -31,6 +32,7 @@ function App() {
             <Route path='/review/short' component={ShortReview} />
             <Route path='/review/long' component={LongReview} />
             <Route path='/review' component={ShortReview} />
+            <Route path='/board/notice' component={Notice} />
             <Route path='/board/webtoon' component={WebtoonPage} />
             <Route path='/thread' component={ThreadPage} />
             <Route exact path='/' component={Main} />

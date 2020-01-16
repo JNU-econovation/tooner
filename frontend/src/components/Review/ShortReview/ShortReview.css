@@ -1,0 +1,10 @@
+#write-wrap {
+    width: 100%;
+    height: 10px;
+    position: relative;
+}
+
+#write-wrap button {
+    position: absolute;
+    right: 0;
+}

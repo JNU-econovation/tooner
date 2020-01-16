@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import StarRating from 'react-svg-star-rating';
@@ -6,7 +6,7 @@ import Confirm from '../Modal/Confirm/Confirm';
 import ShortReviewModal from '../Modal/ShortReviewModal/ShortReviewModal';
 import './Review.css';
 
-function Review({ api, articleid, title, rating, preference, good, bad, image, content }) {
+function Review({ api, articleid, title, rating, preference, good, bad, image, content, updateCheck }) {
     if(image != null) image = "http://168.131.30.129:2599/uploads/images/" + image;
     if(bad === null) bad = [];
     if(good === null) good = [];
@@ -23,8 +23,9 @@ function Review({ api, articleid, title, rating, preference, good, bad, image, c
     const openModal = () => {
         setModal(true);
     }
-    const closeModal = () => {
+    const closeModal = (update) => {
         setModal(false);
+        updateCheck(update);
     }
 
     const [isConfirmOpen, setConfirm] = useState(false);
@@ -43,6 +44,7 @@ function Review({ api, articleid, title, rating, preference, good, bad, image, c
             axios.delete(delete_api, config)
             .then(
                 res => {
+                    updateCheck(confirm);
                     console.log(res);
                 }
             ).catch(
