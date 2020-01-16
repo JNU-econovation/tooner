@@ -3,7 +3,48 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import './Post.css';
 
-function Post({ writeralias, title, content, writetime, edittime, hit, like, dislike }) {
+function Post({ articleid, writeralias, title, content, writetime, edittime, hit, like, dislike }) {
+    const like_api = "http://168.131.30.129:2599/board/webtoon/like/" + articleid;
+    const dislike_api = "http://168.131.30.129:2599/board/webtoon/dislike/" + articleid;
+    console.log(like_api);
+
+    const [_like, setLike] = useState(like);
+    const [_dislike, setDislike] = useState(dislike);
+
+    const headers = {
+        authtoken: localStorage.getItem('token')
+    }
+    const clickLike = () => {
+        axios.request({
+            url: like_api,
+            method: 'post',
+            headers
+        })
+        .then(res => {
+            setLike(res.data.like);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    const clickDislike = () => {
+        axios.request({
+            url: dislike_api,
+            method: 'post',
+            headers
+        })
+        .then(res => {
+            setDislike(res.data.dislike);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    useEffect(() => {
+    }, []);
+
     var isEdited = edittime == null ? false : true;
     var today = new Date();
     var dd = today.getDate();
@@ -11,9 +52,7 @@ function Post({ writeralias, title, content, writetime, edittime, hit, like, dis
     var yyyy = today.getFullYear();
     today = yyyy + '-' + mm + '-' + dd;
     writetime = today > writetime ? writetime.slice(12,16) : writetime.slice(0, 10);
-    const clickLike = () => {
-        console.log('clickLike');
-    }
+
     return(
         <div className="post-container">
             <div id="title-wrap">
@@ -38,12 +77,12 @@ function Post({ writeralias, title, content, writetime, edittime, hit, like, dis
             </div>
             <div id="like-container">
                 <div id="like">
-                    <i className="far fa-thumbs-up"></i>
-                    {like}
+                    <i className="far fa-thumbs-up" onClick={clickLike}></i>
+                    {_like}
                 </div>
                 <div id="dislike">
-                    <i class="far fa-thumbs-down"></i>
-                    {dislike}
+                    <i class="far fa-thumbs-down" onClick={clickDislike}></i>
+                    {_dislike}
                 </div>
             </div>
         </div>
@@ -51,6 +90,7 @@ function Post({ writeralias, title, content, writetime, edittime, hit, like, dis
 }
 
 Post.propTypes = {
+    articleid: PropTypes.number.isRequired,
     writeralias: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,

@@ -52,13 +52,17 @@
 
 #like-container {
     margin-top: 28px;
-    padding: 0 0 12px 0;
-    width: fit-content;
+    padding-bottom: 16px;
+    padding-left: 35%;
+    padding-right: 35%;
+    width: 30%;
+    height: fit-content;
 }
 
 #like-container div {
     display: inline;
-    padding:  0 16px;
+    padding: 16px;
+    cursor: pointer;
 }
 
 #like-container i {
