@@ -16,7 +16,7 @@ module.exports = function(app) {
         getReviewList(res, LongReview, ['articleid', 'title', 'writeralias', 'rating', 'preference', 'good', 'bad', 'image', 'reviewtitle', 'content', 'writetime', 'hit', 'like'], 20, req.query.page);
     })
 
-    app.get('topLike/longreview', function(req,res) {
+    app.get('/toplike/longreview', function(req,res) {
         getTopLike(res, LongReview, 4);
     })
 
