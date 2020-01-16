@@ -48,6 +48,10 @@ module.exports = function(app) {
         getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
 
+    app.get('/board/notice/:articleId', function(req,res) {
+        getBoardArticle(res, NoticeBoard, req.params.articleId);
+    })
+
     app.post('/board/webtoon/like/:articleId', isLoggedIn, function(req,res) {
         addLike(WebtoonBoard, req.params.articleId, res);
     })
