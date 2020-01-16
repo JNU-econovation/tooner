@@ -72,6 +72,24 @@
 #image {
     max-width: 93%;
     height: auto;
-    margin: 16px 2%;
+    margin: 28px 2%;
     display: block;
+}
+
+#review-box {
+    margin: 20px 0;
+}
+
+#review-box ul {
+    margin: 0 16px 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 12px;
+}
+
+#review-box li {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    font-size: 14px;
 }
