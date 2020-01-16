@@ -33,6 +33,21 @@
     display: block;
 }
 
+.hotPost a:link {
+    text-decoration: none;
+    color: #707070;
+}
+
+.hotPost a:visited {
+    text-decoration: none;
+    color: #707070;
+}
+
+.hotPost a:hover {
+    text-decoration: none;
+    color: #707070;
+}
+
 #hotpost__type {
     font-size: 80%;
     background-color: red;
