@@ -145,10 +145,9 @@ function getBoard(res, Board, limit, page) {
 
 //TODO: 최근 게시글 우선 표시
 function getTopHit(res, Board, limit) {
-    if(!page) page = 1;
     Board.count().then(count => {
         Board.findAll({
-            order: [['hit', 'DESC']],
+            order: [['hit', 'DESC'], ['articleid','DESC']],
             limit: limit,
             attributes: ['articleid', 'writeralias', 'title', 'writetime', 'edittime', 'hit', 'like']
         }).then(data => {
