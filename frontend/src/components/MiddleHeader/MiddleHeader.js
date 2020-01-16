@@ -51,7 +51,7 @@ function MiddleHeader(props) {
     return (
         <div className="middle-header">
             <HotPost type="hot!!" title="너무너무 귀여운 힐링툰 [롤랑롤랑]" />
-            <Search today="가담항설" btnImageUrl="icon/search.png" />
+            {/*<Search today="가담항설" btnImageUrl="icon/search.png" />*/}
         </div>
     );
 }
