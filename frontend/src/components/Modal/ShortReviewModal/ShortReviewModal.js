@@ -138,7 +138,7 @@ function ShortReviewModal(props) {
         <div className={showHideClassName}>
             <section className="modal-main searchToon">
                 <div id="cancel">
-                    <i className="fas fa-times" onClick={props.closeModal}></i>
+                    <i className="fas fa-times" onClick={() => {props.close(false)}}></i>
                 </div>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="search-title search-margin">
