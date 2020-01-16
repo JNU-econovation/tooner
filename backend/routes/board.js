@@ -1,5 +1,5 @@
 const { isLoggedIn } = require("./isLoggedIn");
-var { WebtoonBoard, NoticeBoard } = require('../models');
+var { WebtoonBoard, NoticeBoard, WebtoonReply } = require('../models');
 
 
 module.exports = function(app) {
@@ -22,6 +22,14 @@ module.exports = function(app) {
 
     app.get('/tophit/webtoon', function(req,res) {
         getTopHit(res, WebtoonBoard, 4);
+    })
+
+    app.get('/board/webtoon/reply/:articleId', function(req,res) {
+        getReply(res, WebtoonReply, req.params.articleId);
+    })
+
+    app.post('/board/webtoon/reply/:articleId', isLoggedIn, function(req,res) {
+        writeReply(req, res, WebtoonReply, req.params.articleId);
     })
 
     // 게시판 쓰기
@@ -58,10 +66,6 @@ module.exports = function(app) {
 
     app.post('/board/webtoon/dislike/:articleId', isLoggedIn, function(req,res) {
         addDislike(WebtoonBoard, req.params.articleId, res);
-    })
-
-    app.get('/board/webtoon/reply/:articleId', function(req,res) {
-        
     })
 
     // 404 처리
@@ -203,6 +207,33 @@ function addDislike(Board, articleId, res) {
             silent: true
         })
         res.json({ message: "Success", dislike: (dislike.dataValues.dislike)+1});
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function getReply(res, Reply, articleid) {
+    Reply.count({
+        where: {articleid:articleid}
+    }).then(count => {
+        Reply.findAll({
+            where: {articleid:articleid}
+        }).then(reply => {
+            res.json({message:"Success", count:count, data:reply})
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function writeReply(req, res, Reply, articleid) {
+    Reply.create({
+        articleid: articleid,
+        writerid: req.user.user_no,
+        writeralias: req.user.useralias,
+        content: req.body.content
+    }).then(reply => {
+        res.json({ message: "success", data:reply});
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });
