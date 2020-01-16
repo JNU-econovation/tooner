@@ -3,8 +3,11 @@ import './Header.css'
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../Context/AuthProvider';
 
+import AuthHelperMethods from '../Context/AuthHelperMethods';
+
 function Header() {
   const { state, dispatch } = useContext(AuthContext);
+  const auth = new AuthHelperMethods();
   return (
     <header>
       <div className="banner-container">
@@ -13,6 +16,14 @@ function Header() {
         </Link>
       </div>
       <div className="user-container">
+        {
+          state.logged &&
+            <React.Fragment>
+              <button>
+                {auth.getConfirm().useralias} 님, 환영합니다!
+              </button>
+            </React.Fragment>
+        }
         <Link to="/board/notice">
           <button>공지사항</button>
         </Link>
