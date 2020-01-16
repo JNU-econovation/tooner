@@ -1,13 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import PropTypes from 'prop-types';
+
+import StarRating from 'react-svg-star-rating';
 import './Post.css';
 
-function Post({ articleid, writeralias, title, content, writetime, edittime, image, hit, like, dislike }) {
-    console.log(image)
+function Post({ articleid, writeralias, title, content, writetime, edittime, image, hit, like, dislike, rating, preference, good, bad }) {
+    var mark = "○";
+    if(preference === 1) {
+        mark = "△";
+    } else if(preference === 2) {
+        mark = "×";
+    }
+
+    console.log(good)
+
     const img_api = "http://168.131.30.129:2599/uploads/images/" + image[0];
     const like_api = "http://168.131.30.129:2599/longreview/like/" + articleid;
     const dislike_api = "http://168.131.30.129:2599/longreview/dislike/" + articleid;
+    title = title.slice(0,48);
 
     const [_like, setLike] = useState(like);
     const [_dislike, setDislike] = useState(dislike);
@@ -73,12 +84,40 @@ function Post({ articleid, writeralias, title, content, writetime, edittime, ima
                 <ul>조회수</ul>
                     <li>{hit}</li>
             </div>
-            {
-                image[0] !== "" &&
-                <div id="image-wrap">
-                    <img src={img_api} id="image" />
-                </div>
-            }
+            <div id="review-box">
+                <ul>별점</ul>
+                    <StarRating
+                        containerClassName="rating-container"
+                        initialRating={rating}
+                        size="20"
+                        isReadOnly="true"
+                    />
+                <ul>취향</ul><li>{mark}</li>
+                <ul>좋았던 점</ul>
+                    {good.map((
+                        good_point,
+                        index
+                    ) => (
+                        <li key={index}>
+                            {good_point}&nbsp;
+                        </li>    
+                    ))}
+                <ul>아쉬운 점</ul>
+                    {bad.map((
+                        bad_point,
+                        index
+                    ) => (
+                        <li key={index}>
+                            {bad_point}&nbsp;
+                        </li>    
+                    ))}
+                {
+                    image[0] !== "" &&
+                    <div id="image-wrap">
+                        <img src={img_api} id="image" />
+                    </div>
+                }
+            </div>
             <div id="content-wrap">
                 {content}
             </div>
