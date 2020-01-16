@@ -10,7 +10,7 @@ input::placeholder {
 }
 
 .main {/* size */
-    height: 700px;
+    height: fit-content;
     overflow: hidden;
 
     /* position */
