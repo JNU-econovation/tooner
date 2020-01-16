@@ -1,5 +1,6 @@
 const { isLoggedIn } = require("./isLoggedIn");
-var { WebtoonBoard } = require('../models');
+var { WebtoonBoard, NoticeBoard } = require('../models');
+
 
 module.exports = function(app) {
     // 게시판 목록보기
@@ -7,8 +8,20 @@ module.exports = function(app) {
         getBoard(res, WebtoonBoard, 20, req.query.page);
     })
 
+    app.get('/board/notice', function(req,res) {
+        getBoard(res, NoticeBoard, 20, req.query.page);
+    })
+
     app.get('/boardthumb/webtoon', function(req,res) {
-        getBoard(res, WebtoonBoard, 5);
+        getBoard(res, WebtoonBoard, 4);
+    })
+
+    app.get('/boardthumb/notice', function(req,res) {
+        getBoard(res, NoticeBoard, 4);
+    })
+
+    app.get('/tophit/webtoon', function(req,res) {
+        getBoard(res, WebtoonBoard, 4);
     })
 
     // 게시판 쓰기
