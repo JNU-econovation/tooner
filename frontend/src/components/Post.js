@@ -21,6 +21,7 @@ function Post({ articleid, writeralias, title, content, writetime, edittime, hit
             headers
         })
         .then(res => {
+            console.log(res);
             setLike(res.data.like);
         })
         .catch(err => {
