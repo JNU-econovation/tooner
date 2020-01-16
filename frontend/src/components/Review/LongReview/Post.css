@@ -48,6 +48,7 @@
     height: fit-content;
     margin-top: 20px;
     font-size: 14px;
+    white-space: pre-line;
 }
 
 #like-container {
