@@ -21,7 +21,7 @@ module.exports = function(app) {
     })
 
     app.get('/tophit/webtoon', function(req,res) {
-        getBoard(res, WebtoonBoard, 4);
+        getTopHit(res, WebtoonBoard, 4);
     })
 
     // 게시판 쓰기
@@ -134,6 +134,22 @@ function getBoard(res, Board, limit, page) {
             order: [['articleid', 'DESC']],
             limit: limit,
             offset: (page-1)*limit,
+            attributes: ['articleid', 'writeralias', 'title', 'writetime', 'edittime', 'hit', 'like']
+        }).then(data => {
+            res.json({ message: "Success", count: count, data: data });
+        });
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+//TODO: 최근 리뷰 우선 표시
+function getTopHit(res, Board, limit) {
+    if(!page) page = 1;
+    Board.count().then(count => {
+        Board.findAll({
+            order: [['hit', 'DESC']],
+            limit: limit,
             attributes: ['articleid', 'writeralias', 'title', 'writetime', 'edittime', 'hit', 'like']
         }).then(data => {
             res.json({ message: "Success", count: count, data: data });
