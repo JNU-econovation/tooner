@@ -7,10 +7,14 @@ import './Review.css';
 // 인피니트 스크롤 추가 예정
 
 function ReviewBox(props) {
-    console.log(props)
     const api = "http://168.131.30.129:2599/shortreview";
     const [reviews, setReviews] = useState([]);
     const [isLoading, setLoading] = useState(true);
+    const [isUpdate, setUpdate] = useState(false);
+
+    const updateCheck = (update) => {
+        setUpdate(update);
+    }
 
     const fetchMoreData = () => {
         setTimeout(() => {
@@ -29,11 +33,8 @@ function ReviewBox(props) {
         .catch(err => {
             console.log(err);
         });
-    },[]);
-
-    useEffect(() => {
-
-    }, [reviews])
+        setUpdate(false);
+    }, [props.isUpdate, isUpdate]);
 
     return (
         <section className="review-section">
@@ -55,6 +56,7 @@ function ReviewBox(props) {
                             image={review.image}
                             content={review.content}
                             api={api}
+                            updateCheck={updateCheck}
                         />
                     ))}
                 </div>
