@@ -4,32 +4,42 @@ import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
 import './Login.css';
 
+import { AuthContext } from './Context/AuthProvider';
+
 function Login() {
-    const url = "http://168.131.30.129:2599/login";
+    const login_api = "http://168.131.30.129:2599/login";
     const [status, setStatus] = useState(200);
     const { register, handleSubmit } = useForm();
     const history = useHistory();
+    const { dispatch } = React.useContext(AuthContext);
+
     const onSubmit = (data) => {
-        axios.post(url, data)
+        axios.post(login_api, data)
         .then(res => {
-            console.log(res.data.message)
             setStatus(res.status);
-            if(status === 200) history.push('/');
-        }).catch(err => {
+            dispatch({
+                type: 'login',
+                payload: res.data
+            })
+            history.goBack();
+            throw res;
+        })
+        .catch(err => {
             setStatus(401);
         })
     }
+
     return(
         <div className="login-form-container">
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="login-input-container">
                     <span id="phrase">독자를 위한 커뮤니티, 투너</span>
                     <input type="text" name="username" id="id" placeholder="아이디" ref={register} />
-                    <input type="password" name="password" id="password" placeholder="비밀번호" ref={register} />
+                    <input type="password" name="password" id="password" placeholder="비밀번호" ref={register}  />
                 </div>
                 {
                     status === 401 ? (
-                        <span id="message">로그인에 실패하였습니다.</span>
+                        <span id="message">* 로그인에 실패하였습니다.</span>
                     ) : (
                         null
                     )

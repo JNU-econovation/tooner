@@ -7,10 +7,6 @@ body {
     margin: 0 auto;
 }
 
-textarea {
-    resize: none;
-}
-
 button {
     /* 버튼 투명하게 */
     background-color: Transparent;
@@ -19,4 +15,8 @@ button {
     cursor:pointer;
     overflow: hidden;
     outline:none;
+}
+
+a {
+    text-decoration: none;
 }

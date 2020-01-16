@@ -25,6 +25,7 @@
     text-indent: 10px;
     margin-top: 20px;
     border-width: thin;
+    cursor: pointer;
 }
 
 .sign-container input::placeholder {

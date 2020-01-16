@@ -1,11 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import axios from 'axios';
 import SearchToon from '../../Modal/SearchToon/SearchToon';
 import './WriteReview.css';
 
+import { AuthContext } from '../../Context/AuthProvider';
+
 function WriteReview(props) {
+    // context
+    const { state } = React.useContext(AuthContext);
+
     // initialize
     var prefList = ['스토리', '캐릭터', '작화', '연출'];
     var content = '';
@@ -28,6 +33,7 @@ function WriteReview(props) {
         setModal(true);
     }
     const closeModal = () => {
+        console.log('close')
         setModal(false);
     }
     const handleChildClick = (searched) => {
@@ -59,8 +65,14 @@ function WriteReview(props) {
 
         // post data
         const review = { title, rating, preference, good, bad, content };
-        console.log(review);
-        axios.post(props.json, review)
+        console.log(state);
+        let config = {
+            headers: {
+                'authtoken': state.token
+            }
+        }
+        console.log(config);
+        axios.post(props.json, review, config)
         .then(res => {
             console.log(res);
             setStatus(res.status);

@@ -4,14 +4,23 @@ import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import './WritePost.css';
 
+import { AuthContext } from '../../Context/AuthProvider';
+
 function WritePost(props) {
+    const { state } = React.useContext(AuthContext);
+
     const { register, handleSubmit } = useForm();
     const [status, setStatus] = useState(200);
     const history = useHistory();
     const onSubmit = (data) => {
         console.log(data);
         console.log(props.json)
-        axios.post(props.json, data)
+        let config = {
+            headers: {
+                'authtoken': state.token
+            }
+        }
+        axios.post(props.json, data, config)
         .then(res => {
             console.log(res);
             setStatus(res.status);
