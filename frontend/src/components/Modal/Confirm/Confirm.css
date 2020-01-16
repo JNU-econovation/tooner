@@ -1,0 +1,21 @@
+.modal-confirm {
+    text-align: center;
+}
+
+#confirm-wrap button {
+    width: 60px;
+    height: 24px;
+    font-size: 12px;
+    cursor: pointer;
+    margin: 8px 4px;
+}
+
+#confirm {
+    background-color: #686CE5;
+    color: white;
+    border: none;
+}
+
+#discard {
+    border-color: #707070;
+}

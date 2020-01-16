@@ -20,3 +20,7 @@ button {
 a {
     text-decoration: none;
 }
+
+#root {
+    height: fit-content;
+}

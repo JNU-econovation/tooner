@@ -3,14 +3,14 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './PostList.css'
 
-function PostList({ location, articleid, writeralias, title, writetime, edittime, hit, like }) {
+function PostList({ location, articleid, writeralias, title, reviewtitle, writetime, edittime, hit, like }) {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; // Jan = 0
     var yyyy = today.getFullYear();
     today = mm + '-' + dd + '-' + yyyy;
     writetime = today > writetime ? writetime.slice(12,16) : writetime.slice(0, 10);
-    if(title.length > 48) title = title.slice(0,48);
+    title = `[${title}] ${reviewtitle}`.slice(0,48);
     return(
         <div className="post-list">
             {/*<div className="post-id">

@@ -7,6 +7,8 @@ import './Review.css';
 // 인피니트 스크롤 추가 예정
 
 function ReviewBox(props) {
+    console.log(props)
+    const api = "http://168.131.30.129:2599/shortreview";
     const [reviews, setReviews] = useState([]);
     const [isLoading, setLoading] = useState(true);
 
@@ -15,10 +17,10 @@ function ReviewBox(props) {
             setReviews(reviews.concat(Array.from({ length: 5 })));
         }, 500);
     }
+
     useEffect(() => {
-        console.log('re-render');
         setLoading(true);
-        axios.get(props.json)
+        axios.get(api)
         .then(res => {
             const data = res.data.data;
             setReviews(data);
@@ -27,7 +29,12 @@ function ReviewBox(props) {
         .catch(err => {
             console.log(err);
         });
-    }, [props.json]);
+    },[]);
+
+    useEffect(() => {
+
+    }, [reviews])
+
     return (
         <section className="review-section">
             { isLoading ? (
@@ -47,6 +54,7 @@ function ReviewBox(props) {
                             bad={review.bad}
                             image={review.image}
                             content={review.content}
+                            api={api}
                         />
                     ))}
                 </div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StarRating from 'react-svg-star-rating';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import './WriteReviewPage.css';
 import axios from 'axios';
@@ -19,37 +19,66 @@ function ImagePreview({ file }) {
         reader.onloadend = () => {
             setPreviewUrl(reader.result);
         };
-        return(
+        return (
             <img src={previewUrl} id="preview" />
         )
-    } else {
-        return null;
     }
+    return null;
 }
 
 function WriteReviewPage(props) {
-    var json = props.json;
-    var img_json = "http://168.131.30.129:2599/upload/image";
+    const [edit, setEdit] = useState(props.location.state.edit);
+    const { state } = React.useContext(AuthContext);
+    const { articleid } = useParams();
+    const { handleSubmit } = useForm();
+    const history = useHistory();
+
+    var api = "http://168.131.30.129:2599/longreview";
+    var img_api = "http://168.131.30.129:2599";
     var prefList = ['스토리', '캐릭터', '작화', '연출'];
     var isGood = new Array(prefList.length).fill(false);
     var isBad = new Array(prefList.length).fill(false);
 
-    const { state } = React.useContext(AuthContext);
+    var initial_data = {
+        title: '',
+        reviewtitle: '',
+        rating: 0,
+        preference: -1,
+        image: [],
+        content: ''
+    }
+    
+    if(edit) {
+        // initialize
+        const sent = props.location.state;
+        initial_data = sent.data;
+        let good = sent.good, bad = sent.bad;
+        good.forEach(item => {
+            let good_idx = prefList.indexOf(item);
+            if(good_idx !== -1) isGood[good_idx] = !isGood[good_idx];
+        });
+        bad.forEach(item => {
+            let bad_idx = prefList.indexOf(item);
+            if(bad_idx !== -1) isBad[bad_idx] = !isBad[bad_idx];
+        });
+    }
 
-    const { handleSubmit } = useForm();
-    const history = useHistory();
-
-    const [title, setTitle] = useState('');
-    const [reviewtitle, setReviewTitle] = useState('');
-    const [rating, setRating] = useState(-1);
-    const [preference, setPref] = useState(-1);
-    const [content, setContent] = useState('');
-    const [stateGood, setGood] = useState([]);
-    const [stateBad, setBad] = useState([]);
-
-    const [file, setFile] = useState();
-    const [status, setStatus] = useState(200);
+    // useState
+    const [title, setTitle] = useState(initial_data.title);
+    const [reviewtitle, setReviewTitle] = useState(initial_data.reviewtitle);
+    const [rating, setRating] = useState(initial_data.rating);
+    const [preference, setPref] = useState(initial_data.preference);
     const [empty, setEmpty] = useState(false);
+    const [content, setContent] = useState(initial_data.content);
+    const [status, setStatus] = useState(200);
+    const [stateGood, setGood] = useState(isGood);
+    const [stateBad, setBad] = useState(isBad);
+    
+    const [file, setFile] = useState(null);
+    const [image, setImage] = useState(initial_data.image);
+
+    // prefElement
+    const typeList = ['취향이다', '그저 그렇다', '취향이 아니다'];
     
     const onChangeTitle = e => {
         setTitle(e.target.value);
@@ -58,13 +87,16 @@ function WriteReviewPage(props) {
         setReviewTitle(e.target.value);
     }
     const onChangeGood = e => {
-        isGood[e.target.name] = !isGood[e.target.name];
-        setGood(isGood);
-    }
+        const changedGood = JSON.parse(JSON.stringify(stateGood));
+        changedGood[e.target.name] = !changedGood[e.target.name];
+        setGood(changedGood);
+    };
+
     const onChangeBad = e => {
-        isBad[e.target.name] = !isBad[e.target.name];
-        setBad(isBad);
-    }
+        const changedBad = JSON.parse(JSON.stringify(stateBad));
+        changedBad[e.target.name] = !changedBad[e.target.name];
+        setBad(changedBad);
+    };
     const onChangeRating = rating => {
         setRating(rating);
     }
@@ -78,21 +110,11 @@ function WriteReviewPage(props) {
 
     const onChangeFile = e => {
         setFile(e.target.files[0]);
+        console.log(file);
     }
 
-    const prefGoodElement = [], prefBadElement = [];
-    for(let i=0; i<prefList.length; i++) {
-        prefGoodElement.push(
-            <label>
-                <input type="checkbox" name={i} onChange={onChangeGood} /> {prefList[i]}
-            </label>
-        )
-        prefBadElement.push(
-            <label>
-                <input type="checkbox" name={i} onChange={onChangeBad} /> {prefList[i]}
-            </label>
-        )
-    }
+    useEffect(() => {
+    },[stateGood, stateBad]);
 
     const onSubmit = () => {
         var good = [], bad = [];
@@ -101,23 +123,26 @@ function WriteReviewPage(props) {
             stateBad[i] && bad.push(prefList[i]);
         }
 
-        console.log({ good, bad});
-
+        var imageUrl = [];
         const formData = new FormData();
         formData.append('file', file)
-
+        for (var pair of formData.entries()) {
+            console.log(pair[1]); 
+        }
+        
         // post files
-        axios.post(img_json, formData, {
+        // 나중에 if(!file) 추가
+        img_api = img_api + "/upload/image";
+        axios.post(img_api, formData, {
             header: {
                 'Content-Type': 'multipart/form-data'
             }
         })
         .then(res => {
-            console.log(res);
+            const imageUrl = res.data.data;
+            console.log(imageUrl);
             if(title !== '' && reviewtitle !=='' && rating !== -1 && preference !== -1) {
                 setEmpty(false);
-                console.log({ good, bad })
-    
                 const data = {
                     title: title,
                     reviewtitle: reviewtitle,
@@ -125,7 +150,7 @@ function WriteReviewPage(props) {
                     preference: preference,
                     good: good,
                     bad: bad,
-                    image: res.data.data,
+                    image: imageUrl,
                     content: content
                 }
                 console.log(data);
@@ -134,20 +159,31 @@ function WriteReviewPage(props) {
                         'authtoken': state.token
                     }
                 }
-                axios.post(json, data, config)
-                .then(res => {
-                    console.log(res);
-                    setStatus(res.status);
-                    if(status === 200) history.goBack();
-                }).catch(err => { 
-                    setStatus(401);
-                });
+                if(edit) {
+                    api = `${api}/${articleid}`;
+                    axios.put(api, data, config)
+                    .then(res => {
+                        setStatus(res.status);
+                        if(status === 200) history.goBack();
+                    }).catch(err => {
+                        setStatus(401);
+                    });
+                } else {
+                    axios.post(api, data, config)
+                    .then(res => {
+                        console.log(res);
+                        setStatus(res.status);
+                        if(status === 200) history.goBack();
+                    }).catch(err => { 
+                        setStatus(401);
+                    });
+                }
             } else {
                 setEmpty(true);
             }
         }).catch(err => {
             setStatus(401);
-        })
+        });
     };
 
     return(
@@ -161,36 +197,71 @@ function WriteReviewPage(props) {
             }
             <div className="search-title search-margin">
                 <p>리뷰할 웹툰을 선택해주세요.</p>
-                <input type="text" name="title" onChange={onChangeTitle} />
+                <input type="text" name="title" value={title} onChange={onChangeTitle} />
             </div>
             <div className="search-title search-margin">
                 <p>리뷰 제목을 입력해주세요.</p>
-                <input type="text" name="reviewtitle" onChange={onChangeReviewTitle} />
+                <input type="text" name="reviewtitle" value={reviewtitle} onChange={onChangeReviewTitle} />
             </div>
             <div className="search-rating search-margin">
                 <p>이 웹툰을 평가해주세요.</p>
                 <StarRating
+                    initialRating={rating}
                     handleOnClick={onChangeRating}
                 />
             </div>
             <div className="search-pref search-margin">
-                <p>이 웹툰은 취향에 맞나요?</p>
+                <span>이 웹툰은 취향에 맞나요?</span>
                 <div id="radio-container">
-                    <input type="radio" value="2" id="o" name="preference"  onChange={onChangePref} />
-                        <label htmlFor="o">취향이다</label>
-                    <input type="radio" value="1" id="ox" name="preference" onChange={onChangePref} />
-                        <label htmlFor="ox">그저 그렇다</label>
-                    <input type="radio" value="0" id="x" name="preference" onChange={onChangePref} />
-                        <label htmlFor="x">취향이 아니다</label>
+                    {
+                        typeList.map((type, i) => {
+                            return(
+                                <label>
+                                    <input
+                                        type="radio"
+                                        value={i}
+                                        checked={i === preference}
+                                        onChange={onChangePref}
+                                    /> {type}
+                                </label>
+                            )
+                        })
+                    }
                 </div>
             </div>
             <div className="search-good search-margin search-label">
-                <p>이 웹툰에서 좋았던 점은?</p>
-                {prefGoodElement}
+                <span>이 웹툰에서 좋았던 점은?</span>
+                {
+                    prefList.map((pref, i) => {
+                        return(
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name={i}
+                                    onChange={onChangeGood}
+                                    checked={stateGood[i]}
+                                /> {pref}
+                            </label>
+                        )
+                    })
+                }
             </div>
             <div className="search-bad search-margin search-label">
-                <p>이 웹툰에서 아쉬운 점은?</p>
-                {prefBadElement}
+                <span>이 웹툰에서 아쉬운 점은?</span>
+                {
+                    prefList.map((pref, i) => {
+                        return(
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    name={i}
+                                    onChange={onChangeBad}
+                                    checked={stateBad[i]}
+                                /> {pref}
+                            </label>
+                        )
+                    })
+                }
             </div>
             {
                 empty ? (
@@ -203,8 +274,14 @@ function WriteReviewPage(props) {
                 <label htmlFor="uploader">이미지 올리기</label>
                 <input type="file" name="image" id="uploader" onChange={onChangeFile} />
             </div>
-            <ImagePreview file={file} />
-            <textarea name="content" id="content" onChange={onChangeContent}>
+            {
+                file !== null ? (
+                    <ImagePreview file={file} />
+                ) : (
+                    <img src={`${img_api}/uploads/images/${image[0]}`} id="preview" />
+                )
+            }
+            <textarea name="content" id="content" value={content} onChange={onChangeContent}>
             </textarea>
             <div id="submit-wrap">
                 <button type="submit" id="submit">등록</button>

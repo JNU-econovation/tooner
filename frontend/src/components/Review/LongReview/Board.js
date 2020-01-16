@@ -32,6 +32,7 @@ function Board(props) {
                             key={post.articleid}
                             articleid={post.articleid}
                             title={post.title}
+                            reviewtitle={post.reviewtitle}
                             writeralias={post.writeralias}
                             writetime={post.writetime}
                             hit={post.hit}

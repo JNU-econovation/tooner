@@ -13,19 +13,21 @@ import LongReview from './Review/LongReview/LongReview';
 import WebtoonPage from './Board/Webtoon/WebtoonPage';
 import ThreadPage from './Thread/ThreadPage';
 
+import PostPage from './PostPage';
+
+// 나중에 게시판 라우터 뜯어 고치기
+
 function App() {
   return(
     <Router>
         <Header />
         <Switch>
-            <Route path='/login'>
-              <Login />
-            </Route>
+            <Route path='/login' component={Login} />
             <Route path='/signup' component={Signup} />
-            <Route path='/mypage' component={MyPage} />
             <Route path='/' component={MiddleHeader} />
         </Switch>
         <Switch>
+            <Route path='/mypage' component={MyPage} />
             <Route path='/review/short' component={ShortReview} />
             <Route path='/review/long' component={LongReview} />
             <Route path='/review' component={ShortReview} />
@@ -34,7 +36,7 @@ function App() {
             <Route exact path='/' component={Main} />
             {/*<Route component={NotFound} />*/}
         </Switch>
-        <Footer />
+        {/*<Footer />*/}
     </Router>
   );
 }

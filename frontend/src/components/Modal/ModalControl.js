@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import SearchToon from './SearchToon/SearchToon';
-
-function ModalControl(props) {
-    
-    return(
-        <div className="write-review-container">
-        </div>
-    );
+function Modal() {
+    this.isOpen = false;
 }
 
-export default ModalControl;
+Modal.prototype = {
+    openModal: function() {
+        this.isOpen = true;
+    },
+    closeModal: function() {
+        this.isOpen = false;
+    }
+}
+
+export default Modal;

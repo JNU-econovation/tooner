@@ -32,7 +32,6 @@ const reducer = (state, action) => {
 
 const AuthProvider = ({ children }) => {
     const [state, dispatch] = React.useReducer(reducer, initialState);
-    console.log(state);
     return(
         <AuthContext.Provider value={{
             state,

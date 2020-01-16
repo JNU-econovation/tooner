@@ -68,3 +68,10 @@
 #like-container i {
     padding-right: 8px;
 }
+
+#image {
+    max-width: 93%;
+    height: auto;
+    margin: 16px 2%;
+    display: block;
+}

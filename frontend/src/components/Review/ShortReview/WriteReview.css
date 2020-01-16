@@ -21,6 +21,14 @@
     font-size: 14px;
 }
 
+#press-to-select {
+    float: right;
+}
+
+#press-to-select:hover {
+    color: #686CE5;
+}
+
 #button-box {
     margin-top: 4px;
     width: 100%;

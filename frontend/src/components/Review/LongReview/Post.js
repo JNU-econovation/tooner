@@ -3,10 +3,11 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import './Post.css';
 
-function Post({ articleid, writeralias, title, content, writetime, edittime, hit, like, dislike }) {
-    const like_api = "http://168.131.30.129:2599/board/webtoon/like/" + articleid;
-    const dislike_api = "http://168.131.30.129:2599/board/webtoon/dislike/" + articleid;
-    console.log(like_api);
+function Post({ articleid, writeralias, title, content, writetime, edittime, image, hit, like, dislike }) {
+    console.log(image)
+    const img_api = "http://168.131.30.129:2599/uploads/images/" + image[0];
+    const like_api = "http://168.131.30.129:2599/longreview/like/" + articleid;
+    const dislike_api = "http://168.131.30.129:2599/longreview/dislike/" + articleid;
 
     const [_like, setLike] = useState(like);
     const [_dislike, setDislike] = useState(dislike);
@@ -72,6 +73,12 @@ function Post({ articleid, writeralias, title, content, writetime, edittime, hit
                 <ul>조회수</ul>
                     <li>{hit}</li>
             </div>
+            {
+                image[0] !== "" &&
+                <div id="image-wrap">
+                    <img src={img_api} id="image" />
+                </div>
+            }
             <div id="content-wrap">
                 {content}
             </div>

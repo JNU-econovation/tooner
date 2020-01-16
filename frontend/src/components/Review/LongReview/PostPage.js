@@ -2,7 +2,7 @@ import React, { useState ,useEffect } from 'react';
 import axios from 'axios';
 import { Link, useHistory, useParams } from "react-router-dom"
 
-import Confirm from './Modal/Confirm/Confirm';
+import Confirm from '../../Modal/Confirm/Confirm';
 import Post from './Post';
 import './PostPage.css';
 
@@ -69,11 +69,12 @@ function PostPage(props){
                 <Post
                     key={articleid}
                     articleid={post.articleid}
-                    title={post.title}
+                    title={post.reviewtitle}
                     content={post.content}
                     writeralias={post.writeralias}
                     writetime={post.writetime}
                     edittime={post.edittime.slice(0,10)}
+                    image={post.image}
                     hit={post.hit}
                     like={post.like}
                     dislike={post.dislike}
@@ -83,12 +84,20 @@ function PostPage(props){
                 <button id="go-list" onClick={() => history.push(props.location)}>목록</button>
                 <button id="delete-post" onClick={openConfirm}>삭제</button>
                 <Link to={{
-                    pathname: `${props.location}/edit/${articleid}`,
+                    pathname: `${location}/edit/${articleid}`,
                     state: {
                         api: api,
-                        title: post.title,
-                        content: post.content,
-                        edit: true
+                        edit: true,
+                        data: {
+                            title: post.title,
+                            reviewtitle: post.reviewtitle,
+                            rating: post.rating,
+                            preference: post.preference,
+                            image: post.image,
+                            content: post.content
+                        },
+                        good: post.good,
+                        bad: post.bad
                     }
                 }}>
                     <button id="edit-post">수정</button>

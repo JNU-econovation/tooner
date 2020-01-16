@@ -1,86 +1,24 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import axios from 'axios';
-import SearchToon from '../../Modal/SearchToon/SearchToon';
+import React, { useState } from 'react';
+import ShortReviewModal from '../../Modal/ShortReviewModal/ShortReviewModal';
 import './WriteReview.css';
 
-import { AuthContext } from '../../Context/AuthProvider';
-
 function WriteReview(props) {
-    // context
-    const { state } = React.useContext(AuthContext);
-
     // initialize
-    var prefList = ['스토리', '캐릭터', '작화', '연출'];
-    var content = '';
     var key = 3000;
-
-    // setData
-    const [title, setTitle] = useState('');
-    const [rating, setRating] = useState(-1);
-    const [preference, setPreference] = useState(-1);
-    const [isGood, setIsGood] = useState([]);
-    const [isBad, setIsBad] = useState([]);
-
-    // setStatus
-    const [status, setStatus] = useState(200);
 
     // setModal
     const [isModalOpen, setModal] = useState(false);
+    const [status, setStatus] = useState(200);
 
     const openModal = () => {
         setModal(true);
     }
-    const closeModal = () => {
-        console.log('close')
+
+    const closeModal = (status) => {
+        setStatus(status);
         setModal(false);
     }
-    const handleChildClick = (searched) => {
-        console.log(searched)
-        setModal(false);
-        setTitle(searched.title);
-        setRating(searched.rating);
-        setPreference(searched.preference);
-        setIsGood(searched.good);
-        setIsBad(searched.bad);
-    }
-    useEffect( () => {
-    }, console.log('data is rendered'));
-    const { handleSubmit } = useForm();
 
-    // onChange
-    const onChangeContent = e => {
-        content = e.target.value;
-    }
-
-    const history = useHistory();
-    const onSubmit = () => {
-        // add preference
-        var good = [], bad = [];
-        for(let i=0; i<prefList.length; i++) {
-            isGood[i] && good.push(prefList[i]);
-            isBad[i] && bad.push(prefList[i]);
-        }
-
-        // post data
-        const review = { title, rating, preference, good, bad, content };
-        console.log(state);
-        let config = {
-            headers: {
-                'authtoken': state.token
-            }
-        }
-        console.log(config);
-        axios.post(props.json, review, config)
-        .then(res => {
-            console.log(res);
-            setStatus(res.status);
-            if(status === 200) history.push(0);
-        }).catch(err => {
-            setStatus(401);
-        });
-    }
     return(
         <div className="write-review-container">
             {
@@ -90,21 +28,16 @@ function WriteReview(props) {
                     null
                 )
             }
-            <button id="press-to-select" onClick={openModal}>눌러서 리뷰할 작품 찾기</button>
-            <span>{title}</span>
-            <SearchToon
-                isOpen={isModalOpen}
-                close={handleChildClick}
-                cancel={closeModal}
-                prefList={prefList}
-            />
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <textarea name="content" onChange={onChangeContent} />
-                <div id="button-box">
-                    {/*<button type="reset" onClick={reset} id="reset">다시 쓰기</button>*/}
-                    <button type="submit" id="submit">확인</button>
-                </div>
-            </form>
+            <button id="press-to-select" onClick={openModal}>눌러서 한줄 리뷰하기</button>
+            {/*<span>{title}</span>*/}
+            {
+                isModalOpen &&
+                <ShortReviewModal
+                    isOpen={isModalOpen}
+                    close={closeModal}
+                    articleid={-1}
+                />
+            }
         </div>
         
     );
