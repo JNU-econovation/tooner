@@ -24,24 +24,20 @@ module.exports = function(app) {
         getTopHit(res, WebtoonBoard, 4);
     })
 
-    app.get('/board/webtoon/reply/:articleId', function(req,res) {
+    app.get('/board/webtoon/:articleId/reply', function(req,res) {
         getReply(res, WebtoonReply, req.params.articleId);
     })
 
-    app.post('/board/webtoon/reply/:articleId', isLoggedIn, function(req,res) {
+    app.post('/board/webtoon/:articleId/reply', isLoggedIn, function(req,res) {
         writeReply(req, res, WebtoonReply, req.params.articleId);
     })
 
-    // 게시판 쓰기
+    app.delete('/board/webtoon/reply/:replyid', isLoggedIn, function(req,res) {
+        deleteReply(req, res, WebtoonReply, req.params.replyid);
+    })
+
     app.post('/board/webtoon', isLoggedIn, function(req,res) {
-        WebtoonBoard.create({
-            writerid: req.user.user_no,
-            writeralias: req.user.useralias,
-            title: req.body.title,
-            content: req.body.content
-        }).then(board => {
-            res.json({ message: "success", articleid:board.articleid});
-        });
+        writeArticle(req, res, WebtoonBoard);
     });
 
     app.put('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
@@ -73,6 +69,17 @@ module.exports = function(app) {
         res.status(404).json({message:"게시판이 없습니다."});
     })
 };
+
+function writeArticle(req, res, Board) {
+    Board.create({
+        writerid: req.user.user_no,
+        writeralias: req.user.useralias,
+        title: req.body.title,
+        content: req.body.content
+    }).then(board => {
+        res.json({ message: "success", articleid: board.articleid });
+    });
+}
 
 function putArticle(req, res, Board) {
     Board.findOne({
@@ -234,6 +241,25 @@ function writeReply(req, res, Reply, articleid) {
         content: req.body.content
     }).then(reply => {
         res.json({ message: "success", data:reply});
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function deleteReply(req, res, Reply, replyid) {
+    Reply.findOne({
+        where: { reply_id: replyid},
+        attributes: ['writerid']
+    }).then(reply => {
+        if (reply.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        } else {
+            Reply.destroy({
+                where: { reply_id: replyid }
+            }).then(function () {
+                res.json({ message: "Success" });
+            });
+        }
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });
