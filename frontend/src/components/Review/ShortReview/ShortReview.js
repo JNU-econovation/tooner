@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Route } from 'react-router-dom';
-import '../../SinglePage.css';
+import ShortReviewModal from '../../Modal/ShortReviewModal/ShortReviewModal';
+import { Route, useHistory } from 'react-router-dom';
+
 import Sort from '../Sort';
 import WriteReview from './WriteReview';
 import ReviewBox from '../ReviewBox';
 import ReviewGuide from '../../Modal/ReviewGuide/ReviewGuide';
+import './ShortReview.css';
+import '../../SinglePage.css';
+import './WriteReview.css';
 
 function ShortReview({ match }) {
     const api = "http://168.131.30.129:2599/shortreview";
@@ -17,6 +21,32 @@ function ShortReview({ match }) {
         setGuide(false);
     }
 
+    // initialize
+    var key = 3000;
+
+    // setModal
+    const [isModalOpen, setModal] = useState(false);
+
+    const [isUpdate, setUpdate] = useState(false);
+    const openModal = () => {
+        setModal(true);
+        setUpdate(false);
+    }
+
+    var newreview = {};
+    const [newReview, setNew] = useState({});
+    const closeModal = (update) => {
+        //console.log(review);
+        //newreview = review;
+        //setNew(newreview);
+        setModal(false);
+        setUpdate(update);
+    }
+
+    const close = () => {
+        setModal(false);
+    }
+
     var content =
     <div id="guide-detail">
         한줄 리뷰입니다!
@@ -24,7 +54,8 @@ function ShortReview({ match }) {
     </div>
 
     useEffect(() => {
-    });
+    }, []);
+
     return(
         <div className="page-container">
             <div className="title-container">
@@ -39,9 +70,25 @@ function ShortReview({ match }) {
                     />
                 }
             </div>
-            <WriteReview api={api} />
-            <Sort />
-            <Route path={match.path} component={ReviewBox} />
+            <div className="write-review-container">
+                <div id="write-wrap">
+                    <button id="press-to-select" onClick={openModal}>눌러서 한줄 리뷰하기</button>
+                </div>
+                {/*<span>{title}</span>*/}
+                {
+                    isModalOpen &&
+                    <ShortReviewModal
+                        isOpen={isModalOpen}
+                        close={closeModal}
+                        closeModal={close}
+                        articleid={-1}
+                    />
+                }
+            </div>
+            {/*<Sort />*/}
+            <Route path={match.path}>
+                <ReviewBox isUpdate={isUpdate} />
+            </Route>
         </div>
     );
 }
