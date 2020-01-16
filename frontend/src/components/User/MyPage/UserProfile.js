@@ -16,6 +16,7 @@ function UserProfile(props) {
         }
         axios.get(props.api, config)
         .then(res => {
+            console.log(res);
             const userInfo = res.data.data;
             setName(userInfo.username);
             setAlias(userInfo.alias);
