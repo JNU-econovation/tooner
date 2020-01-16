@@ -1,49 +1,48 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PostList from './PostList';
 import './Board.css'
 import axios from 'axios';
 
-class Board extends React.Component {
-    state = {
-        posts: [],
-        isLoading: true
-    }
+function Board(props) {
+    const [posts, setPost] = useState([]);
+    const [isLoading, setLoading] = useState(true);
 
-    componentDidMount() {
-        axios.get(this.props.json).then(
+    useEffect(() => {
+        axios.get(props.json).then(
             res => {
                 const posts = res.data.data;
-                this.setState({ posts, isLoading: false });
+                setPost(posts);
+                setLoading(false);
             }
-        )
-    }
+        ).catch(err => {
+            console.log(err);
+        })
+    }, [props.json]);
 
-    render() {
-        const { posts, isLoading } = this.state;
-        return(
-            <section className="board">
-                { isLoading ? (
-                    <div className="loader">
-                        <span>데이터를 불러오고 있습니다...</span>
-                    </div>
-                    ) : (
-                    <div className="posts">
-                        {posts.map(post => (
-                            <PostList
-                                key={post.articleid}
-                                articleid={post.articleid}
-                                title={post.title}
-                                writeralias={post.writeralias}
-                                writetime={post.writetime}
-                                hit={post.hit}
-                                like={post.like}
-                            />
-                        ))}
-                    </div>
-                )}
-            </section>
-        );
-    }
+    return(
+        <section className="board">
+            { isLoading ? (
+                <div className="loader">
+                    <span>데이터를 불러오는 중입니다...</span>
+                </div>
+                ) : (
+                <div className="posts">
+                    {posts.map(post => (
+                        <PostList
+                            key={post.articleid}
+                            articleid={post.articleid}
+                            title={post.title}
+                            writeralias={post.writeralias}
+                            writetime={post.writetime}
+                            hit={post.hit}
+                            like={post.like}
+                            location={props.location}
+                        />
+                    ))}
+                </div>
+            )}
+        </section>
+    )
 }
 
 export default Board;

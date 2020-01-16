@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './PostList.css'
 
-function PostList({ articleid, writeralias, title, writetime, edittime, hit, like }) {
+function PostList({ location, articleid, writeralias, title, writetime, edittime, hit, like }) {
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth() + 1; // Jan = 0
@@ -17,7 +17,7 @@ function PostList({ articleid, writeralias, title, writetime, edittime, hit, lik
                 <span>{articleid}</span>
             </div>*/}
             <div className="post-title">
-                <Link to={`/board/webtoon/${articleid}`}>
+                <Link to={`${location}/post/${articleid}`}>
                     <span>{title}</span>
                 </Link>
             </div>
