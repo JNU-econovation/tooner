@@ -143,7 +143,7 @@ function getBoard(res, Board, limit, page) {
     });
 }
 
-//TODO: 최근 리뷰 우선 표시
+//TODO: 최근 게시글 우선 표시
 function getTopHit(res, Board, limit) {
     if(!page) page = 1;
     Board.count().then(count => {
