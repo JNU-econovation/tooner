@@ -15,7 +15,7 @@ function WebtoonPage({ match }) {
                 <span id="page-title">웹툰이야기</span>
             </div>
             <Route exact path={match.path}>
-                <Sort />
+                {/*<Sort />*/}
                 <Board json={api} location={match.path} />
                 <div id="button-container">
                     <Link to={`${match.path}/write`}>

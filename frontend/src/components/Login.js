@@ -17,6 +17,7 @@ function Login() {
         axios.post(login_api, data)
         .then(res => {
             setStatus(res.status);
+            console.log(res);
             dispatch({
                 type: 'login',
                 payload: res.data
