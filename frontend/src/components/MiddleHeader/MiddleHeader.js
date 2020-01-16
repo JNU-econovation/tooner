@@ -1,14 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './MiddleHeader.css'
 import '../Main/Main.css'
 import {Link} from 'react-router-dom';
 
 function HotPost(props) {
+    const api = "http://168.131.30.129:2599/toplike/longreview";
+    const [hot, setHot] = useState({
+        title: '',
+        path: '',
+    });
+
+    useEffect(() => {
+        axios.get(api)
+        .then(res => {
+            const random = Math.floor(Math.random()*(4));
+            const post = res.data.data[random];
+            setHot({
+                title: `[${post.title}] ${post.reviewtitle}`,
+                path: `/review/long/post/${post.articleid}`
+            });
+        })
+    }, [api])
+
     return (
         <div className="hotPost">
             <span>
                 <mark id="hotpost__type">{props.type}</mark>
-                &nbsp;&nbsp;&nbsp;{props.title}
+                <Link to={hot.path}>
+                    &nbsp;&nbsp;&nbsp;{hot.title}
+                </Link>
             </span>
         </div>
     );
