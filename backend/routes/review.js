@@ -121,7 +121,6 @@ function getReviewDetail(res, Review, articleId) {
 
 //TODO: 최근 리뷰 우선 표시
 function getTopLike(res, Review, limit) {
-    if(!page) page = 1;
     Review.count().then(count => {
         Review.findAll({
             order: [['like', 'DESC']],
