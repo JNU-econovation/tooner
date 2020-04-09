@@ -8,7 +8,7 @@ import WritePost from '../WritePost/WritePost';
 import './WebtoonPage.css'
 
 function WebtoonPage({ match }) {
-    var api = "http://168.131.30.129:2599/board/webtoon";
+    var api = "/board/webtoon";
     return(
         <div className="page-container">
             <div className="title-container">

@@ -3,11 +3,10 @@ import { useCookies } from 'react-cookie';
 
 import UserProfile from './UserProfile';
 import './MyPage.css'
-import axios from 'axios';
 
 
 function MyPage() {
-    const api = "http://168.131.30.129:2599/userinfo";
+    const api = "/userinfo";
 
     return(
         <div className="page-container">

@@ -11,7 +11,7 @@ import { AuthContext } from '../../Context/AuthProvider';
 
 // preference, good, bad 반영해야함
 function ShortReviewModal(props) {
-    const api = "http://168.131.30.129:2599/shortreview";
+    const api = "/shortreview";
 
     // edit setting
     const edit = props.articleid === -1 ? false : true;

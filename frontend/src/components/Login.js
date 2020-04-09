@@ -7,7 +7,7 @@ import './Login.css';
 import { AuthContext } from './Context/AuthProvider';
 
 function Login() {
-    const login_api = "http://168.131.30.129:2599/login";
+    const login_api = "/login";
     const [status, setStatus] = useState(200);
     const { register, handleSubmit } = useForm();
     const history = useHistory();

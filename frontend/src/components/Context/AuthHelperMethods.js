@@ -4,7 +4,7 @@ import axios from 'axios';
 
 class AuthHelperMethods {
     constructor() {
-        this.login_api = "http://168.131.30.129:2599/login";
+        this.login_api = "/login";
     }
 
     login = (user_data) => {

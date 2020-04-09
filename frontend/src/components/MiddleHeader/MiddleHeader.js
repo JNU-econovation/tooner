@@ -5,7 +5,7 @@ import '../Main/Main.css'
 import {Link} from 'react-router-dom';
 
 function HotPost(props) {
-    const api = "http://168.131.30.129:2599/toplike/longreview";
+    const api = "/toplike/longreview";
     const [hot, setHot] = useState({
         title: '',
         path: '',

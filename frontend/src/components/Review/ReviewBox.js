@@ -7,7 +7,7 @@ import './Review.css';
 // 인피니트 스크롤 추가 예정
 
 function ReviewBox(props) {
-    const api = "http://168.131.30.129:2599/shortreview";
+    const api = "/shortreview";
     const [reviews, setReviews] = useState([]);
     const [isLoading, setLoading] = useState(true);
     const [isUpdate, setUpdate] = useState(false);
@@ -23,6 +23,7 @@ function ReviewBox(props) {
     }
 
     useEffect(() => {
+        console.log('re-render')
         setLoading(true);
         axios.get(api)
         .then(res => {

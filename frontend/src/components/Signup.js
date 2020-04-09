@@ -5,7 +5,7 @@ import { useHistory } from 'react-router-dom';
 import './Signup.css';
 
 function Signup() {
-    const url = "http://168.131.30.129:2599/register";
+    const url = "/register";
     const [status, setStatus] = useState(200);
     const { register, handleSubmit } = useForm();
     const history = useHistory();

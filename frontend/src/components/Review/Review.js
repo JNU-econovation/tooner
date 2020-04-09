@@ -7,7 +7,7 @@ import ShortReviewModal from '../Modal/ShortReviewModal/ShortReviewModal';
 import './Review.css';
 
 function Review({ api, articleid, title, rating, preference, good, bad, image, content, updateCheck }) {
-    if(image != null) image = "http://168.131.30.129:2599/uploads/images/" + image;
+    if(image != null) image = "/uploads/images/" + image;
     if(bad === null) bad = [];
     if(good === null) good = [];
     //if(bad[0] === "") bad[0] = "없음";

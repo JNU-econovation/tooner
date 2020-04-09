@@ -10,7 +10,7 @@ import PostPage from './PostPage';
 
 function LongReview({ match }) {
     var title = '좋아하는 웹툰';
-    var api = "http://168.131.30.129:2599/longreview";
+    var api = "/longreview";
     
     const [isModalOpen, setModal] = useState(false);
     const openModal = () => {

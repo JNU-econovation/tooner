@@ -11,7 +11,7 @@ import '../../SinglePage.css';
 import './WriteReview.css';
 
 function ShortReview({ match }) {
-    const api = "http://168.131.30.129:2599/shortreview";
+    const api = "/shortreview";
 
     const [isGuideOpen, setGuide] = useState(false);
     const openGuide = () => {

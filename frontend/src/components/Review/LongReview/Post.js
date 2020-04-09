@@ -15,9 +15,9 @@ function Post({ articleid, writeralias, title, content, writetime, edittime, ima
 
     console.log(good)
 
-    const img_api = "http://168.131.30.129:2599/uploads/images/" + image[0];
-    const like_api = "http://168.131.30.129:2599/longreview/like/" + articleid;
-    const dislike_api = "http://168.131.30.129:2599/longreview/dislike/" + articleid;
+    const img_api = "/uploads/images/" + image[0];
+    const like_api = "/longreview/like/" + articleid;
+    const dislike_api = "/longreview/dislike/" + articleid;
     title = title.slice(0,48);
 
     const [_like, setLike] = useState(like);

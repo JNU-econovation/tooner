@@ -33,8 +33,8 @@ function WriteReviewPage(props) {
     const { handleSubmit } = useForm();
     const history = useHistory();
 
-    var api = "http://168.131.30.129:2599/longreview";
-    var img_api = "http://168.131.30.129:2599";
+    var api = "/longreview";
+    var img_api = "";
     var prefList = ['스토리', '캐릭터', '작화', '연출'];
     var isGood = new Array(prefList.length).fill(false);
     var isBad = new Array(prefList.length).fill(false);

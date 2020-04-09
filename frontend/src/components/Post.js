@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import './Post.css';
 
 function Post({ articleid, writeralias, title, content, writetime, edittime, hit, like, dislike }) {
-    const like_api = "http://168.131.30.129:2599/board/webtoon/like/" + articleid;
-    const dislike_api = "http://168.131.30.129:2599/board/webtoon/dislike/" + articleid;
+    const like_api = "/board/webtoon/like/" + articleid;
+    const dislike_api = "/board/webtoon/dislike/" + articleid;
     console.log(like_api);
 
     const [_like, setLike] = useState(like);
@@ -21,7 +21,6 @@ function Post({ articleid, writeralias, title, content, writetime, edittime, hit
             headers
         })
         .then(res => {
-            console.log(res);
             setLike(res.data.like);
         })
         .catch(err => {

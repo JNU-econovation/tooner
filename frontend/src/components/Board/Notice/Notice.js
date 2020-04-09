@@ -6,7 +6,7 @@ import PostPage from './PostPage';
 import './Notice.css'
 
 function Notice({ match }) {
-    var api = "http://168.131.30.129:2599/board/notice";
+    var api = "/board/notice";
     return(
         <div className="page-container">
             <div className="title-container">

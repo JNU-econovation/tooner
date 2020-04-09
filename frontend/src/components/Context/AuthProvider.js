@@ -26,7 +26,7 @@ const reducer = (state, action) => {
                 token: null
             }
         default:
-            return state;
+            return state;tk
     }
 }
 

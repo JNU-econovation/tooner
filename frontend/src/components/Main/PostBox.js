@@ -6,7 +6,7 @@ import './Main.css'
 
 function SinglePostBox(props) {
   const className = "singleBox " + props.class;
-  const api = "http://168.131.30.129:2599" + props.api;
+  const api = props.api;
   const [posts, setPosts] = useState([
     {
       title: '글을 불러오는 중입니다...'
