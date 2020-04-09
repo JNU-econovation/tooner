@@ -1,0 +1,81 @@
+.sign-form-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.sign-form-container form {
+    align-self: center;
+}
+
+.sign-container input {
+    /* font style */
+    font-size: 18px;
+    font-weight: lighter;
+
+    /* input style */
+    display: block;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom-color: #707070;
+    opacity: 0.5;
+    min-width: 450px;
+    line-height: 40px;
+    text-indent: 10px;
+    margin-top: 20px;
+    border-width: thin;
+    cursor: pointer;
+}
+
+.sign-container input::placeholder {
+    font-size: 18px;
+    color: #707070;
+}
+
+#title {
+    font-size: 23px;
+    color: #686CE5;
+    font-weight: bold;
+}
+
+#message {
+    font-size: 13px;
+    color: #707070;
+    margin-top: 10px;
+}
+
+.submit-container {
+    margin-top: 20px;
+}
+
+.submit-container button {
+    min-width: 219px;
+    min-height: 56px;
+
+    background-repeat:no-repeat;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+
+    font-size: 14px;
+}
+
+.submit-container #cancel {
+    float: left;
+
+    border-width: thin;
+    border-style: solid;
+    border-color: #BEBEBE;
+    color: #BEBEBE;
+
+    background-color: white;
+}
+
+.submit-container #submit {
+    float: right;
+
+    background-color: #686CE5;
+    color: white;
+    border: none;
+}

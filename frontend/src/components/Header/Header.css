@@ -1,0 +1,36 @@
+header {
+    /* background */
+    background-color: #686CE5;
+    width: 100%;
+    height: 56px;
+}
+
+.banner-container {
+    float: left;
+    margin-top: -6px;
+    margin-left: 8px;
+    width: fit-content;
+    height: 56px;
+}
+
+.banner-container a {
+    color: white;
+    font-size: 42px;
+    text-decoration: none;
+    text-shadow: 2px 2px 4px black;
+    padding: 0;
+}
+
+.user-container {
+    float: right;
+    width: fit-content;
+    height: fit-content;
+    margin-top: 14px;
+    margin-right: 8px;
+}
+
+.user-container button {
+    width: fit-content;
+    height: 23px;
+    color: white;
+}

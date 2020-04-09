@@ -1,0 +1,17 @@
+/* 태그별 속성 지정 */
+
+input {
+    vertical-align: middle;
+    outline: none;
+}
+
+input::placeholder {
+    color: #BFBFBF;
+}
+
+.main {/* size */
+    height: fit-content;
+    overflow: hidden;
+
+    /* position */
+}

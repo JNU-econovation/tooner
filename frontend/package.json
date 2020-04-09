@@ -1,0 +1,44 @@
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.19.1",
+    "gh-pages": "^2.2.0",
+    "jwt-decode": "^2.2.0",
+    "query-string": "^6.9.0",
+    "rc-checkbox": "^2.1.8",
+    "react": "^16.12.0",
+    "react-cookie": "^4.0.3",
+    "react-dom": "^16.12.0",
+    "react-svg-star-rating": "^1.0.3",
+    "redux": "^4.0.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "react-router-dom": "^5.1.2"
+  },
+  "homepage": "https://acupofmilktea.github.io/tooner"
+}

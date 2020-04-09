@@ -1,0 +1,20 @@
+{
+  "short_name": "tooner",
+  "name": "tooner - Webtoon Community for Readers",
+  "icons": [
+    {
+      "src": "./tooner.ico",
+      "sizes": "64x64",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "./logo.png",
+      "type": "image/png",
+      "sizes": "125x125"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#686CE5",
+  "background_color": "#ffffff"
+}

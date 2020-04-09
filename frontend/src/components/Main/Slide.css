@@ -1,0 +1,10 @@
+.slide-container {
+    border: none;
+    width: 98%;
+    margin: 0 1%;
+    height: fit-content;
+}
+
+.slide-container img {
+    width: 100%;
+}

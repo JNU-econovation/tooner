@@ -1,0 +1,81 @@
+.middle-header input {
+    vertical-align: middle;
+}
+
+.middle-header input::placeholder {
+    color: #BFBFBF;
+}
+
+.search-container button {
+    /* 버튼 투명하게 */
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+
+/* middle_header */
+.middle-header {
+    /* font style */
+    font-size: 14px;
+
+    /* size */
+    height: 56px;
+}
+
+.hotPost {
+    float: left;
+    margin: 15px;
+    margin-right: 0;
+    color: #707070;
+    display: block;
+}
+
+.hotPost a:link {
+    text-decoration: none;
+    color: #707070;
+}
+
+.hotPost a:visited {
+    text-decoration: none;
+    color: #707070;
+}
+
+.hotPost a:hover {
+    text-decoration: none;
+    color: #707070;
+}
+
+#hotpost__type {
+    font-size: 80%;
+    background-color: red;
+    color: white;
+}
+
+.search-container {
+    float: right;
+    margin: 12px 10px;
+    margin-left: 0;
+}
+
+.search-container input[type=search] {
+    border-left: 0;
+    border-right: 0;
+    border-top: 0;
+    border-width: 1.5px;
+    height: 30px;
+    font-family: inherit;
+    float: left;
+}
+
+.search-container button {
+    float: right;
+    color: #707070;
+    padding-top: 5px;
+    background: transparent;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
