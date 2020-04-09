@@ -1,5 +1,6 @@
 const { isLoggedIn } = require("./isLoggedIn");
-var { WebtoonBoard } = require('../models');
+var { WebtoonBoard, NoticeBoard, WebtoonReply } = require('../models');
+
 
 module.exports = function(app) {
     // 게시판 목록보기
@@ -7,20 +8,36 @@ module.exports = function(app) {
         getBoard(res, WebtoonBoard, 20, req.query.page);
     })
 
-    app.get('/boardthumb/webtoon', function(req,res) {
-        getBoard(res, WebtoonBoard, 5);
+    app.get('/board/notice', function(req,res) {
+        getBoard(res, NoticeBoard, 20, req.query.page);
     })
 
-    // 게시판 쓰기
+    app.get('/boardthumb/webtoon', function(req,res) {
+        getBoard(res, WebtoonBoard, 4);
+    })
+
+    app.get('/boardthumb/notice', function(req,res) {
+        getBoard(res, NoticeBoard, 4);
+    })
+
+    app.get('/tophit/webtoon', function(req,res) {
+        getTopHit(res, WebtoonBoard, 4);
+    })
+
+    app.get('/board/webtoon/:articleId/reply', function(req,res) {
+        getReply(res, WebtoonReply, req.params.articleId);
+    })
+
+    app.post('/board/webtoon/:articleId/reply', isLoggedIn, function(req,res) {
+        writeReply(req, res, WebtoonReply, req.params.articleId);
+    })
+
+    app.delete('/board/webtoon/reply/:replyid', isLoggedIn, function(req,res) {
+        deleteReply(req, res, WebtoonReply, req.params.replyid);
+    })
+
     app.post('/board/webtoon', isLoggedIn, function(req,res) {
-        WebtoonBoard.create({
-            writerid: req.user.user_no,
-            writeralias: req.user.useralias,
-            title: req.body.title,
-            content: req.body.content
-        }).then(board => {
-            res.json({ message: "success", articleid:board.articleid});
-        });
+        writeArticle(req, res, WebtoonBoard);
     });
 
     app.put('/board/webtoon/:articleId', isLoggedIn, function(req,res) {
@@ -35,6 +52,10 @@ module.exports = function(app) {
         getBoardArticle(res, WebtoonBoard, req.params.articleId);
     })
 
+    app.get('/board/notice/:articleId', function(req,res) {
+        getBoardArticle(res, NoticeBoard, req.params.articleId);
+    })
+
     app.post('/board/webtoon/like/:articleId', isLoggedIn, function(req,res) {
         addLike(WebtoonBoard, req.params.articleId, res);
     })
@@ -43,15 +64,22 @@ module.exports = function(app) {
         addDislike(WebtoonBoard, req.params.articleId, res);
     })
 
-    app.get('/board/webtoon/reply/:articleId', function(req,res) {
-        
-    })
-
     // 404 처리
     app.get('/board/*', function(req,res) {
         res.status(404).json({message:"게시판이 없습니다."});
     })
 };
+
+function writeArticle(req, res, Board) {
+    Board.create({
+        writerid: req.user.user_no,
+        writeralias: req.user.useralias,
+        title: req.body.title,
+        content: req.body.content
+    }).then(board => {
+        res.json({ message: "success", articleid: board.articleid });
+    });
+}
 
 function putArticle(req, res, Board) {
     Board.findOne({
@@ -126,6 +154,21 @@ function getBoard(res, Board, limit, page) {
     });
 }
 
+//TODO: 최근 게시글 우선 표시
+function getTopHit(res, Board, limit) {
+    Board.count().then(count => {
+        Board.findAll({
+            order: [['hit', 'DESC'], ['articleid','DESC']],
+            limit: limit,
+            attributes: ['articleid', 'writeralias', 'title', 'writetime', 'edittime', 'hit', 'like']
+        }).then(data => {
+            res.json({ message: "Success", count: count, data: data });
+        });
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
 function addHit(Board, articleId, res) {
     Board.findOne({
         where: {articleid:articleId},
@@ -171,6 +214,52 @@ function addDislike(Board, articleId, res) {
             silent: true
         })
         res.json({ message: "Success", dislike: (dislike.dataValues.dislike)+1});
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function getReply(res, Reply, articleid) {
+    Reply.count({
+        where: {articleid:articleid}
+    }).then(count => {
+        Reply.findAll({
+            where: {articleid:articleid}
+        }).then(reply => {
+            res.json({message:"Success", count:count, data:reply})
+        })
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function writeReply(req, res, Reply, articleid) {
+    Reply.create({
+        articleid: articleid,
+        writerid: req.user.user_no,
+        writeralias: req.user.useralias,
+        content: req.body.content
+    }).then(reply => {
+        res.json({ message: "success", data:reply});
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+function deleteReply(req, res, Reply, replyid) {
+    Reply.findOne({
+        where: { reply_id: replyid},
+        attributes: ['writerid']
+    }).then(reply => {
+        if (reply.dataValues.writerid != req.user.user_no) {
+            res.status(403).json({ message: "자신의 글이 아닙니다" });
+        } else {
+            Reply.destroy({
+                where: { reply_id: replyid }
+            }).then(function () {
+                res.json({ message: "Success" });
+            });
+        }
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });

@@ -16,6 +16,10 @@ module.exports = function(app) {
         getReviewList(res, LongReview, ['articleid', 'title', 'writeralias', 'rating', 'preference', 'good', 'bad', 'image', 'reviewtitle', 'content', 'writetime', 'hit', 'like'], 20, req.query.page);
     })
 
+    app.get('/toplike/longreview', function(req,res) {
+        getTopLike(res, LongReview, 4);
+    })
+
     app.get('/longreview/:articleId', function(req,res) {
         getReviewDetail(res, LongReview, req.params.articleId);
     })
@@ -110,6 +114,21 @@ function getReviewDetail(res, Review, articleId) {
             data.image = data.image.split(':');
         addHit(Review, articleId, res);
         res.json({ message: "Success", data: data });
+    }).catch(function(err) {
+        res.status(500).json({ message: "Fail", exception:err});
+    });
+}
+
+//TODO: 최근 리뷰 우선 표시
+function getTopLike(res, Review, limit) {
+    Review.count().then(count => {
+        Review.findAll({
+            order: [['like', 'DESC'], ['articleid', 'DESC']],
+            limit: limit,
+            attributes: ['articleid', 'writeralias', 'title', 'reviewtitle', 'writetime', 'edittime', 'hit', 'like']
+        }).then(data => {
+            res.json({ message: "Success", count: count, data: data });
+        });
     }).catch(function(err) {
         res.status(500).json({ message: "Fail", exception:err});
     });

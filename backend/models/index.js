@@ -17,4 +17,5 @@ db.LongReview = require('./board_longreview')(sequelize, Sequelize);
 db.NoticeBoard = require('./board_notice')(sequelize, Sequelize);
 db.Likes = require('./likes')(sequelize, Sequelize);
 db.Webtoons = require('./webtoons')(sequelize, Sequelize);
+db.WebtoonReply = require('./reply_webtoon')(sequelize, Sequelize);
 module.exports = db;
